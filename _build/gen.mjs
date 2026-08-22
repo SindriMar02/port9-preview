@@ -184,7 +184,7 @@ const html = `<!doctype html>
 <title>Port 9 winebar &middot; Veghúsastígur 9, Reykjavík</title>
 <meta name="description" content="Port 9 er elsti vínbar Íslands, opnaður 2016. Vín á glasi sem skiptast út á tveggja vikna fresti, flöskulisti frá Bordeaux að Bekaa, vínsmökkun fyrir hópa og happy hour 16-18." />
 <meta name="robots" content="noindex" />
-<meta name="theme-color" content="#0F0C0B" />
+<meta name="theme-color" content="#0C0C0D" />
 <meta property="og:type" content="website" />
 <meta property="og:title" content="Port 9 winebar &middot; Veghúsastígur 9, Reykjavík" />
 <meta property="og:description" content="Elsti vínbar Íslands. Vín frá öllum heimshornum, á glasi og í flösku." />
@@ -193,7 +193,7 @@ const html = `<!doctype html>
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
 <link rel="icon" href="assets/favicon-32.png" sizes="32x32" />
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
-<link rel="preload" href="assets/fonts/BespokeStencil-Bold.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="preload" href="assets/fonts/YoungSerif-Regular.woff2" as="font" type="font/woff2" crossorigin />
 <link rel="preload" href="assets/fonts/Switzer-Regular.woff2" as="font" type="font/woff2" crossorigin />
 <link rel="preload" as="image" href="${P.hero.src}" />
 <link rel="stylesheet" href="styles.css" />

@@ -6,7 +6,7 @@
 
    Palette measured from Kokteilbarinn's OWN photographs, never invented
    (samples counted per photo, 2026-08-19):
-     void   #120A06  darkest 5% of the back-bar photo (21,320 px) and the
+     void   #0C0C0D  darkest 5% of the back-bar photo (21,320 px) and the
                      dark bar counter (16,320 px), averaged
      petrol #0E3846  the train-carriage panelling: #0B2932 (37,406 px on the
                      back bar) and #074554 (112,933 px on the champagne wall)
@@ -26,10 +26,7 @@
 /* One weight, declared across the whole 400–900 range so the fourteen
    inherited `font-weight:700/900` rules resolve to it instead of asking the
    browser to synthesise a fake bold on an already-heavy display face. */
-@font-face{font-family:'Bespoke Stencil';src:url(assets/fonts/BespokeStencil-Regular.woff2)format('woff2');font-weight:400;font-display:swap}
-@font-face{font-family:'Bespoke Stencil';src:url(assets/fonts/BespokeStencil-Medium.woff2)format('woff2');font-weight:500;font-display:swap}
-@font-face{font-family:'Bespoke Stencil';src:url(assets/fonts/BespokeStencil-Bold.woff2)format('woff2');font-weight:700;font-display:swap}
-@font-face{font-family:'Bespoke Stencil';src:url(assets/fonts/BespokeStencil-Extrabold.woff2)format('woff2');font-weight:800;font-display:swap}
+@font-face{font-family:'Young Serif';src:url(assets/fonts/YoungSerif-Regular.woff2)format('woff2');font-weight:400;font-display:swap}
 @font-face{font-family:Switzer;src:url(assets/fonts/Switzer-Regular.woff2)format('woff2');font-weight:400;font-display:swap}
 @font-face{font-family:Switzer;src:url(assets/fonts/Switzer-Medium.woff2)format('woff2');font-weight:500;font-display:swap}
 @font-face{font-family:Switzer;src:url(assets/fonts/Switzer-Semibold.woff2)format('woff2');font-weight:600;font-display:swap}
@@ -41,29 +38,30 @@
      rule already speaks them, so re-aiming the whole page is a change of
      values, not a rewrite. Every value below was measured off Gilligogg's own
      photographs and printed menu; contrast checked before it was committed. */
-  --void:#0F0C0B;             /* room black, the dominant bucket of their photos */
-  --deep:#171311;
-  --moss:#221C19;             /* concrete lift, a real step off --deep */
-  --moss-2:#2A2320;
-  --line:#332A25;
-  --petrol:#1E3A2E;           /* the menu green, deep, for dark panels */
-  --petrol-deep:#152A21;
+  --void:#0C0C0D;             /* concrete black, cool, not the carriage brown */
+  --deep:#141416;
+  --moss:#1C1C1F;
+  --moss-2:#242428;
+  --line:#2E2E33;
+  --petrol:#2A1820;           /* wine-dark panel */
+  --petrol-deep:#1E1118;
 
-  --ink:#F2EEE6;              /* 16:1 on void */
-  --dim:#BFB5AA;              /*  9.4:1 */
-  --faint:#9A8F84;            /*  6.2:1 */
+  --ink:#F2EFEA;              /* 16.5:1 on void */
+  --dim:#BDB8B0;              /*  9.3:1 */
+  --faint:#958F88;            /*  6.0:1 */
 
-  --bronze:#2F7A56;           /* THE accent: their printed list sets the picks in green */
-  --bronze-lift:#5FA87E;      /*  6.9:1 on void */
-  --bronze-deep:#1F5C3E;      /*  8.6:1 on the sheet */
-  --bronze-band:#2F7A56;
+  --bronze:#8E2A3E;           /* THE accent: the wine in the glass */
+  --bronze-lift:#D0758A;      /*  6.4:1 on void, the lifted claret for small text */
+  --bronze-deep:#6E1B2E;      /*  9.1:1 on the sheet */
+  --bronze-band:#7A1E2F;
 
-  --paper:#F7F5F0;            /* their menu paper, white, not warmed */
-  --paper-ink:#121010;        /* 17:1 on the sheet */
-  --paper-dim:#5A5550;        /*  6.6:1 */
+  --paper:#F7F5F0;            /* their menu paper, white */
+  --paper-ink:#121010;
+  --paper-dim:#5A5550;
   --paper-line:#DCD6CC;
 
-  --spark:#7A1E2F;            /* the red in the glass, for the gate and the rent band */
+  --spark:#3E7E5C;            /* their menu green, ONLY for the picks they set in green */
+  --pick-deep:#2F6A4C;        /*  6.8:1 on the sheet */
 
   --pad:clamp(20px,5vw,72px);
   --gap:clamp(48px,9vw,140px);
@@ -118,7 +116,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 
 /* ── shared type ───────────────────────────────────────── */
 .h2{
-  font-family:'Bespoke Stencil',serif;font-weight:800;
+  font-family:'Young Serif',serif;font-weight:400;
   font-size:clamp(2.1rem,6.2vw,5rem);line-height:1.02;letter-spacing:-.015em;
   text-transform:uppercase;
 }
@@ -211,7 +209,7 @@ body.gate-on{overflow:hidden}
   /* the notch: a fixed top bar slides UNDER the iOS status bar without this,
      so the address line and burger land behind the clock */
   padding:calc(16px + env(safe-area-inset-top)) var(--pad) 16px;
-  background-color:rgba(24,12,7,.88);
+  background-color:rgba(12,12,13,.88);
   -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);
   border-bottom:1px solid rgba(217,168,92,.14);
 }
@@ -275,7 +273,7 @@ body.gate-on{overflow:hidden}
   flex:0 0 auto;transform:translateY(-.35em);
 }
 .menu__nav a{
-  text-decoration:none;font-family:'Bespoke Stencil',serif;font-weight:800;
+  text-decoration:none;font-family:'Young Serif',serif;font-weight:400;
   font-size:clamp(1.15rem,4.6vw,2.05rem);line-height:1.25;text-transform:uppercase;
   overflow:hidden;display:block;
 }
@@ -399,7 +397,7 @@ body.gate-on{overflow:hidden}
   animation:jgMarquee 46s linear infinite;
 }
 .ticker__track span{
-  font-family:'Bespoke Stencil',serif;font-weight:700;font-size:clamp(1rem,1.9vw,1.55rem);
+  font-family:'Young Serif',serif;font-weight:400;font-size:clamp(1rem,1.9vw,1.55rem);
   text-transform:uppercase;letter-spacing:.02em;padding:0 clamp(16px,2.4vw,34px);
   white-space:nowrap;color:var(--dim);
 }
@@ -430,7 +428,7 @@ body.gate-on{overflow:hidden}
   padding:clamp(16px,2.2vw,24px) 0;border-bottom:1px solid var(--line);
 }
 .facts__n{
-  font-family:'Bespoke Stencil',serif;font-weight:800;font-size:clamp(1.9rem,3.4vw,2.9rem);
+  font-family:'Young Serif',serif;font-weight:400;font-size:clamp(1.9rem,3.4vw,2.9rem);
   color:var(--bronze-lift);line-height:1;min-width:2.4ch;
 }
 .facts__n sup{font-size:.42em;vertical-align:super}
@@ -544,7 +542,7 @@ body.gate-on{overflow:hidden}
 .drow.is-active{padding-left:clamp(18px,2.2vw,28px)}
 .drow__i{font-family:'JB Mono',monospace;font-size:.66rem;color:var(--faint);letter-spacing:.1em}
 .drow__name{
-  font-family:'Bespoke Stencil',serif;font-weight:700;text-transform:uppercase;
+  font-family:'Young Serif',serif;font-weight:400;text-transform:uppercase;
   font-size:clamp(1.05rem,2vw,1.6rem);line-height:1.1;letter-spacing:-.005em;
   transition:color .3s;
 }
@@ -578,7 +576,7 @@ body.gate-on{overflow:hidden}
 .panel__noimg[hidden]{display:none}
 .panel__body{padding:clamp(18px,2.2vw,26px);display:grid;gap:10px}
 .panel__cat{color:var(--bronze-lift)}
-.panel__name{font-family:'Bespoke Stencil',serif;font-weight:800;text-transform:uppercase;
+.panel__name{font-family:'Young Serif',serif;font-weight:400;text-transform:uppercase;
   font-size:clamp(1.3rem,2.2vw,1.85rem);line-height:1.04}
 .panel__note{color:var(--dim);font-size:.92rem;margin-top:-2px}
 .panel__spec{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
@@ -611,7 +609,7 @@ body.gate-on{overflow:hidden}
   border-bottom:2px solid var(--bronze-band);padding-bottom:12px;margin-bottom:clamp(22px,3vw,38px);
 }
 .course__title{
-  font-family:'Bespoke Stencil',serif;font-weight:800;text-transform:uppercase;
+  font-family:'Young Serif',serif;font-weight:400;text-transform:uppercase;
   font-size:clamp(1.5rem,3.4vw,2.6rem);line-height:1;letter-spacing:-.01em;color:var(--paper-ink);
 }
 .course__price{color:var(--bronze-deep)}
@@ -626,7 +624,7 @@ body.gate-on{overflow:hidden}
 
 .dish__top{
   display:flex;align-items:baseline;gap:12px;
-  font-family:'Bespoke Stencil',serif;font-weight:800;text-transform:uppercase;
+  font-family:'Young Serif',serif;font-weight:400;text-transform:uppercase;
 }
 .dish__n{font-family:'JB Mono',monospace;font-weight:400;font-size:.62rem;color:var(--bronze-deep);flex:0 0 auto}
 .dish__name{font-size:clamp(1.05rem,2.1vw,1.68rem);line-height:1.06;letter-spacing:-.005em;color:var(--paper-ink)}
@@ -696,7 +694,7 @@ body.gate-on{overflow:hidden}
 .crew__card:hover img{filter:saturate(1) contrast(1)}
 .crew__body{flex:0 0 auto;padding:clamp(16px,1.8vw,24px);display:grid;gap:8px}
 .crew__body h3{
-  font-family:'Bespoke Stencil',serif;font-weight:800;text-transform:uppercase;
+  font-family:'Young Serif',serif;font-weight:400;text-transform:uppercase;
   font-size:clamp(1.15rem,1.7vw,1.5rem);line-height:1;
 }
 .crew__tag{color:var(--bronze-lift);font-size:.56rem;line-height:1.7}
@@ -733,7 +731,7 @@ body.gate-on{overflow:hidden}
 .acard figcaption{
   position:absolute;inset:auto 0 0;padding:14px 14px 12px;
   background:linear-gradient(to top,rgba(5,9,6,.93),transparent);
-  font-family:'Bespoke Stencil',serif;font-weight:700;text-transform:uppercase;
+  font-family:'Young Serif',serif;font-weight:400;text-transform:uppercase;
   font-size:.9rem;letter-spacing:.01em;line-height:1.2;
 }
 .acard__tag{
@@ -783,7 +781,7 @@ body.gate-on{overflow:hidden}
   align-items:end;margin-top:clamp(24px,3vw,36px)}
 .rent__nums{display:flex;gap:clamp(24px,4vw,56px)}
 .rent__nums li{display:grid;gap:2px}
-.rent__nums strong{font-family:'Bespoke Stencil',serif;font-weight:800;
+.rent__nums strong{font-family:'Young Serif',serif;font-weight:400;
   font-size:clamp(2.4rem,5.4vw,4.4rem);line-height:.94}
 .rent__nums span{font-family:'JB Mono',monospace;font-size:.62rem;letter-spacing:.18em;
   text-transform:uppercase;color:#2A2010}
@@ -811,7 +809,7 @@ body.gate-on{overflow:hidden}
 .hours li.is-today{color:var(--bronze-lift)}
 .hours li.is-today span:first-child{color:var(--bronze-lift);font-weight:600}
 .hours li.is-today b{color:var(--bronze-lift)}
-.find__addr{font-family:'Bespoke Stencil',serif;font-weight:700;font-size:1.3rem;
+.find__addr{font-family:'Young Serif',serif;font-weight:400;font-size:1.3rem;
   line-height:1.3;text-transform:uppercase;margin-bottom:14px}
 .find__addr span{color:var(--bronze-lift)}
 .find__body{color:var(--dim);font-size:.92rem;margin-bottom:20px}
@@ -988,7 +986,7 @@ body.gate-on{overflow:hidden}
 .method__head{display:flex;align-items:center;gap:16px;justify-content:center}
 .method__gl{width:clamp(34px,3.4vw,46px);height:auto;flex:0 0 auto;
   fill:none;stroke:var(--bronze-lift);stroke-width:3.4}
-.method__title{font-family:'Bespoke Stencil',serif;font-weight:800;text-transform:uppercase;
+.method__title{font-family:'Young Serif',serif;font-weight:400;text-transform:uppercase;
   font-size:clamp(1.25rem,2vw,1.75rem);line-height:1}
 .method__price{color:var(--bronze-lift);margin-top:5px}
 .method__list{display:grid;gap:0}
@@ -1017,7 +1015,7 @@ body.gate-on{overflow:hidden}
   max-width:var(--maxw);margin:0 auto;padding:0 var(--pad);
   display:grid;grid-template-columns:1fr 1fr;gap:clamp(34px,6vw,90px);
 }
-.cellar__h{font-family:'Bespoke Stencil',serif;font-weight:800;text-transform:uppercase;
+.cellar__h{font-family:'Young Serif',serif;font-weight:400;text-transform:uppercase;
   font-size:clamp(1.5rem,2.6vw,2.2rem);line-height:1;color:var(--paper-ink)}
 .cellar__sub{color:var(--bronze-deep);margin:8px 0 clamp(18px,2.4vw,28px)}
 .cellar__cat{font-family:'JB Mono',monospace;font-size:.66rem;letter-spacing:.2em;
@@ -1038,7 +1036,7 @@ body.gate-on{overflow:hidden}
 /* ── happy hour band (the inherited gold slab, retimed) ──── */
 .rent__band{max-width:var(--maxw);margin:0 auto;padding:0 var(--pad);text-align:center}
 .rent__eyebrow{color:var(--bronze-deep);letter-spacing:.3em}
-.rent__big{font-family:'Bespoke Stencil',serif;font-weight:800;text-transform:uppercase;
+.rent__big{font-family:'Young Serif',serif;font-weight:400;text-transform:uppercase;
   font-size:clamp(3rem,11vw,9rem);line-height:.92;color:var(--paper-ink);
   margin:clamp(14px,2vw,24px) 0}
 .rent__sub{color:var(--paper-dim);font-size:clamp(1rem,1.4vw,1.2rem);max-width:44ch;margin:0 auto}
@@ -1047,7 +1045,7 @@ body.gate-on{overflow:hidden}
 .visit__grid{grid-template-columns:1fr 1fr}
 .visit__col{border:1px solid var(--line);border-radius:14px;
   padding:clamp(22px,2.8vw,34px);background:var(--deep)}
-.visit__h{font-family:'Bespoke Stencil',serif;font-weight:800;text-transform:uppercase;
+.visit__h{font-family:'Young Serif',serif;font-weight:400;text-transform:uppercase;
   font-size:clamp(1.15rem,1.8vw,1.5rem);line-height:1;color:var(--bronze-lift);
   margin-bottom:clamp(16px,2vw,22px)}
 .hrs li{display:flex;justify-content:space-between;gap:16px;align-items:baseline;
@@ -1057,11 +1055,11 @@ body.gate-on{overflow:hidden}
 .hrs__t{color:var(--ink)}
 .hrs--late .hrs__t{color:var(--bronze-lift)}
 .visit__hh{color:var(--spark);margin-top:16px}
-.visit__addr{font-family:'Bespoke Stencil',serif;font-weight:700;font-size:1.35rem;
+.visit__addr{font-family:'Young Serif',serif;font-weight:400;font-size:1.35rem;
   line-height:1.3;text-transform:uppercase;margin-bottom:14px}
 .visit__phone{margin:0 0 14px}
 .visit__phone a{
-  font-family:'Bespoke Stencil',serif;font-weight:800;text-decoration:none;
+  font-family:'Young Serif',serif;font-weight:400;text-decoration:none;
   font-size:clamp(2.2rem,4.6vw,3.6rem);line-height:1;color:var(--bronze-lift);
   letter-spacing:.02em;transition:color .3s;
 }
@@ -1139,7 +1137,7 @@ body.gate-on{overflow:hidden}
 
 /* FROZEN PINA COLADA: the sheet says only "Spurðu þjóninn" */
 .gl--empty .gl__q{
-  font-family:'Bespoke Stencil',serif;font-size:44px;fill:var(--bronze-band);
+  font-family:'Young Serif',serif;font-size:44px;fill:var(--bronze-band);
   opacity:.55;
 }
 .dish__mystery{
@@ -1186,7 +1184,7 @@ body.gate-on{overflow:hidden}
 }
 .method--bca .method__list{width:100%}
 .method--bca .method__list li{border-bottom:0;padding:4px 0;color:var(--ink);
-  font-family:'Bespoke Stencil',serif;font-weight:700;text-transform:uppercase;
+  font-family:'Young Serif',serif;font-weight:400;text-transform:uppercase;
   font-size:clamp(1.05rem,1.6vw,1.4rem)}
 .method--bca .method__list li:hover{padding-left:0}
 .method--bca .method__src{font-family:'JB Mono',monospace;font-size:.54rem;
@@ -1304,7 +1302,7 @@ main section[id]{scroll-margin-top:84px}
 .drinks--dark .dish__slash{color:var(--faint)}
 .dish__tags{font-style:normal}
 /* the course title's English/gloss word, set quiet */
-.course__en{font-family:'Bespoke Stencil',serif;font-weight:400;font-style:normal;color:var(--paper-dim);font-size:.6em;margin-left:.35em;letter-spacing:.02em}
+.course__en{font-family:'Young Serif',serif;font-weight:400;font-style:normal;color:var(--paper-dim);font-size:.6em;margin-left:.35em;letter-spacing:.02em}
 .drinks--dark .course__en{color:var(--faint)}
 
 /* their green picks: a stamp in their own green, stated as theirs */
@@ -1314,14 +1312,14 @@ main section[id]{scroll-margin-top:84px}
   color:var(--paper);background:var(--bronze-deep);
 }
 .drinks--dark .dish__pick{background:var(--bronze);color:var(--ink)}
-.dish--pick .dish__name{color:var(--bronze-deep)}
-.drinks--dark .dish--pick .dish__name{color:var(--bronze-lift)}
+.dish--pick .dish__name{color:var(--pick-deep)}
+.drinks--dark .dish--pick .dish__name{color:#7FC39B}
 
 /* region heading rows inside the bottle list */
 .dish--head{display:block;padding:clamp(18px,2.2vw,26px) 0 4px;border:0;grid-column:1/-1}
 .dish--head + .dish{border-top:0}
 .dish__grp{display:flex;align-items:baseline;gap:clamp(10px,1.4vw,18px);margin:0;flex-wrap:wrap}
-.dish__grp-t{font-family:'Bespoke Stencil',serif;font-weight:700;font-size:clamp(1.05rem,1.6vw,1.3rem);color:var(--ink);letter-spacing:.01em}
+.dish__grp-t{font-family:'Young Serif',serif;font-weight:400;font-size:clamp(1.05rem,1.6vw,1.3rem);color:var(--ink);letter-spacing:.01em}
 .dish__grp .mono{color:var(--faint);font-size:.6rem;letter-spacing:.14em}
 
 /* ── the mystery glass: their own game, an empty glass with a question ────── */
@@ -1331,14 +1329,14 @@ main section[id]{scroll-margin-top:84px}
 }
 .mystery__glass .gl{width:100%;height:auto}
 .mystery__glass .gl__out{stroke:var(--bronze-deep)}
-.mystery .gl__q{font-family:'Bespoke Stencil',serif;font-size:38px;fill:var(--bronze-deep)}
-.mystery__h{margin:.2em 0 .1em;font-family:'Bespoke Stencil',serif;font-weight:700;font-size:clamp(1.5rem,3.2vw,2.4rem);color:var(--paper-ink);line-height:1}
+.mystery .gl__q{font-family:'Young Serif',serif;font-size:38px;fill:var(--bronze-deep)}
+.mystery__h{margin:.2em 0 .1em;font-family:'Young Serif',serif;font-weight:400;font-size:clamp(1.5rem,3.2vw,2.4rem);color:var(--paper-ink);line-height:1}
 .mystery__p{color:var(--bronze-deep);font-size:.9rem;letter-spacing:.1em;margin:0 0 .6em}
 .mystery__note{color:var(--paper-dim);max-width:52ch;margin:0;line-height:1.6;font-size:.94rem}
 .mystery .kicker{color:var(--bronze-deep)}
 
 /* ── the rail arch holds a glass, not a portrait ──────────────────────────── */
-.crew__arch--glass{display:grid;place-items:center;align-content:center;gap:clamp(10px,1.4vh,18px);padding:clamp(18px,2.4vh,28px) 0 clamp(8px,1.2vh,14px);background:radial-gradient(120% 90% at 50% 0%,rgba(95,168,126,.10),transparent 62%),var(--moss);border-bottom:1px solid var(--line);flex:1 1 0;min-height:0}
+.crew__arch--glass{display:grid;place-items:center;align-content:center;gap:clamp(10px,1.4vh,18px);padding:clamp(18px,2.4vh,28px) 0 clamp(8px,1.2vh,14px);background:radial-gradient(120% 90% at 50% 0%,rgba(208,117,138,.10),transparent 62%),var(--moss);border-bottom:1px solid var(--line);flex:1 1 0;min-height:0}
 .crew__arch--glass .gl{width:clamp(86px,8vw,118px);height:auto}
 .crew__arch--glass .gl__out{stroke:var(--ink);stroke-width:2.2}
 .crew__arch--glass .crew__cat{color:var(--faint);margin:0}
@@ -1351,10 +1349,10 @@ main section[id]{scroll-margin-top:84px}
 .classics__foot{max-width:var(--maxw);margin:clamp(26px,3.4vw,44px) auto 0;padding:0 var(--pad);text-align:center}
 
 /* ── happy hour band on paper, food with their pairings ───────────────────── */
-.rent__h{font-family:'Bespoke Stencil',serif;font-weight:700;font-size:clamp(1.4rem,2.6vw,2rem);color:#0B0F05;margin:clamp(30px,4vw,54px) 0 clamp(12px,1.6vw,18px)}
+.rent__h{font-family:'Young Serif',serif;font-weight:400;font-size:clamp(1.4rem,2.6vw,2rem);color:#0B0F05;margin:clamp(30px,4vw,54px) 0 clamp(12px,1.6vw,18px)}
 .hh__sub{display:block;font-size:.84rem;color:#3B4330;font-weight:400;margin-top:.2em;line-height:1.5}
 .hh__pair{display:block;font-size:.56rem;letter-spacing:.16em;color:var(--bronze-deep);margin-top:.45em}
-.rent .rent__nums strong{font-family:'Bespoke Stencil',serif;font-weight:800}
+.rent .rent__nums strong{font-family:'Young Serif',serif;font-weight:400}
 
 /* ── culture: two photographs, two lists ──────────────────────────────────── */
 .culture{padding:var(--gap) 0}
@@ -1363,7 +1361,7 @@ main section[id]{scroll-margin-top:84px}
 .culture__fig img{width:100%;height:100%;object-fit:cover;aspect-ratio:4/3;display:block}
 .culture__fig figcaption{position:absolute;left:16px;bottom:14px;color:var(--ink);font-size:.6rem;letter-spacing:.16em;text-shadow:0 1px 8px rgba(0,0,0,.8)}
 .culture__col{display:grid;align-content:start;gap:clamp(10px,1.4vw,16px);padding:clamp(18px,2.4vw,30px);background:var(--deep);border:1px solid var(--line);border-radius:14px}
-.culture__h{margin:0;font-family:'Bespoke Stencil',serif;font-weight:700;font-size:clamp(1.2rem,2vw,1.7rem);color:var(--ink)}
+.culture__h{margin:0;font-family:'Young Serif',serif;font-weight:400;font-size:clamp(1.2rem,2vw,1.7rem);color:var(--ink)}
 .culture__list{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:8px}
 .culture__list li{padding:.45em .8em;border:1px solid var(--line);border-radius:999px;color:var(--dim);font-size:.86rem}
 .culture__call{margin:0;color:var(--faint);font-size:.88rem;line-height:1.6}
@@ -1373,7 +1371,7 @@ main section[id]{scroll-margin-top:84px}
 
 /* ── non-alcoholic list inside visit ─────────────────────────────────────── */
 .visit__col--zero .cellar__list{margin-top:4px}
-.cw--pick .cw__n{color:var(--bronze-lift)}
+.cw--pick .cw__n{color:#7FC39B}
 .cw__note{display:block;font-size:.54rem;letter-spacing:.14em;color:var(--faint);margin-top:.3em}
 .cellar__list--two{columns:2;column-gap:clamp(16px,2vw,28px)}
 .cellar__list--two .cw{break-inside:avoid}
@@ -1393,15 +1391,15 @@ main section[id]{scroll-margin-top:84px}
 
 /* ── fixes from the first contrast pass ───────────────────────────────────── */
 /* the pick stamp inherited the sheet's .mono ink; state it at section specificity */
-.paper .dish__pick,.drinks--dark .dish__pick,.dish__pick{color:#FBF7EE;background:var(--bronze-deep)}
-.drinks--dark .dish__pick{background:var(--bronze);color:#F6FBF7}
+.paper .dish__pick,.drinks--dark .dish__pick,.dish__pick{color:#F4FAF6;background:var(--pick-deep)}
+.drinks--dark .dish__pick{background:var(--spark);color:#F4FAF6}
 /* the non-alcoholic list reuses the cellar rows, which were coloured for paper;
    on the dark visit ground they need the dark-ground ink */
 .visit .cw__n{color:var(--ink)}
 .visit .cw__p{color:var(--dim)}
 .visit .cw__rule{background:repeating-linear-gradient(to right,var(--line) 0 3px,transparent 3px 7px)}
 .visit .cellar__cat{color:var(--bronze-lift)}
-.visit .cw--pick .cw__n{color:var(--bronze-lift)}
+.visit .cw--pick .cw__n{color:#7FC39B}
 
 /* ── second pass ─────────────────────────────────────────────────────────── */
 .crew__arch--glass .gl{width:clamp(118px,11vw,160px)}
@@ -1425,3 +1423,12 @@ main section[id]{scroll-margin-top:84px}
 .h2,.hero__tag,.course__title,.crew__head h2{text-wrap:balance}
 .dish__p,.cw__p,.hh__p,.rent__nums strong,.mystery__p,.facts__n{font-variant-numeric:tabular-nums}
 section[id],[id="top"]{scroll-margin-top:clamp(76px,9vh,110px)}
+
+/* ── third pass: case and chrome ──────────────────────────────────────────
+   Their sheet sets the category words in sentence case, "Rautt", "Hvítt",
+   "Freyðivín", "Kokteilar"; the course titles follow it. The h2s keep the
+   engine's caps, which is how their own HAPPY HOUR and MATUR are set. */
+.course__title{text-transform:none;letter-spacing:0;font-size:clamp(1.5rem,2.6vw,2.1rem)}
+.course__en{text-transform:none}
+.dish__grp-t{text-transform:none}
+.rent__h,.mystery__h,.culture__h,.visit__h{text-transform:none}

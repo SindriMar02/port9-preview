@@ -92,8 +92,13 @@ const FINE    = matchMedia('(hover: hover) and (pointer: fine)').matches;
    through the same pinned timeline.
    ═══════════════════════════════════════════════════════════ */
 const MOTION  = !REDUCED && typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined' && typeof Lenis !== 'undefined';
-const DESKTOP = FINE && matchMedia('(min-width: 1081px)').matches;
-const SCRUB_MODE = MOTION && DESKTOP;
+const DESKTOP = FINE && matchMedia('(min-width: 1081px)').matches;   // the rail's pin: its CSS is two-mode at 1080
+// The big moments (pinned hero, scrub, full amplitude) were gated on WIDTH, which
+// silenced them in any desktop window narrower than 1081px — a 555px preview
+// pane showed the quiet touch path. They are gated on the POINTER now: a fine
+// pointer gets them from 761px up, where the hero layout is still the desktop one.
+const WIDE = FINE && matchMedia('(min-width: 761px)').matches;
+const SCRUB_MODE = MOTION && WIDE;
 
 (() => {
   // A cached image fires no load event, so ask decode() and refresh only once
@@ -160,7 +165,7 @@ const SCRUB_MODE = MOTION && DESKTOP;
     window.addEventListener('resize', tagScrollers, { passive: true });
   }
 
-  const AMP  = DESKTOP ? 1 : 0.55;         // halve amplitudes on small screens
+  const AMP  = FINE ? 1 : 0.55;            // halve amplitudes on touch, not on narrow desktop windows
   const EASE = 'expo.out';
 
   /* ── hero entrance: time-based, never scroll-gated ──────
