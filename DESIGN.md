@@ -9,13 +9,18 @@ own: a candlelit concrete room, a black-and-white roundel, a watercolour vine, a
 list printed on white paper where the house picks are set in green.
 
 ## 2. Color Palette & Roles (measured, not chosen)
-- **Room black** `#0F0C0B` — page ground; the dominant bucket of their photographs
-- **Concrete** `#171311` / **Concrete lift** `#221C19` — section steps, card grounds
-- **Line** `#332A25` — hairlines on the dark ground
-- **Candle ink** `#F2EEE6` — primary text on dark (16:1)
-- **Dim** `#BFB5AA` / **Faint** `#9A8F84` — secondary text (9.4:1 / 6.2:1)
-- **Menu green** `#2F7A56` — THE accent. Their printed list sets featured wines in green;
-  on dark it lifts to **`#5FA87E`** (6.9:1), on paper it deepens to **`#1F5C3E`** (8.6:1)
+Their room is *cool* concrete lit by candles, not a warm brown bar. The palette is
+neutral-cold on the dark side so the one warm thing on the page is the wine itself.
+- **Void** `#0C0C0D` — page ground; the dominant bucket of their photographs
+- **Deep** `#141416` / **Moss** `#1C1C1F` — section steps, card grounds
+- **Line** `#2E2E33` — hairlines on the dark ground
+- **Ink** `#F2EFEA` — primary text on dark (16:1)
+- **Dim** `#BDB8B0` / **Faint** `#958F88` — secondary text (9.4:1 / 6.2:1)
+- **Claret** `#8E2A3E` — THE accent, sampled from the pour in their own photographs;
+  on dark it lifts to **`#D0758A`** (6.6:1), on paper it deepens to **`#6E1B2E`**;
+  **`#7A1E2F`** is the pour band itself
+- **Menu green** `#3E7E5C` / `#2F6A4C` — reserved, NOT chrome. Their printed list sets
+  the house picks in green, so green marks a pick and nothing else
 - **Sheet white** `#F7F5F0` — their menu paper, used as-is, not warmed into cream
 - **Sheet ink** `#121010` / **Sheet dim** `#5A5550` / **Sheet line** `#DCD6CC`
 - **Pours (illustrative, stated as such):** red `#7A1E2F`, white `#E9D98C`, rosé `#E8A4A8`,
@@ -25,9 +30,10 @@ list printed on white paper where the house picks are set in green.
 - Banned here: bronze, gold, beige, purple glow, pure `#000`/`#fff`
 
 ## 3. Typography Rules
-- **Display: Bespoke Stencil** (Fontshare, self-hosted) — the roundel's letters are
-  stencil-cut; the display face carries that cut into every heading. Weights 500–800,
-  tight tracking, never above 9vw
+- **Display: Young Serif** — a high-contrast printed serif, the face their own paper
+  wine list is set in. A stencil display face was tried first and rejected: the roundel
+  is stencil-cut, the LIST is not, and the list is what this page mostly is.
+  Never above 9vw, tight tracking
 - **Body: Switzer** 400/500/600 — the engine's body face, unchanged
 - **Utility: JetBrains Mono** 400/500 — prices, labels, the rail counter, the gate count
 - Their menu's own category words (Rautt, Hvítt, Freyðivín, Rósavín, Appelsínuvín) are
@@ -36,13 +42,28 @@ list printed on white paper where the house picks are set in green.
 ## 4. Component Stylings
 - **Glasses:** one SVG path per vessel — red bowl, white bowl, flute, port, coupe, rocks —
   clipped fill, one band per GRAPE VARIETY, colour by wine type. Bands pour on arrival.
-  Hovering a grape chip dims every other band in that glass. Outline stroke: menu green
-  on paper, candle ink on dark
+  Hovering a grape chip dims every other band in that glass. Outline stroke: claret on
+  paper, claret-lift on dark
 - **Arch:** `polygon(0% 22%, 18% 9%, 44% 2%, 72% 5%, 100% 20%, 100% 100%, 0% 100%)` on
-  every big frame; `200px 200px 14px 14px` on rail cards; paper sheets enter on a dome
-- **Buttons:** pill, menu-green fill with candle ink text (primary), hairline ghost
-  (secondary); `:active` translates 1px
-- **Pull quotes:** their own sentences, in Bespoke Stencil, attributed to the page they
+  every big frame; `var(--r-arch) var(--r-arch) var(--r-card) var(--r-card)` on every
+  domed card, so rail cards and method cards curve identically; sheets enter on a dome
+
+## 4b. Border & Radius Scale (locked, audited both widths)
+One border weight and four radii, nothing else:
+- **Every border is `1px`.** The only exceptions are the round cursor-trail crops, where
+  a hairline disappears at that diameter
+- `--r-chip:2px` — grape chips, spec ticks, small stamps
+- `--r-card:14px` — every rectangular card, sheet and frame corner
+- `999px` — pills only (buttons, culture tags, status)
+- `50%` — round things only (roundel, trail crops)
+- `--r-arch:clamp(96px,14vw,200px)` — the shared dome top
+- `--card-pad:clamp(20px,2.6vw,32px)` — every card's inner padding, one value
+- Section rhythm is `130px` top and bottom on desktop, `48px` on mobile, uniform. Two
+  adjacent sections never both draw a hairline: the second suppresses its `border-top`
+- Every section heading's left edge is exactly `--pad` (72px desktop / 20px mobile)
+- **Buttons:** pill, claret fill with ink text (primary), hairline ghost (secondary);
+  `:active` translates 1px
+- **Pull quotes:** their own sentences, in Young Serif, attributed to the page they
   were lifted from
 
 ## 5. Layout Principles

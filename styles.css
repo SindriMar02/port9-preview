@@ -74,6 +74,11 @@
      wears; the room's own round mirror and curved carriage roof echo it */
   --arch:polygon(0% 22%, 18% 9%, 44% 2%, 72% 5%, 100% 20%, 100% 100%, 0% 100%);
   --win-r:clamp(18px,2.6vw,34px);
+  /* ONE radius scale and ONE card padding, so every card on the page agrees */
+  --r-card:14px;
+  --r-chip:2px;
+  --r-arch:clamp(96px,14vw,200px);   /* the dome on arch cards, shared */
+  --card-pad:clamp(20px,2.6vw,32px);
 }
 
 *,*::before,*::after{box-sizing:border-box}
@@ -104,7 +109,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .skip{
   position:fixed;top:-100px;left:12px;z-index:200;
   background:var(--bronze-lift);color:var(--void);padding:12px 18px;font-weight:600;
-  border-radius:0 0 6px 6px;transition:top .2s;
+  border-radius:0 0 var(--r-card) var(--r-card);transition:top .2s;
 }
 .skip:focus{top:0}
 
@@ -211,7 +216,7 @@ body.gate-on{overflow:hidden}
   padding:calc(16px + env(safe-area-inset-top)) var(--pad) 16px;
   background-color:rgba(12,12,13,.88);
   -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);
-  border-bottom:1px solid rgba(217,168,92,.14);
+  border-bottom:1px solid rgba(208,117,138,.16);
 }
 /* Content passes under a permanent bar, so anchor jumps must stop short of
    it or the jumped-to heading lands underneath the glass. */
@@ -224,12 +229,12 @@ body.gate-on{overflow:hidden}
 .hdr__open::before{
   content:'';position:absolute;left:0;top:50%;translate:0 -50%;
   width:6px;height:6px;border-radius:50%;background:var(--bronze-lift);
-  box-shadow:0 0 0 0 rgba(217,168,92,.55);animation:jgPulseDot 2.6s ease-out infinite;
+  box-shadow:0 0 0 0 rgba(208,117,138,.55);animation:jgPulseDot 2.6s ease-out infinite;
 }
 @keyframes jgPulseDot{
-  0%{box-shadow:0 0 0 0 rgba(217,168,92,.5)}
-  70%{box-shadow:0 0 0 9px rgba(217,168,92,0)}
-  100%{box-shadow:0 0 0 0 rgba(217,168,92,0)}
+  0%{box-shadow:0 0 0 0 rgba(208,117,138,.5)}
+  70%{box-shadow:0 0 0 9px rgba(208,117,138,0)}
+  100%{box-shadow:0 0 0 0 rgba(208,117,138,0)}
 }
 .hdr__mark{display:block;line-height:0;transition:opacity .3s}
 .hdr__mark img{
@@ -412,8 +417,8 @@ body.gate-on{overflow:hidden}
 }
 .quote{
   margin:clamp(28px,4vw,40px) 0 0;padding:clamp(20px,3vw,30px);
-  border-left:2px solid var(--bronze-lift);background:rgba(46,23,13,.5);
-  border-radius:0 10px 10px 0;
+  border-left:1px solid var(--bronze-lift);background:rgba(46,23,13,.5);
+  border-radius:0 var(--r-card) var(--r-card) 0;
 }
 .quote p{font-size:clamp(1.02rem,1.4vw,1.22rem);line-height:1.5;font-weight:500}
 .quote footer{display:grid;gap:4px;margin-top:14px}
@@ -562,7 +567,7 @@ body.gate-on{overflow:hidden}
 }
 
 .drinks__panel{
-  position:sticky;top:96px;border:1px solid var(--line);border-radius:14px;
+  position:sticky;top:96px;border:1px solid var(--line);border-radius:var(--r-card);
   background:var(--deep);overflow:hidden;
 }
 .panel__media{position:relative;aspect-ratio:4/5;background:var(--moss);display:grid;place-items:center}
@@ -597,7 +602,7 @@ body.gate-on{overflow:hidden}
 .feature__text{padding:clamp(40px,6vw,90px) var(--pad) clamp(40px,6vw,90px) 0;max-width:640px}
 .feature__spec{display:flex;flex-wrap:wrap;gap:8px;margin:clamp(18px,2.4vw,26px) 0}
 .feature__spec li{
-  border:1px solid rgba(217,168,92,.4);border-radius:999px;padding:7px 14px;
+  border:1px solid rgba(208,117,138,.4);border-radius:999px;padding:7px 14px;
   color:var(--bronze-lift);font-size:.66rem;
 }
 .feature__price{color:var(--faint);margin-top:clamp(20px,2.6vw,28px)}
@@ -606,7 +611,7 @@ body.gate-on{overflow:hidden}
 .sheet{max-width:var(--maxw);margin:0 auto;padding:0 var(--pad);display:grid;gap:clamp(56px,8vw,120px)}
 .course__head{
   display:flex;align-items:baseline;justify-content:space-between;gap:20px;
-  border-bottom:2px solid var(--bronze-band);padding-bottom:12px;margin-bottom:clamp(22px,3vw,38px);
+  border-bottom:1px solid var(--bronze-band);padding-bottom:14px;margin-bottom:clamp(22px,3vw,38px);
 }
 .course__title{
   font-family:'Young Serif',serif;font-weight:400;text-transform:uppercase;
@@ -680,7 +685,7 @@ body.gate-on{overflow:hidden}
 .crew__card{
   flex:0 0 auto;width:clamp(240px,25vw,340px);height:100%;
   background:var(--moss);border:1px solid var(--line);
-  border-radius:200px 200px 14px 14px;overflow:hidden;
+  border-radius:var(--r-arch) var(--r-arch) var(--r-card) var(--r-card);overflow:hidden;
   display:flex;flex-direction:column;
 }
 /* The portrait takes whatever the name and bio leave, rather than dictating the
@@ -714,7 +719,7 @@ body.gate-on{overflow:hidden}
   position:absolute;top:0;left:0;
   width:clamp(52px,5.2vw,92px);height:auto;aspect-ratio:1;
   object-fit:cover;border-radius:50%;opacity:0;
-  border:1px solid rgba(217,168,92,.5);
+  border:1px solid rgba(208,117,138,.5);
   box-shadow:0 20px 50px rgba(0,0,0,.85),0 0 0 5px rgba(5,9,6,.85);
   will-change:transform,opacity;
 }
@@ -724,7 +729,7 @@ body.gate-on{overflow:hidden}
   display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));
   gap:clamp(12px,1.6vw,22px);
 }
-.acard{position:relative;border-radius:12px;overflow:hidden;background:var(--moss)}
+.acard{position:relative;border-radius:var(--r-card);overflow:hidden;background:var(--moss)}
 .acard img{width:100%;height:auto;aspect-ratio:1;object-fit:cover;
   transition:transform .8s var(--e-out),filter .6s;filter:saturate(.86) brightness(.9)}
 .acard:hover img{transform:scale(1.07);filter:saturate(1.05) brightness(1)}
@@ -745,7 +750,7 @@ body.gate-on{overflow:hidden}
   max-width:var(--maxw);margin:0 auto;padding:0 var(--pad);
   display:grid;grid-template-columns:1fr 1fr;gap:clamp(10px,1.4vw,18px);
 }
-.room__cell{position:relative;border-radius:12px;overflow:hidden}
+.room__cell{position:relative;border-radius:var(--r-card);overflow:hidden}
 .room__cell--wide{grid-column:1/-1}
 /* height:auto, or the HTML height attribute pins the box and aspect-ratio is ignored */
 .room__cell img{width:100%;height:auto;object-fit:cover}
@@ -760,7 +765,7 @@ body.gate-on{overflow:hidden}
   align-items:center;max-width:var(--maxw);margin:0 auto;padding:var(--gap) var(--pad);
 }
 .workshop__media{display:grid;gap:clamp(10px,1.4vw,18px)}
-.workshop__media figure{border-radius:12px;overflow:hidden}
+.workshop__media figure{border-radius:var(--r-card);overflow:hidden}
 .workshop__media img{width:100%;height:auto;object-fit:cover}
 .workshop__media figure:first-child img{aspect-ratio:3/2}
 .workshop__media figure:last-child img{aspect-ratio:4/3}
@@ -797,7 +802,7 @@ body.gate-on{overflow:hidden}
   max-width:var(--maxw);margin:0 auto;padding:0 var(--pad);
   display:grid;grid-template-columns:repeat(2,1fr);gap:clamp(12px,1.6vw,20px);
 }
-.card{border:1px solid var(--line);border-radius:14px;padding:clamp(20px,2.6vw,30px);background:var(--deep)}
+.card{border:1px solid var(--line);border-radius:var(--r-card);padding:var(--card-pad);background:var(--deep)}
 .card__h{color:var(--bronze-lift);margin-bottom:18px;line-height:1.7}
 .hours li,.hh li{
   display:flex;justify-content:space-between;gap:16px;align-items:baseline;
@@ -814,18 +819,18 @@ body.gate-on{overflow:hidden}
 .find__addr span{color:var(--bronze-lift)}
 .find__body{color:var(--dim);font-size:.92rem;margin-bottom:20px}
 .find__acts{display:flex;gap:10px;flex-wrap:wrap}
-.visit__shot{grid-column:1/-1;position:relative;border-radius:14px;overflow:hidden;margin-top:clamp(6px,1vw,10px)}
+.visit__shot{grid-column:1/-1;position:relative;border-radius:var(--r-card);overflow:hidden;margin-top:clamp(6px,1vw,10px)}
 .visit__shot img{width:100%;height:auto;aspect-ratio:21/9;object-fit:cover;object-position:50% 40%}
 
 /* ═══════════ 11. CLOSER ════════════════════════════════ */
 .closer{
   text-align:center;padding:var(--gap) var(--pad);
-  background:radial-gradient(70% 60% at 50% 50%,rgba(217,168,92,.10),transparent 70%);
+  background:radial-gradient(70% 60% at 50% 50%,rgba(208,117,138,.10),transparent 70%);
 }
 .closer__pre{color:var(--faint);margin-bottom:26px}
 .closer__logo{
   width:min(56vw,400px);height:auto;margin:0 auto clamp(20px,3vw,34px);
-  filter:drop-shadow(0 20px 60px rgba(217,168,92,.18));
+  filter:drop-shadow(0 20px 60px rgba(208,117,138,.18));
 }
 .closer__big{
   font-family:'JB Mono',monospace;font-size:.72rem;letter-spacing:.34em;
@@ -977,10 +982,12 @@ body.gate-on{overflow:hidden}
    single-column card reads as clipped corners, not an arch), and the head is
    centred so it sits under the dome's widest point instead of its edge. */
 .method{
-  --arch-r:clamp(96px,13vw,200px);
   border:1px solid var(--line);
-  border-radius:var(--arch-r) var(--arch-r) 14px 14px;
-  padding:calc(var(--arch-r) * .34 + 22px) clamp(20px,2.4vw,30px) clamp(24px,3vw,34px);
+  border-radius:var(--r-arch) var(--r-arch) var(--r-card) var(--r-card);
+  /* the dome eats the top of the card, so the top pad clears it; the bottom
+     answers with two thirds of it, which is what keeps the card from reading
+     bottom-heavy (it was 86 top against 34 bottom) */
+  padding:calc(var(--r-arch) * .34 + 22px) var(--card-pad) calc(var(--r-arch) * .22 + 20px);
   background:var(--moss);display:flex;flex-direction:column;gap:clamp(16px,2vw,24px);
 }
 .method__head{display:flex;align-items:center;gap:16px;justify-content:center}
@@ -1024,7 +1031,7 @@ body.gate-on{overflow:hidden}
   border-bottom:1px solid var(--paper-line)}
 .cellar__list{display:grid}
 .cw{display:grid;grid-template-columns:1fr auto;align-items:baseline;
-  column-gap:10px;padding:11px 0;border-bottom:1px solid var(--paper-line)}
+  column-gap:10px;padding:10px 0;border-bottom:1px solid var(--paper-line)}
 .cw:last-child{border-bottom:0}
 .cw__n{font-weight:600;color:var(--paper-ink);grid-column:1;font-size:.97rem}
 .cw__g{grid-column:1;grid-row:2;color:var(--paper-dim);font-size:.86rem}
@@ -1043,8 +1050,8 @@ body.gate-on{overflow:hidden}
 
 /* ── visit ───────────────────────────────────────────────── */
 .visit__grid{grid-template-columns:1fr 1fr}
-.visit__col{border:1px solid var(--line);border-radius:14px;
-  padding:clamp(22px,2.8vw,34px);background:var(--deep)}
+.visit__col{border:1px solid var(--line);border-radius:var(--r-card);
+  padding:var(--card-pad);background:var(--deep)}
 .visit__h{font-family:'Young Serif',serif;font-weight:400;text-transform:uppercase;
   font-size:clamp(1.15rem,1.8vw,1.5rem);line-height:1;color:var(--bronze-lift);
   margin-bottom:clamp(16px,2vw,22px)}
@@ -1074,7 +1081,7 @@ body.gate-on{overflow:hidden}
 .crew__slot{
   flex:1 1 0;min-height:0;display:grid;place-items:center;
   background:
-    repeating-linear-gradient(135deg,transparent 0 13px,rgba(217,168,92,.06) 13px 26px),
+    repeating-linear-gradient(135deg,transparent 0 13px,rgba(208,117,138,.06) 13px 26px),
     var(--moss);
   border-bottom:1px dashed var(--line);
 }
@@ -1356,11 +1363,11 @@ main section[id]{scroll-margin-top:84px}
 
 /* ── culture: two photographs, two lists ──────────────────────────────────── */
 .culture{padding:var(--gap) 0}
-.culture__grid{max-width:var(--maxw);margin:0 auto;padding:0 var(--pad);display:grid;grid-template-columns:1.2fr .8fr;gap:clamp(18px,2.6vw,36px);align-items:stretch}
+.culture__grid{max-width:var(--maxw);margin:0 auto;padding:0 var(--pad);display:grid;grid-template-columns:1.2fr .8fr;gap:clamp(18px,2.6vw,36px);align-items:start}
 .culture__fig{position:relative;margin:0;clip-path:var(--arch);overflow:hidden;background:var(--moss)}
 .culture__fig img{width:100%;height:100%;object-fit:cover;aspect-ratio:4/3;display:block}
 .culture__fig figcaption{position:absolute;left:16px;bottom:14px;color:var(--ink);font-size:.6rem;letter-spacing:.16em;text-shadow:0 1px 8px rgba(0,0,0,.8)}
-.culture__col{display:grid;align-content:start;gap:clamp(10px,1.4vw,16px);padding:clamp(18px,2.4vw,30px);background:var(--deep);border:1px solid var(--line);border-radius:14px}
+.culture__col{display:grid;align-content:start;gap:clamp(10px,1.4vw,16px);padding:var(--card-pad);background:var(--deep);border:1px solid var(--line);border-radius:var(--r-card)}
 .culture__h{margin:0;font-family:'Young Serif',serif;font-weight:400;font-size:clamp(1.2rem,2vw,1.7rem);color:var(--ink)}
 .culture__list{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:8px}
 .culture__list li{padding:.45em .8em;border:1px solid var(--line);border-radius:999px;color:var(--dim);font-size:.86rem}
@@ -1432,3 +1439,18 @@ section[id],[id="top"]{scroll-margin-top:clamp(76px,9vh,110px)}
 .course__en{text-transform:none}
 .dish__grp-t{text-transform:none}
 .rent__h,.mystery__h,.culture__h,.visit__h{text-transform:none}
+
+
+/* ── border and spacing review, third pass ────────────────────────────────
+   The rail section and the bottle list that follows it BOTH carried a hairline,
+   so the seam between them rendered at 2px while every other seam is 1px. */
+.crew + .drinks--dark{border-top:0}
+
+/* The visit column that holds the non-alcoholic list sat on the same row as the
+   two shorter cards and stretched; align them to the top of the row instead so
+   the card heights are honest rather than filled. */
+.visit__grid{align-items:start}
+
+/* Chips, stamps and swatches all use the small radius token. */
+.dish__pick,.dish__spec i,.culture__list li{border-radius:var(--r-chip)}
+.culture__list li{border-radius:999px}
