@@ -1,27 +1,27 @@
 /* ═══════════════════════════════════════════════════════════════════════════
-   PORT 9 WINEBAR — Veghúsastígur 7-9, 101 Reykjavík. Content source of truth.
+   PORT 9 WINEBAR - Veghúsastígur 7-9, 101 Reykjavík. Content source of truth.
 
    EVERY string here is either (a) verbatim from Port 9's own published material,
    or (b) written by us and marked. Nothing about the business is invented.
 
    PRIMARY SOURCES (all fetched 2026-08-21 from port9.is, which is a Squarespace
-   site whose whole wine list is thirteen IMAGES on /vinseill — the list below was
+   site whose whole wine list is thirteen IMAGES on /vinseill - the list below was
    transcribed from those images, glass by glass)
    -------------------------------------------------------------------------
    • Wines by the glass, bottle list, cocktails, mocktails, beers, happy hour and
-     the food menu — /vinseill (13 images, 1414x2000 each). Grapes, appellations,
+     the food menu - /vinseill (13 images, 1414x2000 each). Grapes, appellations,
      regions, producers, cuvées, vintages and prices are THEIRS; the bands drawn in
      each glass are the grapes they print under every wine.
    • The green highlight: their printed list sets certain wines in green. Those are
      carried as `pick: true` and shown as the house picks, nothing more claimed.
    • About text (IS + EN), hours, address, contact, "Borðabókanir í gegnum Dineout"
-     — /home-2 and /new-index-1.
-   • Wine tasting packages and prices — /winetasting and /vinsmokkun.
-   • Exhibitions and concerts, the artist names — /events and /new-index-1.
-   • Company — fyrirtækjaskrá: Port 9 ehf., kt. 5102161130 (já.is lists it as
+     - /home-2 and /new-index-1.
+   • Wine tasting packages and prices - /winetasting and /vinsmokkun.
+   • Exhibitions and concerts, the artist names - /events and /new-index-1.
+   • Company - fyrirtækjaskrá: Port 9 ehf., kt. 5102161130 (já.is lists it as
      "Port 9 ehf - Sútarinn"), Veghúsastíg 9. Owners Arnar Þórisson and Þórir
-     Kjartansson, 50/50. Ársreikningum skilað 2016–2024.
-   • Photographs — their own Squarespace library, thirteen frames, harvested at
+     Kjartansson, 50/50. Ársreikningum skilað 2016-2024.
+   • Photographs - their own Squarespace library, thirteen frames, harvested at
      source size. No stock, nothing generated.
 
    NOT CLAIMED ANYWHERE ON THE PAGE
@@ -89,7 +89,7 @@ export const W = {
   coffee: '#3A2416', coldbrew: '#5A3A22', baileys: '#D9B89A', tiramisu: '#C9A574'
 };
 
-/* ── Á GLASI — the rotating list, as printed 2026-08 ──────────────────────
+/* ── Á GLASI - the rotating list, as printed 2026-08 ──────────────────────
    `g` = glass price, `b` = bottle price (their "2.200 // 10.900" notation).
    `grapes` are their own varietal lines; each becomes one band in the glass.
    `pick` = set in green on their sheet. */
@@ -129,7 +129,7 @@ export const byGlass = {
 /* their game, verbatim price line: "2.500,- / FREE" */
 export const mystery = { name: 'Mystery Wine', sheet: 'Mistery Wine', price: '2.500,- / FREE' };
 
-/* ── KOKTEILAR — six, each with their own ingredient lines ───────────────── */
+/* ── KOKTEILAR - six, each with their own ingredient lines ───────────────── */
 export const cocktails = [
   { n: 'Aperol Spritz', p: '2.390', v: 'white', ing: [['Aperol', W.aperol], ['Sparkling Wine', W.prosecco], ['Soda', W.soda]] },
   { n: 'Sarti or Limoncello Spritz', p: '2.590', v: 'white', ing: [['Sarti / Limoncello', W.limoncello], ['Sparkling Wine', W.prosecco], ['Soda', W.soda]] },
@@ -162,7 +162,7 @@ export const food = [
   { n: 'French Macarons coupe', served: 'served with whipped cream and chocolate chips', p: '1.890', pair: 'Simpsons Chalklands, Chardonnay' }
 ];
 
-/* ── FLÖSKUR — the bottle list by country and region, as printed ─────────
+/* ── FLÖSKUR - the bottle list by country and region, as printed ─────────
    `c` = wine colour for the glass; `y` = vintage as printed (NM = non-vintage). */
 export const bottles = [
   { country: 'Frakkland', en: 'France', groups: [
@@ -251,7 +251,7 @@ export const bottles = [
   ]}
 ];
 
-/* ── VÍNSMÖKKUN — their three packages, verbatim ─────────────────────────── */
+/* ── VÍNSMÖKKUN - their three packages, verbatim ─────────────────────────── */
 export const tasting = {
   intro: 'Port 9 býður upp á vínsmökkun fyrir hópa. Okkar markmið er að smakka vín í afslöppuðu andrúmslofti, við förum yfir grundvallar atriði í víngerð, ferðumst um heiminn með bragðlaukunum og lyktarskyninu. Njótum þess að eiga lærdómsríkt spjall, hlægja og hafa gaman.',
   packages: [
@@ -261,7 +261,7 @@ export const tasting = {
   ]
 };
 
-/* ── MENNING — exhibitions + concerts, their own names ────────────────────── */
+/* ── MENNING - exhibitions + concerts, their own names ────────────────────── */
 export const culture = {
   exhibitions: ['Joi Borgvins', 'Ester Borg', 'Eeriee', 'Rakel Tómas', 'Zuzanna Wrona'],
   concerts: ['Hera Lind', 'Laglegt', 'Cameron Anderton', 'Ásalaus', 'Lúpína'],

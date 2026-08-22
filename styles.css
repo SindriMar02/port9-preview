@@ -1421,3 +1421,7 @@ main section[id]{scroll-margin-top:84px}
   .rent__nums strong{font-size:clamp(1.7rem,9vw,2.4rem)}
   .rent__cols{grid-template-columns:1fr}
 }
+/* guideline pass: balanced headings, tabular prices, anchor offset under the fixed bar */
+.h2,.hero__tag,.course__title,.crew__head h2{text-wrap:balance}
+.dish__p,.cw__p,.hh__p,.rent__nums strong,.mystery__p,.facts__n{font-variant-numeric:tabular-nums}
+section[id],[id="top"]{scroll-margin-top:clamp(76px,9vh,110px)}

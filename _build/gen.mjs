@@ -51,7 +51,7 @@ function glassSvg(kind, id, ing, opts = {}) {
               </svg>`;
 }
 
-/* ── one wine row on the sheet — producer, cuvée, appellation, region, grapes ─ */
+/* ── one wine row on the sheet - producer, cuvée, appellation, region, grapes ─ */
 function wineRow(w, kind, id, i, opts = {}) {
   const base = w.rose ? D.W.rose : (opts.colour || WINE[kind] || D.W.red);
   const ing = bandsFor(base, w.grapes);
@@ -88,7 +88,7 @@ const glassCourses = Object.entries(D.byGlass).map(([key, c]) => {
   return course(`g-${key}`, `${esc(c.title)} <em class="course__en">á glasi</em>`, 'GLAS // FLASKA', rows);
 }).join('\n');
 
-/* ── KOKTEILAR — their six, on the same sheet ────────────────────────────── */
+/* ── KOKTEILAR - their six, on the same sheet ────────────────────────────── */
 const cocktailRows = D.cocktails.map((c, i) => {
   const spec = c.ing.map(([label, colour], k) => `<li data-ing="${k}"><i style="--c:${colour}" aria-hidden="true"></i>${esc(label)}</li>`).join('');
   return `          <li class="dish">
@@ -100,7 +100,7 @@ const cocktailRows = D.cocktails.map((c, i) => {
           </li>`;
 }).join('\n');
 
-/* ── THE RAIL — countries, each card a station ───────────────────────────── */
+/* ── THE RAIL - countries, each card a station ───────────────────────────── */
 const countryCount = D.bottles.length;
 const bottleCount = D.bottles.reduce((a, c) => a + c.groups.reduce((b, g) => b + g.items.length, 0), 0);
 const grapeSet = new Set();
@@ -128,7 +128,7 @@ const railBlock = D.bottles.map((c, i) => {
         </li>`;
 }).join('\n');
 
-/* ── FLÖSKUR — every bottle, on the dark ground, by country ─────────────── */
+/* ── FLÖSKUR - every bottle, on the dark ground, by country ─────────────── */
 const bottleCourses = D.bottles.map((c, ci) => {
   const rows = c.groups.map((g, gi) => {
     const head = `          <li class="dish dish--head"><p class="dish__grp"><span class="dish__grp-t">${esc(g.head)}</span><span class="mono">${g.items.map(w => w.reg).filter((v, i, a) => a.indexOf(v) === i).map(esc).join(' &middot; ')}</span></p></li>`;
@@ -182,7 +182,7 @@ const html = `<!doctype html>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <title>Port 9 winebar &middot; Veghúsastígur 9, Reykjavík</title>
-<meta name="description" content="Port 9 er elsti vínbar Íslands, opnaður 2016. Vín á glasi sem skiptast út á tveggja vikna fresti, flöskulisti frá Bordeaux að Bekaa, vínsmökkun fyrir hópa og happy hour 16–18." />
+<meta name="description" content="Port 9 er elsti vínbar Íslands, opnaður 2016. Vín á glasi sem skiptast út á tveggja vikna fresti, flöskulisti frá Bordeaux að Bekaa, vínsmökkun fyrir hópa og happy hour 16-18." />
 <meta name="robots" content="noindex" />
 <meta name="theme-color" content="#0F0C0B" />
 <meta property="og:type" content="website" />
@@ -243,8 +243,8 @@ const html = `<!doctype html>
     <img src="assets/img/roundel-white.png" alt="Port 9 winebar" width="112" height="112" />
   </a>
   <div class="hdr__side hdr__side--r">
-    <p class="mono hdr__open">HAPPY HOUR 16–18</p>
-    <button class="burger" id="burger" aria-expanded="false" aria-controls="menu" aria-label="Opna valmynd">
+    <p class="mono hdr__open">HAPPY HOUR 16-18</p>
+    <button class="burger" id="burger" type="button" aria-expanded="false" aria-controls="menu" aria-label="Opna valmynd">
       <span class="burger__box" aria-hidden="true"><i></i><i></i></span>
       <span class="burger__word mono" aria-hidden="true">VALMYND</span>
     </button>
@@ -373,7 +373,7 @@ ${railBlock}
 ${fig('bucket', 'Á BARNUM · FLASKAN Í KLAKANUM')}
 </section>
 
-<!-- ══════════ 5. FLÖSKUR — the whole bottle list, on the dark ground ══════════ -->
+<!-- ══════════ 5. FLÖSKUR - the whole bottle list, on the dark ground ══════════ -->
 <section class="drinks drinks--dark" id="floskur">
   <div class="archive__trail" id="trail" aria-hidden="true"></div>
   <header class="sec-head sec-head--mid">
@@ -537,4 +537,4 @@ ${fig('night', 'HÚSIÐ AÐ KVÖLDI', 'bleed--port')}
 `;
 
 writeFileSync(join(ROOT, 'index.html'), html);
-console.log(`index.html written — ${nGlass} by the glass, ${D.cocktails.length} cocktails, ${bottleCount} bottles in ${countryCount} countries, ${grapeSet.size} grapes, ${regionSet.size} regions`);
+console.log(`index.html written - ${nGlass} by the glass, ${D.cocktails.length} cocktails, ${bottleCount} bottles in ${countryCount} countries, ${grapeSet.size} grapes, ${regionSet.size} regions`);
