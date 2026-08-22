@@ -295,19 +295,24 @@ const SCRUB_MODE = MOTION && WIDE;
        Pace: 1311px of scroll across 7 cards was 187px per 340px card, faster
        than a label can be read. HOLD keeps the block still while the heading is
        read, then the rail travels over 2.2x its own width. */
-    const HOLD = () => Math.round(innerHeight * 0.55);
-    const DIST = () => Math.round(travel() * 2.2);
+    /* ONE ScrollTrigger, not two. The card reveals below ride
+       `containerAnimation: rail`, and GSAP maps their left-based starts through
+       the rail tween's OWN ScrollTrigger. Driving the pin from a second trigger
+       orphaned that mapping and every card stayed at opacity 0.
+       The reading pause is therefore layout, not scroll maths: an empty lead
+       cell at the head of the track means the first thing that travels off is
+       blank space, so the heading is read before any label leaves. */
+    const lead = document.createElement('li');
+    lead.className = 'crew__lead';
+    lead.setAttribute('aria-hidden', 'true');
+    track.insertBefore(lead, track.firstElementChild);
 
     ScrollTrigger.create({
-      trigger: crewPin, pin: crewPin, start: 'top top',
-      end: () => '+=' + (HOLD() + DIST()),
-      invalidateOnRefresh: true, anticipatePin: 1, refreshPriority: 1
-    });
-
-    ScrollTrigger.create({
-      animation: rail, trigger: crewPin, scrub: 0.7,
-      start: () => 'top top-=' + HOLD(),
-      end: () => '+=' + DIST(), invalidateOnRefresh: true,
+      /* 0.4, not 0.7: Lenis already smooths the scroll, and a heavy scrub on top of
+       it double-lags the rail so it floats behind the wheel rather than tracking it */
+      animation: rail, trigger: crewPin, pin: crewPin, scrub: 0.4,
+      start: 'top top', end: () => '+=' + Math.round(travel() * 2.2),
+      invalidateOnRefresh: true, refreshPriority: 1,
       onUpdate(self) {
         if (!count) return;
         const i = Math.min(cards.length - 1, Math.floor(self.progress * cards.length));
@@ -520,79 +525,6 @@ const SCRUB_MODE = MOTION && WIDE;
 
   // hard failsafe: the gate can never trap anyone
   setTimeout(() => { if (!done) { done = true; try { tl.kill(); gsap.ticker.remove(ticker); } catch {} kill(); } }, 7000);
-})();
-
-
-/* ═══════════ THE GIN-FIX TRAIL ══════════════════════════
-   The Jungle archive's cursor trail, carried over intact: five of the bar's
-   own photographs chase the pointer through the gin-fix grid, each falling
-   further behind and leaning into the direction of travel. Desktop + fine
-   pointer only, killed under reduced motion, and it idles itself out rather
-   than spinning a rAF loop forever.
-   ═══════════════════════════════════════════════════════════ */
-(() => {
-  const trail = $('#trail');
-  const zone  = $('#floskur');
-  if (!trail || !zone || !FINE || REDUCED) return;
-
-  // four of their own drinks, cut out of their own photographs: the glass
-  // alone on transparency, so what follows the pointer is a drink, not a room
-  const PICKS = ['redglass', 'bucket', 'laugh', 'couple-bw'];
-  const CHASE = 0.24;
-
-  trail.innerHTML = PICKS.map(f =>
-    `<img src="assets/img/${f}.jpg" alt="" width="420" height="420" decoding="async" />`
-  ).join('');
-
-  const items = $$('img', trail).map((im, i) => ({
-    im,
-    x: innerWidth / 2, y: innerHeight / 2,
-    rot: 0,
-    chase: CHASE * Math.pow(0.74, i),   // each one falls further behind
-    tilt: (i % 2 ? 1 : -1) * (3 + i * 2.4),
-    scale: 1 - i * 0.11,
-    target: 1 - i * 0.15                // resting opacity per copy
-  }));
-
-  let mx = innerWidth / 2, my = innerHeight / 2;
-  let idle = 9999, vis = 0, last = performance.now(), raf = 0;
-
-  addEventListener('pointermove', e => {
-    mx = e.clientX; my = e.clientY; idle = 0;
-    if (!raf) { last = performance.now(); raf = requestAnimationFrame(tick); }
-  }, { passive: true });
-
-  function tick(now) {
-    const dt = Math.min(64, now - last);
-    last = now;
-    idle += dt;
-
-    const r = zone.getBoundingClientRect();
-    const inView = r.top < innerHeight * 0.9 && r.bottom > innerHeight * 0.1;
-    const want = (inView && idle < 1800 && !document.hidden) ? 1 : 0;
-    vis += (want - vis) * (want ? 0.13 : 0.06);
-
-    let tx = mx, ty = my, moved = false;
-
-    for (const it of items) {
-      const dx = tx - it.x, dy = ty - it.y;
-      if (Math.abs(dx) > 0.05 || Math.abs(dy) > 0.05) moved = true;
-      it.x += dx * it.chase;
-      it.y += dy * it.chase;
-      // lean into the direction of travel, then settle back to level
-      const lean = Math.max(-16, Math.min(16, dx * 0.12));
-      it.rot += (it.tilt + lean - it.rot) * 0.09;
-      tx = it.x; ty = it.y;
-
-      it.im.style.opacity = (it.target * vis).toFixed(3);
-      it.im.style.transform =
-        `translate3d(${it.x.toFixed(1)}px,${it.y.toFixed(1)}px,0) translate(-50%,-50%) rotate(${it.rot.toFixed(2)}deg) scale(${it.scale})`;
-    }
-
-    // idle out rather than spinning a loop forever
-    if (!moved && vis < 0.004) { raf = 0; return; }
-    raf = requestAnimationFrame(tick);
-  }
 })();
 
 

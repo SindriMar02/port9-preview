@@ -704,6 +704,9 @@ body.gate-on{overflow:hidden}
   display:flex;gap:clamp(14px,1.8vw,26px);
   padding-inline:var(--pad);width:max-content;will-change:transform;
 }
+/* the reading pause, as an empty cell: blank space leaves the screen first */
+.crew__lead{flex:0 0 auto;width:clamp(0px,18vw,260px);pointer-events:none}
+@media (max-width:1080px){.crew__lead{display:none}}
 .crew__card{
   flex:0 0 auto;width:clamp(240px,25vw,340px);height:100%;
   background:var(--moss);border:1px solid var(--line);
@@ -734,18 +737,8 @@ body.gate-on{overflow:hidden}
 
 /* ═══════════ 6. ARCHIVE + CURSOR DRINKS ════════════════ */
 .archive{padding:var(--gap) 0;position:relative}
-.archive__trail{position:fixed;inset:0;z-index:6;pointer-events:none}
 /* height:auto or the width/height attributes pin the box and these render
    as ellipses instead of circles */
-.archive__trail img{
-  position:absolute;top:0;left:0;
-  width:clamp(52px,5.2vw,92px);height:auto;aspect-ratio:1;
-  object-fit:cover;border-radius:50%;opacity:0;
-  border:1px solid rgba(208,117,138,.5);
-  box-shadow:0 20px 50px rgba(0,0,0,.85),0 0 0 5px rgba(5,9,6,.85);
-  will-change:transform,opacity;
-}
-
 .archive__grid{
   max-width:var(--maxw);margin:0 auto;padding:0 var(--pad);
   display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));
@@ -956,8 +949,7 @@ body.gate-on{overflow:hidden}
   .drow__p{grid-column:2;justify-self:start}
 }
 @media (hover:none),(max-width:720px){
-  .archive__trail{display:none}
-}
+  }
 
 /* ═══════════ REDUCED MOTION ════════════════════════════
    Everything renders in its final state, no exceptions.   */
@@ -971,8 +963,7 @@ body.gate-on{overflow:hidden}
   .ticker__track{animation:none}
   .hero__scroll{animation:none}
   .menu__nav a span{transform:none}
-  .archive__trail{display:none}
-}
+  }
 
 /* no javascript: never leave anything hidden or locked */
 @media (scripting:none){
@@ -988,8 +979,7 @@ body.gate-on{overflow:hidden}
     position:static;width:auto;height:auto;margin:6px 0 0;clip:auto;
     white-space:normal;display:block;font-size:.8rem;color:var(--faint);
   }
-  .archive__trail{display:none}
-}
+  }
 
 /* ═══════════════════════════════════════════════════════════
    GILLIGOGG ADDITIONS
@@ -1313,16 +1303,6 @@ main section[id]{scroll-margin-top:84px}
 .drinks--dark .gl__out{stroke:var(--bronze-lift)}
 
 
-/* ── the trail carries CUT-OUT drinks ─────────────────────
-   Jungle's trail circle-cropped square drink photos. These are true cutouts
-   (background removed from the bar's own shots), so the circular frame,
-   border and ring are dropped: only a shadow, so each glass floats. */
-.archive__trail img{
-  width:clamp(74px,7.4vw,124px);aspect-ratio:auto;height:auto;
-  object-fit:contain;border-radius:0;border:0;
-  box-shadow:none;filter:drop-shadow(0 18px 34px rgba(0,0,0,.75));
-}
-
 /* ═══════════ PORT 9 — what this build adds to the engine ══════════════════
    Everything above is the Jungle engine with re-aimed values. Below is only
    what a wine bar needs that a cocktail bar did not. */
@@ -1418,12 +1398,6 @@ main section[id]{scroll-margin-top:84px}
 .cellar__list--two{columns:2;column-gap:clamp(16px,2vw,28px)}
 .cellar__list--two .cw{break-inside:avoid}
 .hrs__t--shut{color:var(--faint)}
-
-/* ── the trail carries ROUND-CROPPED photographs, as Jungle's did ─────────── */
-.archive__trail img{
-  width:clamp(84px,8vw,132px);aspect-ratio:1;height:auto;object-fit:cover;
-  border-radius:50%;border:2px solid var(--ink);box-shadow:0 18px 40px rgba(0,0,0,.6);filter:none;
-}
 
 /* the gin-fix sheet class is reused for the bottle list; two columns wide */
 @media (max-width:760px){
