@@ -155,13 +155,24 @@ const SCRUB_MODE = MOTION && WIDE;
   // it does not know about becomes unscrollable — the rail below 1080px is a
   // native horizontal snap list, and without this it simply refuses to move.
   if (lenis) {
-    $$('[data-lenis-prevent]').forEach(el => el.setAttribute('data-lenis-prevent', ''));
-    const tagScrollers = () => $$('.crew__track, [data-scroller]').forEach(el => {
-      if (el.scrollWidth > el.clientWidth + 4 || el.scrollHeight > el.clientHeight + 4) {
-        el.setAttribute('data-lenis-prevent', '');
-      }
+    /* Overflowing is NOT the same as scrollable. The rail is a max-content flex
+       row, so scrollWidth > clientWidth is true at EVERY width — but on desktop
+       it has no overflow at all: GSAP transforms it and the pin drives it. The
+       old test tagged it anyway, which told Lenis to ignore the wheel over the
+       whole rail. Since the pinned rail fills the viewport, scrolling with the
+       pointer anywhere over the cards stalled and then jumped. Only a box that
+       actually scrolls itself may opt out. */
+    const scrolls = el => {
+      const c = getComputedStyle(el);
+      return (/(auto|scroll)/.test(c.overflowX) && el.scrollWidth  > el.clientWidth  + 4) ||
+             (/(auto|scroll)/.test(c.overflowY) && el.scrollHeight > el.clientHeight + 4);
+    };
+    const tagScrollers = () => $$('.crew__track, [data-scroller], [data-lenis-prevent]').forEach(el => {
+      if (scrolls(el)) el.setAttribute('data-lenis-prevent', '');
+      else el.removeAttribute('data-lenis-prevent');
     });
     tagScrollers();
+    ScrollTrigger.addEventListener('refresh', tagScrollers);
     window.addEventListener('resize', tagScrollers, { passive: true });
   }
 
