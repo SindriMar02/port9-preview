@@ -441,11 +441,28 @@ body.gate-on{overflow:hidden}
 
 /* ── full bleed image with a "pour" reveal ─────────────── */
 .bleed{position:relative;margin-top:var(--gap)}
-.bleed img{width:100%;height:auto;object-fit:cover}
+.bleed img{width:100%;height:auto;object-fit:cover;display:block}
+/* display:block, not inline. An inline <img> leaves the baseline descender gap
+   under itself, so the FIGURE ran 5-13px taller than the photograph and a caption
+   anchored to `bottom:16px` hung off the picture onto the ground behind it. On the
+   paper ground that put near-white caption text on cream at 1.05:1. */
+.bleed img,.room__cell img,.visit__shot img,.culture__fig img,.acard img{display:block}
 .bleed--tall img{max-height:78vh}
-.bleed figcaption,.room__cell figcaption,.visit__shot figcaption{
-  position:absolute;left:var(--pad);bottom:16px;color:var(--ink);
+.bleed figcaption,.room__cell figcaption,.visit__shot figcaption,
+.paper .bleed figcaption,.paper .visit__shot figcaption{
+  position:absolute;left:var(--pad);bottom:16px;z-index:2;
+  /* forced, not inherited: .bleed--port sits INSIDE the paper ground, so the paper's
+     claret .mono colour won and painted the caption #6E1B2E over a dark photograph.
+     A caption over a photo is always ink, wherever the figure happens to live. */
+  color:var(--ink);
   text-shadow:0 2px 14px rgba(0,0,0,.95);
+}
+/* a text-shadow alone still loses over a bright patch of photo; the scrim guarantees
+   the contrast no matter which part of the image lands under the words */
+.bleed::after,.room__cell::after,.visit__shot::after,.culture__fig::after{
+  content:'';position:absolute;inset:auto 0 0 0;height:clamp(90px,14vh,150px);z-index:1;
+  background:linear-gradient(to top,rgba(0,0,0,.72),rgba(0,0,0,.28) 46%,transparent);
+  pointer-events:none;
 }
 
 /* image reveals + parallax are GSAP-driven; CSS only clips the frame.
@@ -520,7 +537,7 @@ body.gate-on{overflow:hidden}
   transition:background-color .3s,color .3s,border-color .3s;
 }
 .tab:hover{color:var(--ink);border-color:var(--faint)}
-.tab.is-on{background:var(--bronze-lift);border-color:var(--bronze-lift);color:#0B0F05;font-weight:600}
+.tab.is-on{background:var(--bronze-lift);border-color:var(--bronze-lift);color:var(--void);font-weight:600}
 
 .drinks__stage{
   max-width:var(--maxw);margin:0 auto;padding:0 var(--pad);
@@ -612,7 +629,12 @@ body.gate-on{overflow:hidden}
 .course__head{
   display:flex;align-items:baseline;justify-content:space-between;gap:20px;
   border-bottom:1px solid var(--bronze-band);padding-bottom:14px;margin-bottom:clamp(22px,3vw,38px);
+  /* The rule under a course title had NO lead-in above it: the sheet's 115px gap
+     separated course 2..n, but the FIRST course in each sheet inherited nothing and
+     its border sat hard against the section above. Space it from its own head. */
+  padding-top:clamp(12px,1.6vw,20px);
 }
+.sheet > .course:first-child .course__head{padding-top:clamp(26px,3.4vw,48px)}
 .course__title{
   font-family:'Young Serif',serif;font-weight:400;text-transform:uppercase;
   font-size:clamp(1.5rem,3.4vw,2.6rem);line-height:1;letter-spacing:-.01em;color:var(--paper-ink);
@@ -756,7 +778,7 @@ body.gate-on{overflow:hidden}
 .room__cell img{width:100%;height:auto;object-fit:cover}
 .room__cell--wide img{aspect-ratio:24/9}
 .room__cell:not(.room__cell--wide) img{aspect-ratio:4/3}
-.room__cell figcaption{left:16px;bottom:14px;color:var(--ink)}
+.room__cell figcaption{left:16px;bottom:14px;z-index:2;color:var(--ink)}
 .room__note{max-width:var(--maxw);margin:clamp(30px,4vw,48px) auto 0;padding:0 var(--pad)}
 
 /* ═══════════ 8. WORKSHOP ═══════════════════════════════ */
@@ -780,20 +802,30 @@ body.gate-on{overflow:hidden}
 .rent{background:var(--paper);color:var(--paper-ink);padding:var(--gap) 0}
 .rent__inner{max-width:var(--maxw);margin:0 auto;padding:0 var(--pad)}
 .rent .kicker{color:#38401A}
-.rent .h2{color:#0B0F05}
-.rent .lead{color:#28300F}
-.rent__cols{display:grid;grid-template-columns:1fr auto;gap:clamp(30px,5vw,70px);
-  align-items:end;margin-top:clamp(24px,3vw,36px)}
-.rent__nums{display:flex;gap:clamp(24px,4vw,56px)}
-.rent__nums li{display:grid;gap:2px}
+.rent .h2{color:var(--paper-ink)}
+.rent .lead{color:var(--paper-dim)}
+/* `1fr auto` starved the lead. `auto` sizes to MAX-CONTENT, and the max-content of
+   three 70px serif prices is ~900px, so the 1fr column collapsed to ~110px and the
+   intro wrapped one or two words per line. The prices get their own full-width row
+   under a hairline instead: the lead reads at a proper measure, and the numbers get
+   an equal third each rather than competing for the same track. */
+.rent__cols{display:grid;grid-template-columns:minmax(0,1fr);
+  gap:clamp(26px,3.4vw,44px);align-items:start;margin-top:clamp(24px,3vw,36px)}
+.rent__cols .lead{max-width:52ch}
+.rent__nums{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:clamp(20px,3vw,44px);
+  border-top:1px solid var(--paper-line);padding-top:clamp(18px,2.4vw,28px)}
+.rent__nums li{display:grid;gap:4px;align-content:start}
 .rent__nums strong{font-family:'Young Serif',serif;font-weight:400;
-  font-size:clamp(2.4rem,5.4vw,4.4rem);line-height:.94}
+  /* nowrap: "1.690,- gl" broke after the comma and dropped the unit to its own
+     line, which read as a layout fault rather than a price */
+  font-size:clamp(1.8rem,3.6vw,3rem);line-height:1;white-space:nowrap}
 .rent__nums span{font-family:'JB Mono',monospace;font-size:.62rem;letter-spacing:.18em;
-  text-transform:uppercase;color:#2A2010}
+  text-transform:uppercase;color:var(--paper-dim)}
 .rent__alt{margin:clamp(26px,3.4vw,40px) 0 clamp(22px,3vw,32px);
-  color:#28300F;font-size:.98rem;max-width:60ch}
+  color:var(--paper-dim);font-size:.98rem;max-width:60ch}
 .rent__alt a{font-weight:600;text-decoration-thickness:1px;text-underline-offset:3px}
-.rent .btn--main{background:#0B0F05;color:var(--bronze-lift)}
+.rent .btn--main{background:var(--bronze-deep);color:var(--paper)}
 .rent .btn--main:hover{background:#16241A}
 
 /* ═══════════ 10. VISIT ═════════════════════════════════ */
@@ -1198,8 +1230,11 @@ body.gate-on{overflow:hidden}
   color:var(--faint);letter-spacing:.18em;text-transform:uppercase}
 
 /* ── happy hour list inside the band ──────────────────────── */
+/* margin-inline:auto centred a 720px list inside a 1296px section, so the food
+   list began 288px to the RIGHT of the "Matur" heading it belongs to. Flush left,
+   on the same edge as every other heading on the page. */
 .hh-list{
-  max-width:720px;margin:clamp(26px,3.4vw,44px) auto 0;
+  max-width:780px;margin:clamp(26px,3.4vw,44px) 0 0;
   text-align:left;display:grid;gap:0;
 }
 .hh-list .hh{
@@ -1356,8 +1391,8 @@ main section[id]{scroll-margin-top:84px}
 .classics__foot{max-width:var(--maxw);margin:clamp(26px,3.4vw,44px) auto 0;padding:0 var(--pad);text-align:center}
 
 /* ── happy hour band on paper, food with their pairings ───────────────────── */
-.rent__h{font-family:'Young Serif',serif;font-weight:400;font-size:clamp(1.4rem,2.6vw,2rem);color:#0B0F05;margin:clamp(30px,4vw,54px) 0 clamp(12px,1.6vw,18px)}
-.hh__sub{display:block;font-size:.84rem;color:#3B4330;font-weight:400;margin-top:.2em;line-height:1.5}
+.rent__h{font-family:'Young Serif',serif;font-weight:400;font-size:clamp(1.4rem,2.6vw,2rem);color:var(--paper-ink);margin:clamp(30px,4vw,54px) 0 clamp(12px,1.6vw,18px)}
+.hh__sub{display:block;font-size:.84rem;color:var(--paper-dim);font-weight:400;margin-top:.2em;line-height:1.5}
 .hh__pair{display:block;font-size:.56rem;letter-spacing:.16em;color:var(--bronze-deep);margin-top:.45em}
 .rent .rent__nums strong{font-family:'Young Serif',serif;font-weight:400}
 
@@ -1366,7 +1401,7 @@ main section[id]{scroll-margin-top:84px}
 .culture__grid{max-width:var(--maxw);margin:0 auto;padding:0 var(--pad);display:grid;grid-template-columns:1.2fr .8fr;gap:clamp(18px,2.6vw,36px);align-items:start}
 .culture__fig{position:relative;margin:0;clip-path:var(--arch);overflow:hidden;background:var(--moss)}
 .culture__fig img{width:100%;height:100%;object-fit:cover;aspect-ratio:4/3;display:block}
-.culture__fig figcaption{position:absolute;left:16px;bottom:14px;color:var(--ink);font-size:.6rem;letter-spacing:.16em;text-shadow:0 1px 8px rgba(0,0,0,.8)}
+.culture__fig figcaption{position:absolute;left:16px;bottom:14px;z-index:2;color:var(--ink);font-size:.6rem;letter-spacing:.16em;text-shadow:0 1px 8px rgba(0,0,0,.8)}
 .culture__col{display:grid;align-content:start;gap:clamp(10px,1.4vw,16px);padding:var(--card-pad);background:var(--deep);border:1px solid var(--line);border-radius:var(--r-card)}
 .culture__h{margin:0;font-family:'Young Serif',serif;font-weight:400;font-size:clamp(1.2rem,2vw,1.7rem);color:var(--ink)}
 .culture__list{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:8px}

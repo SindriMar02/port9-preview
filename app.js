@@ -211,7 +211,14 @@ const SCRUB_MODE = MOTION && WIDE;
     gsap.timeline({
       scrollTrigger: {
         trigger: '#heropin', start: 'top top', end: '+=170%',
-        pin: true, scrub: 0.55
+        /* refreshPriority DESCENDS in document order. The hero pin inserts 1530px
+           of spacer; anything below it that refreshes FIRST measures a document
+           that does not have that spacer yet. The rail pin did exactly that and
+           its start landed 1530px early, so it engaged while the paper sheet was
+           still on screen and drew straight over it. Hero 2 > rail pin 1 > rail
+           travel 0 is the only order in which every start is measured on the
+           final layout. */
+        pin: true, scrub: 0.55, refreshPriority: 2
       }
     })
       /* fromTo, not to: every tween below shares an element with the entrance,
@@ -280,9 +287,27 @@ const SCRUB_MODE = MOTION && WIDE;
     const cards = $$('.crew__card', track);
     const count = $('#crewCount');
 
+    /* Two triggers, not one, and both aimed at the PINNED element.
+       Aimed at '.crew' the pin inherited the 304px offset between the section's
+       top and the pin's own top, so the block hung 304px down a 900px viewport
+       and the rail's bottom sat 232px below the fold. Triggering crewPin itself
+       puts it at top:0, whole.
+       Pace: 1311px of scroll across 7 cards was 187px per 340px card, faster
+       than a label can be read. HOLD keeps the block still while the heading is
+       read, then the rail travels over 2.2x its own width. */
+    const HOLD = () => Math.round(innerHeight * 0.55);
+    const DIST = () => Math.round(travel() * 2.2);
+
     ScrollTrigger.create({
-      animation: rail, trigger: '.crew', pin: crewPin, scrub: 0.7,
-      start: 'top top', end: () => '+=' + travel(), invalidateOnRefresh: true,
+      trigger: crewPin, pin: crewPin, start: 'top top',
+      end: () => '+=' + (HOLD() + DIST()),
+      invalidateOnRefresh: true, anticipatePin: 1, refreshPriority: 1
+    });
+
+    ScrollTrigger.create({
+      animation: rail, trigger: crewPin, scrub: 0.7,
+      start: () => 'top top-=' + HOLD(),
+      end: () => '+=' + DIST(), invalidateOnRefresh: true,
       onUpdate(self) {
         if (!count) return;
         const i = Math.min(cards.length - 1, Math.floor(self.progress * cards.length));
