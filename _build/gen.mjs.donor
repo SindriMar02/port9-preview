@@ -1,0 +1,515 @@
+/* Emits index.html from _build/data.mjs.
+   Run:  node _build/gen.mjs
+   The site itself stays build-free — this writes the file once, so the drink
+   markup is DERIVED from the transcribed menu rather than hand-typed. */
+
+import { writeFileSync } from 'node:fs';
+import { dirname, join } from 'node:path';
+import { fileURLToPath } from 'node:url';
+import * as D from './data.mjs';
+
+const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
+const esc = s => String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+const n2 = i => String(i + 1).padStart(2, '0');
+
+/* ── glassware ───────────────────────────────────────────────────────────────
+   The glass is DERIVED, never chosen: every drink's own tag line carries one
+   build word — SHORT pours into the coupe, LONG pours tall, ROCKS pours onto
+   the rock. Their vocabulary, our silhouettes. */
+const GLASS = {
+  coupe:    { top:36, bot:83,  d:'M14 34 Q14 78 46 84 L46 112 L30 118 L30 124 L70 124 L70 118 L54 112 L54 84 Q86 78 86 34 Z' },
+  highball: { top:33, bot:122, d:'M18 30 L23 118 Q23 124 30 124 L70 124 Q77 124 77 118 L82 30 Z' },
+  collins:  { top:23, bot:122, d:'M28 20 L31 118 Q31 124 38 124 L62 124 Q69 124 69 118 L72 20 Z' },
+  rocks:    { top:59, bot:122, d:'M20 56 L24 118 Q24 124 31 124 L69 124 Q76 124 76 118 L80 56 Z' }
+};
+
+const glassFor = dr => {
+  const t = (dr.tags || '').toUpperCase();
+  if (t.includes('ROCKS')) return 'rocks';
+  if (t.includes('LONG'))  return 'highball';
+  return 'coupe';                             // SHORT
+};
+
+function glassSvg(kind, id, ing, opts = {}) {
+  const g = GLASS[kind];
+  if (!ing.length) {
+    // FROZEN PINA COLADA: their own sheet says only "Spurðu þjóninn" —
+    // the glass stays honestly empty, outlined with a question of frost.
+    return `<svg viewBox="0 0 100 130" class="gl gl--empty" data-fill>
+                <path class="gl__out" d="${g.d}"/>
+                <text class="gl__q" x="50" y="${((g.top + g.bot) / 2 + 6).toFixed(0)}" text-anchor="middle">?</text>
+              </svg>`;
+  }
+  // ratio pours (gin fix): weights per band instead of equal split
+  const weights = opts.weights || ing.map(() => 1);
+  const total = weights.reduce((a, b) => a + b, 0);
+  const span = g.bot - g.top;
+  let acc = 0;
+  const bands = ing.map(([, colour], i) => {
+    const h = span * weights[i] / total;
+    acc += h;
+    const y = (g.bot - acc).toFixed(1);
+    return `<rect class="gl__band" data-band="${i}" x="0" y="${y}" width="100" height="${(h + 0.6).toFixed(1)}" fill="${colour}"/>`;
+  }).join('');
+  return `<svg viewBox="0 0 100 130" class="gl" data-fill>
+                <defs><clipPath id="cp-${id}"><path d="${g.d}"/></clipPath></defs>
+                <g clip-path="url(#cp-${id})">${bands}</g>
+                <path class="gl__out" d="${g.d}"/>
+              </svg>`;
+}
+
+function dish(drink, kind, id, i) {
+  const spec = drink.mystery
+    ? `<li class="dish__mystery">${esc(drink.mystery)}</li>`
+    : drink.ing.map(([label, colour], k) =>
+      `<li data-ing="${k}"><i style="--c:${colour}" aria-hidden="true"></i>${esc(label)}</li>`).join('');
+  return `          <li class="dish">
+            <div class="dish__glass" aria-hidden="true">
+              ${glassSvg(kind, id, drink.ing)}
+            </div>
+            <div class="dish__body">
+              <p class="dish__top"><span class="dish__n mono">${n2(i)}</span><span class="dish__name">${esc(drink.n)}</span><span class="dish__rule" aria-hidden="true"></span><span class="dish__p mono">${esc(drink.p)}</span></p>
+              ${drink.tags ? `<p class="dish__tags mono">${esc(drink.tags)}</p>` : ''}
+              <ul class="dish__spec">${spec}</ul>
+            </div>
+          </li>`;
+}
+
+function course(id, title, sub, drinks) {
+  const items = drinks.map((dr, i) => dish(dr, glassFor(dr), `${id}-${i}`, i)).join('\n');
+  return `      <section class="course" aria-labelledby="course-${id}">
+        <header class="course__head">
+          <h3 class="course__title" id="course-${id}">${esc(title)}</h3>
+          ${sub ? `<p class="course__price mono">${esc(sub)}</p>` : ''}
+        </header>
+        <ul class="course__list">
+${items}
+        </ul>
+      </section>`;
+}
+
+/* ── SAGA NEGRONI — the rail's cargo: seven dated stations ──────────────────
+   Keeps the crew__ classes so the pinned horizontal engine carries over
+   untouched; each card becomes a station sign on the line. */
+const sagaBlock = D.saga.map((s, i) => `        <li class="crew__card" data-year="${esc(s.year)}">
+          <div class="crew__arch" aria-hidden="true">
+            <span class="crew__cat mono">STÖÐ ${n2(i)} · ${esc(s.year)}</span>
+            ${glassSvg('rocks', `saga-${i}`, s.bands)}
+          </div>
+          <div class="crew__body">
+            <h3>${esc(s.n)}</h3>
+            <p class="crew__ing">${esc(s.ing)}</p>
+            <p class="crew__await mono">${esc(s.year)} · ${esc(s.p)} KR.</p>
+          </div>
+        </li>`).join('\n');
+
+/* ── GIN FIX — every glass pours at their own stated 45:120 ratio ────────── */
+const TONIC = '#C6DADC';
+const ginBlock = D.ginFix.map((gf, i) => `          <li class="dish dish--gin">
+            <div class="dish__glass" aria-hidden="true">
+              ${glassSvg('highball', `gin-${i}`, [['Gin', gf.c], ['Tonic', TONIC]], { weights: [45, 120] })}
+            </div>
+            <div class="dish__body">
+              <p class="dish__top"><span class="dish__n mono">${n2(i)}</span><span class="dish__name">${esc(gf.n)}</span><span class="dish__rule" aria-hidden="true"></span><span class="dish__p mono">${esc(gf.p)}</span></p>
+              <p class="dish__tags mono">45 ML GIN / 120 ML ${esc(gf.tonic).toUpperCase()}</p>
+              <ul class="dish__spec"><li data-ing="0"><i style="--c:${gf.c}" aria-hidden="true"></i>${esc(gf.n)} &middot; 45 ml</li><li data-ing="1"><i style="--c:${TONIC}" aria-hidden="true"></i>${esc(gf.tonic)} &middot; 120 ml</li><li class="dish__garnish">${esc(gf.garnish)}</li></ul>
+            </div>
+          </li>`).join('\n');
+
+/* ── wine tables ─────────────────────────────────────────────────────────── */
+const wineRows = (rows, single) => rows.map(r => {
+  const [name, a, b] = r;
+  const price = single ? a : `${a} <span class="cw__slash">/</span> ${b}`;
+  return `<li class="cw"><span class="cw__n">${esc(name)}</span><span class="cw__rule" aria-hidden="true"></span><span class="cw__p mono">${price}</span></li>`;
+}).join('');
+
+const wineBlock = `
+      <div class="cellar__col">
+        <h3 class="cellar__h">Í glasi og flösku</h3>
+        <p class="cellar__sub mono">GLAS / FLASKA</p>
+        <h4 class="cellar__cat">Kampavín</h4><ul class="cellar__list">${wineRows(D.wine.champagne)}</ul>
+        <h4 class="cellar__cat">Freyðivín</h4><ul class="cellar__list">${wineRows(D.wine.sparkling)}</ul>
+        <h4 class="cellar__cat">Hvítvín</h4><ul class="cellar__list">${wineRows(D.wine.white)}</ul>
+        <h4 class="cellar__cat">Rauðvín</h4><ul class="cellar__list">${wineRows(D.wine.red)}</ul>
+        <h4 class="cellar__cat">Rósavín</h4><ul class="cellar__list">${wineRows(D.wine.rose)}</ul>
+      </div>
+      <div class="cellar__col">
+        <h3 class="cellar__h">Bjór</h3>
+        <p class="cellar__sub mono">VERÐ</p>
+        <h4 class="cellar__cat">Á krana · 0,4 l</h4><ul class="cellar__list">${wineRows(D.wine.draft, true)}</ul>
+        <h4 class="cellar__cat">Í flösku · 0,33 l</h4><ul class="cellar__list">${wineRows(D.wine.bottles, true)}</ul>
+      </div>`;
+
+/* ── BCA 2022 icons — their own front-page PNGs ──────────────────────────── */
+const winsBlock = D.wins.map(w => `      <section class="method method--bca">
+        <img class="method__icon" src="${w.icon}" alt="BCA 2022 verðlaunamerki: ${esc(w.word)}" width="150" height="150" loading="lazy" />
+        <ul class="method__list"><li>${esc(w.word)}</li><li class="method__src mono">BCA 2022 · MERKI AF ÞEIRRA EIGIN FORSÍÐU</li></ul>
+      </section>`).join('\n');
+
+/* ── happy hour rows ─────────────────────────────────────────────────────── */
+const happyRows = D.happy.items.map(([n, p]) =>
+  `<li class="hh"><span class="hh__n">${esc(n)}</span><span class="hh__rule" aria-hidden="true"></span><span class="hh__p mono">${esc(p)}</span></li>`).join('');
+
+const hoursRows = `<li><span class="hrs__d mono">Alla daga</span><span class="hrs__t mono">frá ${esc(D.biz.opens)}</span></li>`;
+
+const P = D.photos;
+const fig = (k, cap, cls = '') => `  <figure class="bleed ${cls}" data-pour>
+    <img src="${P[k].src}" alt="${esc(P[k].alt)}" width="${P[k].w}" height="${P[k].h}" loading="lazy" decoding="async" />
+    <figcaption class="mono">${esc(cap)}</figcaption>
+  </figure>`;
+
+const html = `<!doctype html>
+<html lang="is">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Kokteilbarinn &middot; Klapparstígur 28-30, Reykjavík</title>
+<meta name="description" content="Kokteilbar í lestarvagni í Hjartagarðinum. Aðgengilegir kokteilar, Saga Negroni frá 1860 til 2008, Gin Fix og happy hour alla daga 14–18." />
+<meta name="robots" content="noindex" />
+<meta name="theme-color" content="#120A06" />
+
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Kokteilbarinn &middot; Klapparstígur 28-30, Reykjavík" />
+<meta property="og:description" content="The Cocktail Train: kokteilbar í lestarvagni. Saga Negroni 1860–2008, Gin Fix og happy hour alla daga 14–18." />
+<meta property="og:image" content="https://sindrimar02.github.io/kokteilbarinn-preview/assets/img/hero.webp" />
+<meta property="og:locale" content="is_IS" />
+
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+<link rel="icon" href="assets/favicon-48.png" type="image/png" sizes="48x48" />
+<link rel="icon" href="assets/favicon-32.png" type="image/png" sizes="32x32" />
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
+<link rel="preload" href="assets/fonts/BellaQueta.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="preload" href="assets/fonts/Switzer-Regular.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="preload" as="image" href="${P.hero.src}" />
+<link rel="stylesheet" href="styles.css" />
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BarOrPub",
+  "name": "Kokteilbarinn",
+  "url": "${D.biz.site}",
+  "email": "${D.biz.email}",
+  "telephone": "+354 ${D.biz.phone}",
+  "servesCuisine": "Cocktails",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "${D.biz.street}",
+    "postalCode": "${D.biz.postal}",
+    "addressLocality": "${D.biz.city}",
+    "addressCountry": "IS"
+  },
+  "openingHoursSpecification": [
+    { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"], "opens": "14:00" }
+  ]
+}
+</script>
+</head>
+<body>
+
+<a class="skip" href="#main">Beint í efnið</a>
+
+<!-- THE AWNING — first element in flow. Sticky at top:-100px so it rests
+     inside the iOS status-bar strip. Permanent, no state. -->
+<div class="awning" aria-hidden="true"></div>
+
+<!-- ══════════ opening scene ══════════
+     The classic pour: a live liquid surface in their velvet gold rises
+     behind the wordmark, which is knocked out of it by blend-difference,
+     the counter runs to 100, HELLT Í flips to HRÆRT, and the whole level
+     drains away through the arch. -->
+<div class="gate" id="gate">
+  <svg class="gate__liquid" id="gateLiquid" viewBox="0 0 1200 1000" preserveAspectRatio="none" aria-hidden="true">
+    <path id="gateWave" fill="#B27B40" d="M0,1000 L0,1000 Q300,1000 600,1000 T1200,1000 L1200,1000 Z"/>
+  </svg>
+  <div class="gate__inner">
+    <img class="gate__logo" src="assets/wordmark-white.svg" alt="" width="300" height="96" />
+    <p class="gate__line mono" id="gateLine">HELLT Í</p>
+  </div>
+  <p class="gate__count mono" id="gateCount">00</p>
+  <button class="gate__skip mono" id="gateSkip" type="button">Sleppa</button>
+</div>
+
+<!-- ══════════ header ══════════ -->
+<header class="hdr" id="hdr">
+  <p class="hdr__side hdr__side--l mono">KLAPPARSTÍGUR 28-30 &middot; HJARTAGARÐURINN</p>
+
+  <a class="hdr__mark" href="#top" aria-label="Kokteilbarinn, efst á síðu">
+    <img src="assets/wordmark.svg" alt="Kokteilbarinn" width="300" height="96" />
+  </a>
+
+  <div class="hdr__side hdr__side--r">
+    <p class="mono hdr__open">HAPPY HOUR 14–18</p>
+    <button class="burger" id="burger" aria-expanded="false" aria-controls="menu" aria-label="Opna valmynd">
+      <span class="burger__box" aria-hidden="true"><i></i><i></i></span>
+      <span class="burger__word mono" aria-hidden="true">VALMYND</span>
+    </button>
+  </div>
+</header>
+
+<div class="menu" id="menu" hidden>
+  <div class="menu__inner">
+    <nav class="menu__nav" aria-label="Síðan">
+      <a href="#drinks"><span><i class="mono" aria-hidden="true">01</i>Kokteilarnir</span></a>
+      <a href="#saga"><span><i class="mono" aria-hidden="true">02</i>Saga Negroni</span></a>
+      <a href="#ginfix"><span><i class="mono" aria-hidden="true">03</i>Gin Fix</span></a>
+      <a href="#room"><span><i class="mono" aria-hidden="true">04</i>Vagninn</span></a>
+      <a href="#cellar"><span><i class="mono" aria-hidden="true">05</i>Vín &amp; bjór</span></a>
+      <a href="#happy"><span><i class="mono" aria-hidden="true">06</i>Happy hour</span></a>
+      <a href="#visit"><span><i class="mono" aria-hidden="true">07</i>Heimsókn</span></a>
+    </nav>
+    <div class="menu__foot">
+      <p class="mono">KLAPPARSTÍGUR 28-30 &middot; 101 REYKJAVÍK &middot; ${esc(D.biz.phone)}</p>
+      <a class="btn btn--main" href="${D.biz.booking}" rel="noopener">Bóka borð á Monkeys</a>
+    </div>
+  </div>
+</div>
+
+<main id="main">
+
+<!-- ══════════ 1. hero ══════════ -->
+<div class="heropin" id="heropin">
+<section class="hero" id="top">
+  <img class="hero__film" id="heroPlate" src="${P.hero.src}" alt="${esc(P.hero.alt)}" width="${P.hero.w}" height="${P.hero.h}" fetchpriority="high" decoding="async" />
+
+  <div class="hero__scrim" aria-hidden="true"></div>
+  <div class="hero__veil" aria-hidden="true"></div>
+
+  <div class="hero__content">
+    <p class="hero__eyebrow mono">KOKTEILBAR &middot; HJARTAGARÐURINN &middot; REYKJAVÍK</p>
+
+    <h1 class="hero__h1">
+      <img class="hero__mark" id="heroMark" src="assets/wordmark.svg" alt="Kokteilbarinn" width="300" height="96" fetchpriority="high" />
+      <span class="hero__tag">The Cocktail Train &middot; opið alla daga frá ${esc(D.biz.opens)}</span>
+    </h1>
+
+    <div class="hero__base" id="heroBase">
+      <p class="hero__blurb">Barinn er smíðaður eins og fyrsta farrýmis lestarvagn: gyllt flauel, blúndugardínur og loftbelgir á veggnum. Kokteilaseðillinn keyrir á sama spori.</p>
+      <div class="hero__acts">
+        <a class="btn btn--main" href="#drinks">Skoða seðilinn</a>
+        <a class="btn btn--ghost" href="#happy">Happy hour 14–18</a>
+      </div>
+    </div>
+
+    <p class="hero__scroll mono" id="heroHint" aria-hidden="true">SKRUNAÐU</p>
+  </div>
+</section>
+</div>
+
+<!-- ══════════ 2. ticker ══════════ -->
+<section class="ticker" aria-hidden="true">
+  <div class="ticker__skew" id="tickSkew"><div class="ticker__track" id="tickTrack"></div></div>
+</section>
+
+<!-- ══════════ 3. thesis ══════════ -->
+<section class="thesis" id="about">
+  <div class="thesis__grid">
+    <div class="thesis__text">
+      <p class="kicker mono">01 / VAGNINN</p>
+      <h2 class="h2">Lestin sem fer<br /><em>aldrei af stað</em></h2>
+      <p class="lead">Inn af Monkeys í Hjartagarðinum stendur blár lestarvagn sem fer hvergi. Á barhliðinni stendur The Cock Tail Train, í básunum er gyllt tólfhnappað flauel undir blúndugardínum, og á matta glerveggnum svífa loftbelgir.</p>
+      <blockquote class="quote">
+        <p>&bdquo;${esc(D.biz.walkIn)}&ldquo;</p>
+        <footer>
+          <span class="quote__who">Þeirra eigin borðabókunarsíða</span>
+          <span class="quote__src mono">DINEOUT.IS/MONKEYS</span>
+        </footer>
+      </blockquote>
+      <p class="thesis__gloss">Seðillinn þeirra flokkar hvern kokteil með eigin byggingarorði, SHORT, LONG eða ROCKS, svo hér hellir hver drykkur sér í glasið sem orðið segir til um. Ekkert valið af smekk, allt af þeirra eigin seðli.</p>
+    </div>
+
+    <ul class="facts">
+      <li><span class="facts__n">20</span><span class="facts__l">Kokteilar á seðlinum, hver með sínu byggingarorði og innihaldslista</span></li>
+      <li><span class="facts__n">7</span><span class="facts__l">Stöðvar í Saga Negroni, frá Mito 1860 að Right Hand 2008</span></li>
+      <li><span class="facts__n">10</span><span class="facts__l">Gin Fix-pörun á 45/120-hlutfallinu þeirra, fjögur íslensk gin þar á meðal</span></li>
+      <li><span class="facts__n">4</span><span class="facts__l">Klukkustundir af happy hour, alla daga frá tvö til sex</span></li>
+    </ul>
+  </div>
+
+${fig('traindrink', 'BARBORÐIÐ · THE COCK TAIL TRAIN Á HLIÐINNI', 'bleed--tall')}
+</section>
+
+<!-- ══════════ 4. the list ══════════ -->
+<section class="drinks paper" id="drinks">
+  <header class="sec-head">
+    <p class="kicker mono">02 / SEÐILLINN</p>
+    <h2 class="h2">Hver drykkur hellir sér<br />í sitt eigið glas</h2>
+    <p class="sec-head__note">Byggingarorðið á seðlinum þeirra velur glasið: SHORT fer í coupe, LONG í hátt glas, ROCKS á klakann. Ein rönd á hvert hráefni.</p>
+  </header>
+
+  <div class="sheet">
+${course('acc', 'Aðgengilegir kokteilar', '', D.accessible)}
+${course('adv', 'Kokteilar fyrir lengra komna', '', D.advanced)}
+${course('zero', 'Óáfengir kokteilar', '', D.zero)}
+  </div>
+
+${fig('barman', 'VIÐ BARINN · MYNTA Á FROÐUNA', 'bleed--port')}
+
+  <p class="sheet__note">Nöfn, merkingar, innihald og verð eins og þau standa á kokteilbarinn.is 19.8.2026. Randalitir eru til skýringar, ekki uppskrift.</p>
+</section>
+
+<!-- ══════════ 5. SAGA NEGRONI — the rail ══════════ -->
+<section class="crew" id="saga">
+  <div class="crew__pin" id="crewPin">
+    <header class="crew__head">
+      <p class="kicker mono">03 / SAGA NEGRONI</p>
+      <h2 class="h2">Sjö stöðvar,<br />148 ár á sporinu</h2>
+      <p class="crew__note">Seðillinn þeirra rekur Negroni-söguna frá Mito 1860 að Right Hand 2008: sjö uppskriftir, hver með sínu ártali. Skrunið keyrir vagninn milli stöðva.</p>
+    </header>
+    <ul class="crew__track" id="crewTrack" data-lenis-prevent>
+${sagaBlock}
+    </ul>
+    <p class="crew__progress mono">STÖÐ <span id="crewCount">1860</span></p>
+  </div>
+${fig('moet', 'VAGNGLUGGINN · ÁGRAFIÐ MOËT & CHANDON')}
+</section>
+
+<!-- ══════════ 6. GIN FIX — the same poured list, on the dark ground ══════════
+     Same dish grammar as the menu so it reads as one system; the cream sheet
+     is NOT reused a third time, so the page keeps its light/dark rhythm. -->
+<section class="drinks drinks--dark" id="ginfix">
+  <div class="archive__trail" id="trail" aria-hidden="true"></div>
+
+  <header class="sec-head sec-head--mid">
+    <p class="kicker mono">04 / GIN FIX</p>
+    <h2 class="h2">45 á móti 120,<br />tíu leiðir</h2>
+    <p class="sec-head__note" lang="is">&bdquo;${esc(D.ginFixIntro)}&ldquo; Þeirra eigin setning, og hvert glas hér hellir sér nákvæmlega á því hlutfalli.</p>
+  </header>
+
+  <div class="sheet sheet--gin">
+      <section class="course" aria-labelledby="course-gin">
+        <header class="course__head">
+          <h3 class="course__title" id="course-gin">Gin &amp; tonic pörun</h3>
+          <p class="course__price mono">45 ML / 120 ML</p>
+        </header>
+        <ul class="course__list">
+${ginBlock}
+        </ul>
+      </section>
+  </div>
+
+  <p class="sheet__note">Pörun, skraut og verð af þeirra eigin seðli. Lundey Blue Gin stendur þar tvisvar, með sitt hvorri pörun, og fær því tvö glös hér líka.</p>
+</section>
+
+<!-- ══════════ 7. the carriage, as a mosaic ══════════ -->
+<section class="room" id="room">
+  <header class="sec-head">
+    <p class="kicker mono">05 / VAGNINN SJÁLFUR</p>
+    <h2 class="h2">Gyllt flauel,<br /><em>blúndur og loftbelgir</em></h2>
+    <p class="sec-head__note">Herbergið talar sínu máli: básar eins og fyrsta farrýmis klefar, ágrafnir kampavínsgluggar og upplýstur loftbelgjaveggur.</p>
+  </header>
+
+  <div class="room__mosaic">
+    <figure class="room__cell room__cell--wide" data-pour>
+      <img src="${P.booth.src}" alt="${esc(P.booth.alt)}" width="${P.booth.w}" height="${P.booth.h}" loading="lazy" decoding="async" />
+      <figcaption class="mono">BÁSARNIR</figcaption>
+    </figure>
+    <figure class="room__cell " data-pour>
+      <img src="${P.balloons.src}" alt="${esc(P.balloons.alt)}" width="${P.balloons.w}" height="${P.balloons.h}" loading="lazy" decoding="async" />
+      <figcaption class="mono">LOFTBELGJAVEGGURINN</figcaption>
+    </figure>
+    <figure class="room__cell " data-pour>
+      <img src="${P.compartment.src}" alt="${esc(P.compartment.alt)}" width="${P.compartment.w}" height="${P.compartment.h}" loading="lazy" decoding="async" />
+      <figcaption class="mono">KLEFINN</figcaption>
+    </figure>
+    <figure class="room__cell " data-pour>
+      <img src="${P.velvet.src}" alt="${esc(P.velvet.alt)}" width="${P.velvet.w}" height="${P.velvet.h}" loading="lazy" decoding="async" />
+      <figcaption class="mono">SALURINN</figcaption>
+    </figure>
+    <figure class="room__cell " data-pour>
+      <img src="${P.moet.src}" alt="${esc(P.moet.alt)}" width="${P.moet.w}" height="${P.moet.h}" loading="lazy" decoding="async" />
+      <figcaption class="mono">VAGNGLUGGINN</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ══════════ 8. BCA 2022 ══════════ -->
+<section class="classics" id="wins">
+  <header class="sec-head sec-head--mid">
+    <p class="kicker mono">06 / MERKIN Á FORSÍÐUNNI</p>
+    <h2 class="h2">Fjögur merki<br />frá 2022</h2>
+    <p class="sec-head__note">Forsíðan þeirra ber fjögur BCA-verðlaunamerki ársins 2022. Hér eru þau eins og þau birtast þar: merkin sjálf, orðin úr þeim, ekkert meira fullyrt.</p>
+  </header>
+  <div class="classics__grid classics__grid--bca">
+${winsBlock}
+  </div>
+</section>
+
+<!-- ══════════ 9. wine & beer ══════════ -->
+<section class="cellar paper" id="cellar">
+  <header class="sec-head">
+    <p class="kicker mono">07 / VÍN &amp; BJÓR</p>
+    <h2 class="h2">Moët að Pol Roger,<br />Gull að Garúnu</h2>
+    <p class="sec-head__note">Restin af seðlinum sem texti: kampavín og vín í glasi og flösku, og það sem rennur af krananum.</p>
+  </header>
+  <div class="cellar__grid">
+${wineBlock}
+  </div>
+</section>
+
+<!-- ══════════ 10. happy hour ══════════ -->
+<section class="rent" id="happy" aria-labelledby="happy-h">
+  <div class="rent__band">
+    <p class="rent__eyebrow mono">${esc(D.biz.happyHourIs)}</p>
+    <h2 class="rent__big" id="happy-h">HAPPY HOUR<br />14 – 18</h2>
+    <p class="rent__sub">Fjórar klukkustundir, alla daga. Verðin hér að neðan eru þeirra eigin happy hour-verð, og ofan á það: ${esc(D.happy.extraVerbatim.toLowerCase())}.</p>
+    <ul class="hh-list">
+${happyRows}
+    </ul>
+  </div>
+</section>
+
+<!-- ══════════ 11. visit ══════════ -->
+<section class="visit" id="visit">
+  <header class="sec-head">
+    <p class="kicker mono">08 / HEIMSÓKN</p>
+    <h2 class="h2">Klapparstígur 28-30,<br />frá klukkan tvö</h2>
+  </header>
+
+  <div class="visit__grid">
+    <div class="visit__col">
+      <h3 class="visit__h">Opnunartími</h3>
+      <ul class="hrs">${hoursRows}</ul>
+      <p class="visit__hh mono">HAPPY HOUR ALLA DAGA 14–18</p>
+      <p class="visit__blurb">Ekki er tekið við borðabókunum á barinn sjálfan, það er bara labbað inn. Borð á Monkeys, veitingastaðinn við hliðina, bókast á Dineout.</p>
+    </div>
+    <div class="visit__col">
+      <h3 class="visit__h">Hvar</h3>
+      <p class="visit__addr">${esc(D.biz.street)} &middot; ${esc(D.biz.area)}<br />${esc(D.biz.postal)} ${esc(D.biz.city)}</p>
+      <p class="visit__phone"><a href="tel:${D.biz.phoneHref}">${esc(D.biz.phone)}</a></p>
+      <a class="btn btn--main" href="${D.biz.booking}" rel="noopener">Bóka borð á Monkeys</a>
+      <a class="btn btn--ghost" href="mailto:${D.biz.email}">${D.biz.email}</a>
+      <a class="btn btn--ghost" href="https://www.instagram.com/${D.biz.instagram}" rel="noopener">@${D.biz.instagram}</a>
+    </div>
+  </div>
+
+${fig('velvet', 'SALURINN · RÖNDÓTTA FLAUELIÐ')}
+${fig('balloonglass', 'Á BARNUM · LOFTBELGIRNIR Í FÓKUSLEYSI', 'bleed--port')}
+</section>
+
+<!-- ══════════ 12. closer ══════════ -->
+<section class="closer">
+  <img class="closer__logo" src="assets/wordmark.svg" alt="Kokteilbarinn" width="300" height="96" />
+  <p class="closer__line">Næsta stöð: Hjartagarðurinn.</p>
+  <a class="btn btn--main" href="#drinks">Skoða seðilinn</a>
+</section>
+
+<footer class="foot">
+  <p class="mono">${esc(D.biz.street)} &middot; ${esc(D.biz.postal)} ${esc(D.biz.city)} &middot; ${esc(D.biz.phone)}</p>
+  <p class="mono"><a href="mailto:${D.biz.email}">${D.biz.email}</a></p>
+  <p class="mono foot__note">Hugmyndaútfærsla frá SNDR. Ótengd staðnum. Drykkir, verð, tímar og merki skrifuð upp af vef staðarins og hópsins 19.8.2026.</p>
+</footer>
+
+</main>
+
+<script src="assets/vendor/lenis.min.js" defer></script>
+<script src="assets/vendor/gsap.min.js" defer></script>
+<script src="assets/vendor/ScrollTrigger.min.js" defer></script>
+<script src="app.js" defer></script>
+</body>
+</html>
+`;
+
+writeFileSync(join(ROOT, 'index.html'), html);
+const drinks = D.accessible.length + D.advanced.length + D.zero.length;
+console.log(`index.html written — ${drinks} poured drinks, ${D.saga.length} saga stations, ${D.ginFix.length} gin fixes, ${D.wins.length} BCA icons`);

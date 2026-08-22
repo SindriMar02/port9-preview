@@ -1,0 +1,9 @@
+OUTREACH.md
+_serve.cjs
+.claude-launch-note.txt
+.claude
+.deployignore
+deploy.sh
+.gitignore
+_build
+research

@@ -1,0 +1,267 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   KOKTEILBARINN — Klapparstígur 28-30, Reykjavík. Content source of truth.
+
+   EVERY string here is either (a) taken verbatim from the bar's own
+   published material, or (b) written by us and marked. Nothing is invented
+   about the business.
+
+   PRIMARY SOURCES (all fetched 2026-08-19)
+   ----------------------------------------
+   • Cocktails, tags, ingredients, prices — kokteilbarinn.is/kokteillistar/
+     (their menu is real HTML — rare and to their credit; transcribed as-is,
+     including the tag lines whose first build word is SHORT / LONG / ROCKS).
+   • SAGA NEGRONI — same page, their own dated 1860→2008 progression.
+   • GIN FIX + the 45 ml / 120 ml ratio sentence — same page, verbatim.
+   • Wine, champagne, beer — same page.
+   • Happy hour menu and prices — kokteilbarinn.is/happy-hour/ ("Alla daga
+     milli 14-18", plus "AÐRIR KOKTEILBARS KOKTEILAR Á 25% AFSLÆTTI").
+   • BCA 2022 winner icons — their own front page (wp-content/uploads/2022/08/
+     bca_winner_icon_22_{bartender,newbar,restaurant,signature}.png).
+   • Address, phone, e-mail, group booking line — monkeys.is/en/about and the
+     group's Dineout page ("We don't do reservations at The Cocktail bar.
+     It opens at 14:00 every day.").
+   • Operator — fyrirtækjaskrá: Aðeins meiri klaka takk fyrir ehf.,
+     kt. 6101210200, Klapparstíg 30, skráð 2021.
+   • Photographs — their own WordPress media library (full-res via unsized
+     paths) and monkeys.is /myndir. The room IS the concept: the bar is built
+     as a first-class train carriage — "THE COCK TAIL TRAIN" is painted on
+     the bar front in their own photos.
+
+   NOT CLAIMED ANYWHERE ON THE PAGE
+   --------------------------------
+   • Any opening year. • Any staff name (their site names none for the bar).
+   • What the four BCA icons were won FOR beyond the words in the icons
+     themselves — they are shown as published, with the source stated.
+   • Which drink a photograph shows, beyond what is visible in frame.
+   ═════════════════════════════════════════════════════════════════════════ */
+
+export const biz = {
+  name: 'Kokteilbarinn',
+  street: 'Klapparstígur 28-30',
+  area: 'Hjartagarðurinn',
+  postal: '101',
+  city: 'Reykjavík',
+  phone: '519 5350',
+  phoneHref: '+3545195350',
+  email: 'info@monkeys.is',
+  site: 'https://kokteilbarinn.is',
+  instagram: 'monkeys.reykjavik',
+  booking: 'https://www.dineout.is/monkeys',
+  opens: '14:00',
+  happyHourIs: 'HAPPY HOUR ALLA DAGA 14–18',
+  // their Dineout page, verbatim: no reservations at the bar itself
+  walkIn: 'We don’t do reservations at The Cocktail bar. It opens at 14:00 every day.'
+};
+
+/* Illustrative ingredient colours — stated as illustrative on the page. */
+const C = {
+  vodka:'#E7EAE4', gin:'#DDE4DA', pinkgin:'#E8B7C2', bluegin:'#9FBFD8',
+  rum:'#A9743C', lightrum:'#D9C9A8', darkrum:'#7E4A22', whiskey:'#B5772F',
+  tequila:'#E3D9B0', reposado:'#D9B36A', mezcal:'#C8B89A', pisco:'#E3DCC2',
+  cognac:'#8C4A1E', absinthe:'#A8C858', aquavit:'#DCE3D4',
+  champagne:'#EDE2B4', rosewine:'#EFC0C0', sparkling:'#EFE3C2',
+  tonic:'#D8E4E4', soda:'#DCE6E6', gingerbeer:'#D9A845',
+  vermouth:'#B4713F', dryvermouth:'#D8CBA8', amarovermouth:'#8C4A2A',
+  campari:'#C0202B', bourbon:'#B5772F', chocbitter:'#5A3018',
+  aperol:'#E4622A', bitter:'#B23A2A', peychaud:'#C0304A',
+  triplesec:'#E1A24E', vanillaliq:'#EFE3C2', everleaf:'#9EC0B0',
+  yuzu:'#E0C93A', ginger:'#D9A845', lemon:'#E9D451', lime:'#8FBE3A',
+  grapefruit:'#E8A08A', pineapple:'#E6B93A', coconut:'#EFE7DA',
+  coconutvinegar:'#E8E2D2', raspberry:'#C43A55', cranberry:'#C0304A',
+  passion:'#E6A23A', mint:'#6E9C43', sugar:'#EDE8D8', agave:'#D9B36A',
+  apricot:'#EFB98A', orgeat:'#EFE3C2', eggwhite:'#EFE7D4',
+  olivebrine:'#8A8A4A', electric:'#F2E24A', mzero:'#C8B89A', wzero:'#B5772F',
+  azero:'#9A5A2C', foamer:'#EFE7D4'
+};
+
+/* ── AÐGENGILEGIR KOKTEILAR ─────────────────────────────────────────────────
+   Eleven drinks, verbatim. `tags` is their own three-word line; the build
+   word in it (SHORT / LONG / ROCKS) is what picks the glass — derived from
+   their vocabulary, never chosen by taste.                                 */
+export const accessible = [
+  { n:'Pink 75', p:'3.490', tags:'SHORT / BUBBLY / PINK',
+    ing:[['Gin',C.gin],['Hindber',C.raspberry],['Kókos',C.coconut],['Sítróna',C.lemon],['Freyðandi rósavín',C.rosewine]] },
+  { n:'Monkeys Mule · Yuzu Moscow Mule', p:'3.490', tags:'LONG / REFRESHING / SPICY',
+    ing:[['Vodka',C.vodka],['Engifer',C.ginger],['Lime',C.lime],['Yuzu',C.yuzu],['Sykur',C.sugar]] },
+  { n:'Mojito', p:'3.390', tags:'REFRESHING / MINTY / LONG',
+    ing:[['Romm',C.rum],['Límóna',C.lime],['Mynta',C.mint],['Sykur',C.sugar]] },
+  { n:'Pa-Pa-Loma-Loma!', p:'3.690', tags:'LONG / REFRESHING / FUNKY',
+    ing:[['Tequila',C.tequila],['Mezcal',C.mezcal],['Greipaldin',C.grapefruit],['Tonka agave',C.agave],['Lime',C.lime]] },
+  { n:'Frozen Pina Colada', p:'3.490', tags:'SHORT / FROZEN / SURPRISING', mystery:'Spurðu þjóninn',
+    ing:[] },
+  { n:'Cosmopolitan', p:'3.590', tags:'SHORT / BOOZY / SEXY',
+    ing:[['Vodka',C.vodka],['Triple sec appelsínulíkjör',C.triplesec],['Lime',C.lime],['Trönuber',C.cranberry],['Trönuberja-bitterar',C.bitter]] },
+  { n:'Mai Tai', p:'3.690', tags:'LONG / BOOZY / TIKI',
+    ing:[['Ljóst romm',C.lightrum],['Triple sec appelsínulíkjör',C.triplesec],['Lime',C.lime],['Orgeat síróp',C.orgeat],['Dökkt romm',C.darkrum]] },
+  { n:'Robot Chicken', p:'3.590', tags:'ROCKS / ELECTRIC / SOUR',
+    ing:[['Gin',C.gin],['Aperol',C.aperol],['Ananas',C.pineapple],['Kókosedik',C.coconutvinegar],['Terminator lime',C.lime],['Rafmagn',C.electric]] },
+  { n:'Aji Pepper Margarita', p:'3.790', tags:'ROCKS / SPICY / SOUR',
+    ing:[['Aji pipar reposado tequila',C.reposado],['Tonka agave',C.agave],['Aprikósa',C.apricot],['Lime',C.lime]] },
+  { n:'Monkeys Frozen Pornstar Martini', p:'3.590', tags:'SHORT / FROZEN / YUMMY',
+    ing:[['Vodka',C.vodka],['Vanillulíkjör',C.vanillaliq],['Ástaraldin',C.passion],['Lime',C.lime],['Freyðivín',C.sparkling]] },
+  { n:'Pisco Sour', p:'3.690', tags:'SHORT / REFRESHING / FUNKY',
+    ing:[['Pisco',C.pisco],['Sítróna',C.lemon],['Eggjahvíta',C.eggwhite],['Sykur',C.sugar],['Greip-bitterar',C.bitter]] }
+];
+
+/* ── KOKTEILAR FYRIR LENGRA KOMNA ──────────────────────────────────────── */
+export const advanced = [
+  { n:'The Martini Cocktail · The Classic Dry', p:'3.590', tags:'SHORT / BOOZY / ELEGANT',
+    ing:[['Gin eða vodka, þú ræður',C.gin],['Þurr vermút',C.dryvermouth]] },
+  { n:'The Martini Cocktail · The Dirty', p:'3.590', tags:'SHORT / BOOZY / ELEGANT',
+    ing:[['Gin eða vodka, þú ræður',C.gin],['Þurr vermút',C.dryvermouth],['Ólífulögur',C.olivebrine]] },
+  { n:'The Martini Cocktail · The Icelandic', p:'3.590', tags:'SHORT / BOOZY / ELEGANT',
+    ing:[['°64 Reykjavík Distillery dill aquavit',C.aquavit],['Dry vermouth',C.dryvermouth]] },
+  { n:'Sazerac', p:'3.790', tags:'SHORT / BOOZY / SOPHISTICATED',
+    ing:[['Cognac',C.cognac],['Absinthe',C.absinthe],['Peychaud bitters',C.peychaud],['Sugar',C.sugar]] }
+];
+
+/* ── ÓÁFENGIR KOKTEILAR ────────────────────────────────────────────────── */
+export const zero = [
+  { n:'Zero Yuzu Mule', p:'1.990', tags:'LONG / REFRESHING / SPICY',
+    ing:[['Engifer',C.ginger],['Lime',C.lime],['Yuzu',C.yuzu],['Sykur',C.sugar]] },
+  { n:'Mrs. Loma-Loma', p:'1.990', tags:'LONG / REFRESHING / FRUITY',
+    ing:[['Everleaf Marine',C.everleaf],['Lime',C.lime],['Ananas',C.pineapple],['Sódavatn',C.soda]] },
+  { n:'Tommy’s Mezcal Zerorita', p:'2.990', tags:'LONG / REFRESHING / SPICY',
+    ing:[['Monday Spicy Mezcal 0%',C.mzero],['Lime',C.lime],['Agave',C.agave]] },
+  { n:'Zero Whiskey Sour', p:'2.990', tags:'LONG / TANGY / SMOOTH',
+    ing:[['Monday Whiskey 0%',C.wzero],['Sítróna',C.lemon],['Sykur',C.sugar],['Freyðir',C.foamer],['Bitterar',C.bitter]] },
+  { n:'Zero Amaretto Sour', p:'2.590', tags:'LONG / ALMONDY / SWEET',
+    ing:[['Amaretto 0%',C.azero],['Sítróna',C.lemon],['Sykur',C.sugar],['Freyðir',C.foamer]] }
+];
+
+/* ── SAGA NEGRONI ───────────────────────────────────────────────────────────
+   Their own dated progression, verbatim: seven stops from 1860 to 2008.
+   This is the rail's cargo — a menu section that is already a timeline.   */
+export const saga = [
+  { year:'1860', n:'Mito',              p:'3.390', ing:'Cocchi Storico Vermouth, Campari',
+    bands:[['Vermouth','#B4713F'],['Campari','#C0202B']] },
+  { year:'1860', n:'Americano',         p:'3.390', ing:'Cocchi Storico Vermouth, Campari, Soda Water',
+    bands:[['Vermouth','#B4713F'],['Campari','#C0202B'],['Soda','#DCE6E6']] },
+  { year:'1919', n:'Negroni',           p:'3.690', ing:'Cocchi Storico Vermouth, Campari, London Dry Gin',
+    bands:[['Vermouth','#B4713F'],['Campari','#C0202B'],['Gin','#DDE4DA']] },
+  { year:'1930', n:'Boulevardier',      p:'3.790', ing:'Cocchi Dopo Teatro Vermouth Amaro, Campari, Bourbon',
+    bands:[['Vermouth amaro','#8C4A2A'],['Campari','#C0202B'],['Bourbon','#B5772F']] },
+  { year:'1950', n:'Cardinale',         p:'3.790', ing:'Cocchi Extra Dry Vermouth, Campari, London Dry Gin',
+    bands:[['Dry vermouth','#D8CBA8'],['Campari','#C0202B'],['Gin','#DDE4DA']] },
+  { year:'1970', n:'Negroni Sbagliato', p:'3.490', ing:'Cocchi Storico Vermouth, Campari, Brut Sparkling Wine',
+    bands:[['Vermouth','#B4713F'],['Campari','#C0202B'],['Freyðivín','#EFE3C2']] },
+  { year:'2008', n:'Right Hand',        p:'3.690', ing:'Cocchi Dopo Teatro Vermouth Amaro, Campari, Chocolate Bitters',
+    bands:[['Vermouth amaro','#8C4A2A'],['Campari','#C0202B'],['Súkkulaði-bitterar','#5A3018']] }
+];
+
+/* ── GIN FIX ────────────────────────────────────────────────────────────────
+   Their own ratio sentence, verbatim, then ten pairings. Every glass pours
+   TWO bands at the stated 45:120 ratio — the section's own arithmetic.
+   (Lundey Blue Gin appears twice on their page, with different serves;
+   kept as printed.)                                                        */
+export const ginFixIntro =
+  'Okkur finnst hið fullkomna jafnvægi nást með því að blanda 45 ml af gini og 120 ml af tonic';
+export const ginFix = [
+  { n:'Tanqueray No. 10', p:'3.650', tonic:'Thomas Henry', garnish:'Greipaldin-sykursíróp · greipaldin', c:C.gin },
+  { n:'Gin Mare', p:'3.250', tonic:'Aegean Tonic Water', garnish:'Rósmarín', c:C.gin },
+  { n:'Martin Millers', p:'3.250', tonic:'Thomas Henry Botanical Tonic', garnish:'Agúrka · svartur pipar', c:C.gin },
+  { n:'Tanqueray Sevilla', p:'3.150', tonic:'Fentimans', garnish:'Þurrkuð appelsína · shiso', c:'#E8B06A' },
+  { n:'Angelica', p:'3.350', tonic:'Fentimans Indian', garnish:'Appelsína · rósmarín', c:C.gin },
+  { n:'Stuðlaberg Pink Gin', p:'3.350', tonic:'Fentimans Rose Lemonade', garnish:'Jarðarber · sykurpúði', c:C.pinkgin },
+  { n:'Lundey Blue Gin', p:'3.350', tonic:'Thomas Henry Botanical Tonic', garnish:'Sítróna', c:C.bluegin },
+  { n:'Himbrimi', p:'3.450', tonic:'Thomas Henry Tonic', garnish:'Lime', c:C.gin },
+  { n:'Askur Yggdrasil', p:'3.350', tonic:'Thomas Henry Tonic', garnish:'Agúrka · mynta', c:C.gin },
+  { n:'Lundey Blue Gin', p:'3.350', tonic:'Fentimans Indian Tonic', garnish:'Jarðarber · sykurpúði', c:C.bluegin }
+];
+
+/* ── HAPPY HOUR ─────────────────────────────────────────────────────────────
+   Their happy-hour page, verbatim: eleven priced lines + the 25% sentence. */
+export const happy = {
+  when: 'Alla daga milli 14–18',
+  extra: 'AÐRIR KOKTEILBARSINS KOKTEILAR Á 25% AFSLÆTTI',
+  extraVerbatim: 'AÐRIR KOKTEILBARS KOKTEILAR Á 25% AFSLÆTTI',
+  items: [
+    ['Monkeys Mule · Yuzu Moscow Mule', '2.400'],
+    ['Pink 75', '2.400'],
+    ['Mojito Par Excellence', '2.400'],
+    ['Aperol Spritz', '1.800'],
+    ['T’N’T Gin & Tonic', '1.800'],
+    ['Moët & Chandon Brut Imperial · 12 cl', '1.990'],
+    ['Segura Viudas Cava Brut Rosé · 12 cl', '1.300'],
+    ['Montalto Pinot Grigio · 15 cl', '1.300'],
+    ['Castillo de Molina Cab. Sauv. · 15 cl', '1.300'],
+    ['Carlsberg á krana · 0,4 l', '1.300']
+  ]
+};
+
+/* ── BCA 2022 ───────────────────────────────────────────────────────────────
+   Four winner icons, published on their own front page. Shown as published;
+   the icon's own word is the only label claimed.                           */
+export const wins = [
+  { icon:'assets/img/bca_newbar.png',     word:'New Bar' },
+  { icon:'assets/img/bca_bartender.png',  word:'Bartender' },
+  { icon:'assets/img/bca_signature.png',  word:'Signature' },
+  { icon:'assets/img/bca_restaurant.png', word:'Restaurant' }
+];
+
+/* ── WINE, BUBBLES, BEER — their own lists, verbatim ────────────────────── */
+export const wine = {
+  champagne: [
+    ['Moët & Chandon Brut Imperial','3.190','17.990'],
+    ['Moët & Chandon Rosé','3.490','20.990'],
+    ['Pol Roger Rosé Vintage 2018','4.090','23.990'],
+    ['Pol Roger Blanc de Blancs Vintage 2015','4.390','24.990']
+  ],
+  sparkling: [
+    ['Piccini Prosecco','1.890','7.990'],
+    ['Moillard Crémant Brut','2.290','11.390'],
+    ['Segura Viudas Cava Brut Rosé','1.990','9.990']
+  ],
+  white: [
+    ['Montalto Pinot Grigio','1.890','8.490'],
+    ['Domaine Laroche Chablis St. Martin','2.690','12.990'],
+    ['Matua Valley Sauvignon Blanc','2.190','10.490']
+  ],
+  red: [
+    ['Castillo de Molina Cabernet Sauvignon','1.990','9.490'],
+    ['Ramón Bilbao Edición Limitada','2.190','10.990'],
+    ['Gérard Bertrand Réserve Spéciale Pinot Noir 2019','2.390','10.990']
+  ],
+  rose: [
+    ['Torre Mora Etna Rosato Scalunera','2.490','11.790']
+  ],
+  draft: [
+    ['Gull Lite','1.890'],
+    ['Boli X','1.990'],
+    ['Carlsberg','1.890'],
+    ['Tuborg Classic','1.890'],
+    ['Úlfrún nr. 34','2.090'],
+    ['Kronenbourg 1664 Blanc','2.090']
+  ],
+  bottles: [
+    ['Gull','1.790'],
+    ['Úlfur nr. 3','2.290'],
+    ['Snorri nr. 10','2.090'],
+    ['Garún nr. 19','2.990']
+  ]
+};
+
+/* Photographs — all the bar's and the group's own. Captions describe only
+   what is visibly in the frame.                                            */
+export const photos = {
+  hero: { src:'assets/img/hero.webp', w:2000, h:1333,
+    alt:'Bakbar Kokteilbarsins byggður sem blár lestarvagn: gylltur hringspegill, glasarekki undir loftinu og raðir af flöskum í hillunum.' },
+  carriage: { src:'assets/img/carriage.webp', w:1600, h:1067,
+    alt:'Djúpblár vagnveggur með gylltum gluggalistum og gylltu innsigli, barborð með koparlömpum fyrir framan.' },
+  balloons: { src:'assets/img/balloons.webp', w:1600, h:1067,
+    alt:'Upplýstur veggur af mattgleri með loftbelgjamyndum yfir röndóttu flauelsbaki í rauðgulu, bláu og gulli.' },
+  booth: { src:'assets/img/booth.webp', w:1600, h:1067,
+    alt:'Gyllt tólfhnappað flauelssæti í básum með lestarglugga, blúndugardínum og flösku á borðinu.' },
+  moet: { src:'assets/img/moet.webp', w:1600, h:994,
+    alt:'Lestargluggi með ágrafinni Moët & Chandon-áletrun, blúndugardínur beggja vegna.' },
+  velvet: { src:'assets/img/velvet.webp', w:1600, h:1067,
+    alt:'Salurinn með röndóttum flauelsbekkjum í mörgum litum, viðargólfi og upplýstum myndavegg.' },
+  traindrink: { src:'assets/img/traindrink.webp', w:1600, h:1067,
+    alt:'Hár kokteill með þurrkaðri appelsínu á barborðinu, „The Cock Tail Train“ letrað á bláu barhliðina fyrir aftan.' },
+  compartment: { src:'assets/img/compartment.webp', w:1600, h:1067,
+    alt:'Básar eins og fyrsta farrýmis klefi: gyllt flauel, blóm á borðinu, kampavínsfata og „Emergency only“ yfir glugganum.' },
+  barman: { src:'assets/img/barman.webp', w:1200, h:1800,
+    alt:'Barþjónn leggur myntulauf ofan á hvítfreyðandi kokteil í lágu glasi á barnum.' },
+  balloonglass: { src:'assets/img/balloonglass.webp', w:1200, h:1800,
+    alt:'Hátt glas með froðutoppi og blómaskrauti á barborði, loftbelgjaveggurinn í mjúkum fókus fyrir aftan.' }
+};
