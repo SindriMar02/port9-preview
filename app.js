@@ -32,10 +32,26 @@ const FINE    = matchMedia('(hover: hover) and (pointer: fine)').matches;
 })();
 
 /* ═══════════ HEADER STATE ═══════════════════════════════
-   Deliberately empty. The bar is constant: fixed glass from first paint,
-   never hides, never reveals, never resizes. See the mobile chrome standard
-   (Reynir 42ff65e) — every bar in this workspace that moved on scroll failed
-   on a real device. No scroll listener here on purpose. */
+   The bar still never hides, never reveals, never resizes and never moves —
+   the mobile chrome standard is about geometry, and none of it changes here.
+   The ONLY thing that changes is the ground behind it: nothing over the film,
+   the glass once the hero is leaving, cross-faded in CSS.
+
+   An IntersectionObserver on a cue inside the hero, not a scroll listener:
+   it fires twice per pass instead of on every frame, it is identical under
+   Lenis and native scroll, and it works with GSAP absent or motion reduced —
+   which matters, because an illegible header is not a motion nicety.
+   Transparent over a photograph needs its own scrim; that lives on .hdr::before
+   so it travels with the fixed bar instead of scrolling away with the hero. */
+(() => {
+  const hdr = $('#hdr'), cue = $('#hdrCue');
+  if (!hdr) return;
+  if (!cue) { hdr.classList.add('is-ground'); return; }   // no hero on the page
+  new IntersectionObserver(([e]) => {
+    // above the viewport top => the film is behind us => the bar takes its ground
+    hdr.classList.toggle('is-ground', e.boundingClientRect.top < 0);
+  }, { threshold: 0 }).observe(cue);
+})();
 
 /* ═══════════ MOBILE MENU ════════════════════════════════ */
 (() => {
@@ -188,7 +204,12 @@ const SCRUB_MODE = MOTION && WIDE;
   gsap.set('.hero__tag', { y: 14, opacity: 0 });
   // A still needs a deeper travel than the film did to read as motion at all —
   // single-digit drift over a pinned 170% reads as "stale", per the ledger.
-  gsap.set('.hero__film',  { '--film-s': 1.05 });
+  /* The stack's rest scale is CSS (--film-s), which is what no-JS and reduced
+     motion get. gsap animates the TRANSFORM directly instead of the variable:
+     an unregistered custom property cannot be read back (gsap reads 0 and the
+     stack collapsed to half size mid-scroll the first time this was written),
+     and every write to it costs a style recalc of everything that reads it. */
+  gsap.set('.hero__stack', { scale: 1.04 });
   gsap.set('.hero__eyebrow', { y: -14, opacity: 0 });
   gsap.set('#heroBase', { y: 22, opacity: 0 });
   if ($('#heroHint')) gsap.set('#heroHint', { opacity: 0 });
@@ -208,48 +229,48 @@ const SCRUB_MODE = MOTION && WIDE;
   // no gate on this visit (repeat visitor, reduced motion, no JS gate) -> go now
   if (!$('#gate')) intro.play();
 
-  /* ── the signature: pinned hero, scroll pushes into the room ── */
-  if (SCRUB_MODE) {
-    /* The entrance and this scrub must never touch the SAME PROPERTY on the
-       same element. The handover has to refresh before releasing the entrance
-       (so the pin measures right), which means any property they share gets
-       the entrance's START state recorded as its resting value — the wordmark
-       came back from a scroll stuck at scale 1.045. gsap records start values
-       per property, so splitting them is enough: the entrance owns the h1's
-       SCALE, the scrub owns the h1's OPACITY and the mark's own scale.
-       (invalidateOnRefresh is NOT the fix here: it makes gsap re-read
-       --film-s, which is an unregistered custom property, as 0.) */
-    gsap.timeline({
-      scrollTrigger: {
-        trigger: '#heropin', start: 'top top', end: '+=170%',
-        /* refreshPriority DESCENDS in document order. The hero pin inserts 1530px
-           of spacer; anything below it that refreshes FIRST measures a document
-           that does not have that spacer yet. The rail pin did exactly that and
-           its start landed 1530px early, so it engaged while the paper sheet was
-           still on screen and drew straight over it. Hero 2 > rail pin 1 > rail
-           travel 0 is the only order in which every start is measured on the
-           final layout. */
-        pin: true, scrub: 0.55, refreshPriority: 2
-      }
-    })
-      /* fromTo, not to: every tween below shares an element with the entrance,
-         and a bare `to` reverses to whatever value happened to be recorded when
-         the handover refreshed — which is the entrance's START, not its rest.
-         #heroBase came back stuck at opacity 0 that way. Stating the rest value
-         explicitly makes reversal independent of when the start was captured. */
-      // scrolling walks INTO the room: the mark grows past you and clears
-      .fromTo('#heroMark', { scale: 1 },            { scale: 1.34, ease: 'none', duration: 0.78, immediateRender: false }, 0.04)
-      .fromTo('.hero__h1', { opacity: 1 },          { opacity: 0, ease: 'none', duration: 0.62, immediateRender: false }, 0.12)
-      .fromTo('#heroBase', { y: 0, opacity: 1 },    { y: 40, opacity: 0, ease: 'none', duration: 0.45, immediateRender: false }, 0)
-      .to('.hero__film', { '--film-s': 1.30, ease: 'none', duration: 1 }, 0)
-      .to('.hero__veil', { opacity: 0.62, ease: 'none', duration: 0.3 }, 0.7);
-  } else {
-    // no pin on touch: a gentle settle of the film instead
-    gsap.to('.hero__film', {
-      '--film-s': 1.22, ease: 'none',
-      scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true }
-    });
-  }
+  /* ── the landing film: a sequence, and a scroll that just leaves ──
+     The pinned push-in is deliberately gone. It held the page still for 170%
+     of a viewport, zoomed the wordmark past the reader and faded the whole
+     hero out before the next section could arrive — a long, showy hold that
+     Sindri read as the page refusing to scroll. What replaces it is ordinary
+     scrolling with the hero LEAVING gracefully: content drifts up a little
+     slower than the page and softens as it goes, tied to scroll position (not
+     a duration), so it is wherever the reader put it and reverses cleanly.
+     No pin means no 1530px spacer, so nothing below has to be measured around
+     one and the refreshPriority juggling goes with it. */
+  gsap.timeline({
+    scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: 0.4 }
+  })
+    /* fromTo with an explicit rest value: these elements are also touched by
+       the entrance, and a bare `to` reverses to whatever was recorded when the
+       entrance was mid-flight. */
+    .fromTo('.hero__content', { yPercent: 0, opacity: 1 },
+                              { yPercent: -14, opacity: 0, ease: 'none', duration: 1, immediateRender: false }, 0)
+    .fromTo('.hero__stack', { scale: 1.04 }, { scale: 1.15, ease: 'none', duration: 1, immediateRender: false }, 0);
+
+  /* The film itself is four frames of the room, crossfaded on a slow cadence.
+     Only one is in the DOM's flow of attention: the rest carry empty alts.
+     It pauses whenever the tab is hidden or the hero is off screen, so a
+     backgrounded page is not decoding photographs for nobody. */
+  (() => {
+    const frames = $$('.hero__film');
+    if (frames.length < 2) return;
+    let at = 0, timer = 0, onScreen = true;
+    const HOLD = 5200, FADE = 1.6;
+    const step = () => {
+      const next = (at + 1) % frames.length;
+      gsap.to(frames[next], { opacity: 1, duration: FADE, ease: 'sine.inOut' });
+      gsap.to(frames[at],   { opacity: 0, duration: FADE, ease: 'sine.inOut' });
+      frames[at].classList.remove('is-live'); frames[next].classList.add('is-live');
+      at = next;
+    };
+    const run  = () => { stop(); if (onScreen && !document.hidden) timer = setInterval(step, HOLD); };
+    const stop = () => { if (timer) { clearInterval(timer); timer = 0; } };
+    document.addEventListener('visibilitychange', run);
+    new IntersectionObserver(([e]) => { onScreen = e.isIntersecting; run(); }).observe($('.hero'));
+    run();
+  })();
 
   /* ── split headings: word masks, aria-safe ────────────── */
   function split(el) {
@@ -287,69 +308,70 @@ const SCRUB_MODE = MOTION && WIDE;
     });
   });
 
-  /* ── THE CREW: vertical scroll drives the rail sideways ─
-     One tween + one pinned ScrollTrigger. Inner reveals ride
-     containerAnimation with LEFT-based starts, because viewport
-     triggers never fire for content that travels horizontally. */
-  const track = $('#crewTrack'), crewPin = $('#crewPin');
-  if (track && crewPin && DESKTOP) {
-    const travel = () => Math.max(0, track.scrollWidth - innerWidth + parseFloat(getComputedStyle(track).paddingLeft));
-    const rail = gsap.to(track, { x: () => -travel(), ease: 'none' });
+  /* ── THE RAIL: a real scroller, not a hostage ───────────
+     It used to be pinned: the section froze and vertical scroll was remapped
+     onto horizontal travel, so the only way through was to keep scrolling down
+     and the rail could not be touched directly. It is a native overflow
+     scroller now — drag it, trackpad-swipe it, tab through it, flick it on a
+     phone — and the page underneath keeps scrolling like a page. The reveals
+     therefore observe the TRACK as their root, because a viewport-rooted
+     trigger never fires for a card that only ever moves sideways. */
+  const track = $('#crewTrack');
+  if (track) {
     const cards = $$('.crew__card', track);
-    const count = $('#crewCount');
-
-    /* Two triggers, not one, and both aimed at the PINNED element.
-       Aimed at '.crew' the pin inherited the 304px offset between the section's
-       top and the pin's own top, so the block hung 304px down a 900px viewport
-       and the rail's bottom sat 232px below the fold. Triggering crewPin itself
-       puts it at top:0, whole.
-       Pace: 1311px of scroll across 7 cards was 187px per 340px card, faster
-       than a label can be read. HOLD keeps the block still while the heading is
-       read, then the rail travels over 2.2x its own width. */
-    /* ONE ScrollTrigger, not two. The card reveals below ride
-       `containerAnimation: rail`, and GSAP maps their left-based starts through
-       the rail tween's OWN ScrollTrigger. Driving the pin from a second trigger
-       orphaned that mapping and every card stayed at opacity 0.
-       The reading pause is therefore layout, not scroll maths: an empty lead
-       cell at the head of the track means the first thing that travels off is
-       blank space, so the heading is read before any label leaves. */
-    const lead = document.createElement('li');
-    lead.className = 'crew__lead';
-    lead.setAttribute('aria-hidden', 'true');
-    track.insertBefore(lead, track.firstElementChild);
-
+    gsap.set(cards, { y: 34, opacity: 0 });
+    const show = c => gsap.to(c, { y: 0, opacity: 1, duration: 0.7, ease: EASE, overwrite: 'auto' });
+    const io = new IntersectionObserver((es) => {
+      es.forEach(e => { if (e.isIntersecting) { show(e.target); io.unobserve(e.target); } });
+    }, { root: track, threshold: 0.12 });
+    cards.forEach(c => io.observe(c));
+    // safety net: if the rail is never scrolled, nothing below the fold of it
+    // should stay invisible once the section itself has been read past
     ScrollTrigger.create({
-      /* 0.4, not 0.7: Lenis already smooths the scroll, and a heavy scrub on top of
-       it double-lags the rail so it floats behind the wheel rather than tracking it */
-      animation: rail, trigger: crewPin, pin: crewPin, scrub: 0.4,
-      start: 'top top', end: () => '+=' + Math.round(travel() * 2.2),
-      invalidateOnRefresh: true, refreshPriority: 1,
-      onUpdate(self) {
-        if (!count) return;
-        const i = Math.min(cards.length - 1, Math.floor(self.progress * cards.length));
-        const y = cards[i] && cards[i].dataset.year;
-        if (y && count.textContent !== y) count.textContent = y;
-      }
+      trigger: '.crew', start: 'bottom 60%',
+      onEnter: () => { cards.forEach(show); io.disconnect(); }
     });
 
-    gsap.set(cards, { y: 46, opacity: 0 });
-    cards.forEach(c => {
-      gsap.to(c, {
-        y: 0, opacity: 1, duration: 0.8, ease: EASE,
-        scrollTrigger: { trigger: c, containerAnimation: rail, start: 'left 92%', once: true }
+    // drag-to-pan on a pointer device; native touch scrolling is left alone
+    if (FINE) {
+      let down = false, x0 = 0, l0 = 0, id = null;
+      const end = () => {
+        if (!down) return;
+        down = false; track.classList.remove('is-drag');
+        if (id !== null && track.hasPointerCapture(id)) track.releasePointerCapture(id);
+        id = null;
+      };
+      track.addEventListener('pointerdown', e => {
+        if (e.target.closest('a,button')) return;
+        down = true; x0 = e.clientX; l0 = track.scrollLeft; id = e.pointerId;
+        // capture, or a drag that leaves the rail stops moving mid-gesture
+        track.setPointerCapture(id);
+        track.classList.add('is-drag');
       });
-      // the station's pour rides the same left-based trigger
-      const bands = $$('.gl__band', c);
-      if (bands.length) {
-        gsap.set(bands, { y: 108 });
-        gsap.to(bands, {
-          y: 0, duration: 1.0, ease: 'power3.out', stagger: 0.09,
-          scrollTrigger: { trigger: c, containerAnimation: rail, start: 'left 88%', once: true }
-        });
-      }
-    });
-  } else if (track) {
-    gsap.set($$('.crew__card', track), { opacity: 1, y: 0 });
+      track.addEventListener('pointermove', e => {
+        if (!down) return;
+        e.preventDefault();
+        track.scrollLeft = l0 - (e.clientX - x0);
+      });
+      track.addEventListener('pointerup', end);
+      track.addEventListener('pointercancel', end);
+    }
+
+    /* The progress mark: written on the element that reads it (a variable set
+       on the parent recalculates the whole subtree), and coalesced to one
+       write per frame rather than one per scroll event. */
+    const mark = $('#crewBar span');
+    if (mark) {
+      let queued = false;
+      const paint = () => {
+        queued = false;
+        const max = track.scrollWidth - track.clientWidth;
+        mark.style.setProperty('--p', max > 0 ? (track.scrollLeft / max).toFixed(4) : '0');
+      };
+      const sync = () => { if (!queued) { queued = true; requestAnimationFrame(paint); } };
+      track.addEventListener('scroll', sync, { passive: true });
+      addEventListener('resize', sync); paint();
+    }
   }
 
   /* ── image pours: clip wipe up + settle; big frames drift ─ */

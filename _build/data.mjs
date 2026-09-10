@@ -272,17 +272,17 @@ export const culture = {
 
 /* photographs, all theirs */
 export const P = {
-  hero:     { src: 'assets/img/hero-bar.jpg', w: 1800, h: 1200, alt: 'Barinn á Port 9, flöskuveggurinn upplýstur af lömpum, gestir við borðið' },
-  facade:   { src: 'assets/img/facade.jpg', w: 1157, h: 1800, alt: 'Svartklædd framhliðin við Veghúsastíg með ljósaseríu yfir dyrunum' },
-  sofa:     { src: 'assets/img/sofa.jpg', w: 1400, h: 934, alt: 'Hópur í grænum sófum við steinsteypuvegginn' },
-  laugh:    { src: 'assets/img/laugh.jpg', w: 1400, h: 933, alt: 'Gestur hlær með vínglas í hendi í lampaljósi' },
-  bucket:   { src: 'assets/img/bucket.jpg', w: 1400, h: 934, alt: 'Flaska í klakafötu á barnum, tveir gestir við borðið' },
-  redglass: { src: 'assets/img/redglass.jpg', w: 1400, h: 787, alt: 'Rauðvínsglas lyft yfir ljósin á barnum' },
-  coupleBw: { src: 'assets/img/couple-bw.jpg', w: 1400, h: 934, alt: 'Tvö við lítið borð, svarthvít mynd' },
-  twoMen:   { src: 'assets/img/two-men.jpg', w: 1400, h: 934, alt: 'Tveir gestir skála við steinsteypuvegginn' },
-  night:    { src: 'assets/img/facade-night.jpg', w: 1200, h: 1800, alt: 'Húsið að kvöldi, ljósin í glugganum' },
+  hero:     { src: 'assets/img/hero-bar.jpg', w: 2000, h: 1334, alt: 'Barinn á Port 9, flöskuveggurinn upplýstur af lömpum, gestir við borðið' },
+  facade:   { src: 'assets/img/facade.jpg', w: 1316, h: 2048, alt: 'Svartklædd framhliðin við Veghúsastíg með ljósaseríu yfir dyrunum' },
+  sofa:     { src: 'assets/img/sofa.jpg', w: 2000, h: 1334, alt: 'Hópur í grænum sófum við steinsteypuvegginn' },
+  laugh:    { src: 'assets/img/laugh.jpg', w: 1773, h: 1182, alt: 'Gestur hlær með vínglas í hendi í lampaljósi' },
+  bucket:   { src: 'assets/img/bucket.jpg', w: 2000, h: 1334, alt: 'Flaska í klakafötu á barnum, tveir gestir við borðið' },
+  redglass: { src: 'assets/img/redglass.jpg', w: 2000, h: 1125, alt: 'Rauðvínsglas lyft yfir ljósin á barnum' },
+  coupleBw: { src: 'assets/img/couple-bw.jpg', w: 2000, h: 1334, alt: 'Tvö við lítið borð, svarthvít mynd' },
+  twoMen:   { src: 'assets/img/two-men.jpg', w: 2000, h: 1334, alt: 'Tveir gestir skála við steinsteypuvegginn' },
+  night:    { src: 'assets/img/facade-night.jpg', w: 1733, h: 2600, alt: 'Húsið að kvöldi, ljósin í glugganum' },
   barWomen: { src: 'assets/img/bar-women.jpg', w: 1400, h: 934, alt: 'Tveir gestir við barinn, flöskuveggurinn fyrir aftan' },
-  tasting:  { src: 'assets/img/tasting.jpg', w: 1400, h: 934, alt: 'Vínsmökkun í gangi, hópur við borðið' },
+  tasting:  { src: 'assets/img/tasting.jpg', w: 2000, h: 1334, alt: 'Vínsmökkun í gangi, hópur við borðið' },
   exhib:    { src: 'assets/img/exhibition.jpg', w: 1270, h: 844, alt: 'Sýning í salnum, gestir skoða verk á veggnum' },
   concert:  { src: 'assets/img/concert.jpg', w: 1184, h: 1056, alt: 'Tónleikar á Port 9 í rauðu ljósi' }
 };

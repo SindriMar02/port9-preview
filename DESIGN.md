@@ -83,3 +83,38 @@ Reduced motion: every initial state is `gsap.set`, so no-JS renders complete.
 No em or en dashes. No bronze/gold. No invented wines, vintages, prices or staff. No
 photo of a dish we do not have. No section numbering beyond the engine's kicker. No
 scroll cue text. No locale strip. No stock imagery: the thirteen photographs are theirs.
+
+
+## Revision 2026-09-10 — Sindri's fixes round
+
+**Voice.** The page used to source everything to "þeirra seðill", "þau skrifa", "GRÆNT Á
+SEÐLINUM ÞEIRRA" — the grammar of a pitch about a bar, not the bar's own site. Every one of
+those is now first person: okkar, við, hjá okkur. Sourcing asides that only made sense to a
+prospect ("Myndirnar eru þeirra", "að þeirra sögn") are gone.
+
+**Header.** No ground over the landing film — only its own gradient scrim, which lives on the
+bar so it cannot scroll away — then the glass ground fades in once the film is behind you. An
+IntersectionObserver on a cue at 58% of the hero, not a scroll listener. Measured over the
+photograph at 1440 and 390: every slot 5.66:1 or better.
+
+**Hero.** The pinned push-in is gone: no pin, no 1530px spacer, no refreshPriority ordering.
+The page scrolls, and the hero leaves — content drifts up and softens, tied to scroll position.
+The still is now a sequence of four frames with people in them (laugh, toast, room, the pair in
+black and white), crossfaded every 5.2s, paused when hidden or off screen.
+
+**Húsið (01).** Was a headline, a three-sentence lede, a pull quote, a gloss and four stacked
+facts with twenty-word labels. Now: one line of who we are, two buttons, three numbers held to
+two words each, and the house itself carrying the right half of the screen.
+
+**Fólkið (03).** The country rail said what the bottle list says, so the rail — the one shape on
+the page built for faces — holds the staff instead. Six empty plates, no invented names or stock
+portraits, and it is a real scroller: drag it, swipe it, tab to it.
+
+**Flöskur (04).** 9,150px of unbroken sheet became seven chapters: a jump strip, a country name
+that holds at the top of the screen while its wines are read, two chapters opening onto a
+photograph, and two columns from 1240px up. 7,606px, and enterable at any country.
+
+**Photography.** All thirteen images re-fetched from their own Squarespace originals at up to
+2500px (matched by perceptual signature, not by eye) and re-encoded — the facade went 1157px →
+1316px, the hero frames 1400px → 2000px. bar-women has no original in their site's set and is
+unchanged.

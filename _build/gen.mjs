@@ -9,6 +9,7 @@ import * as D from './data.mjs';
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const esc = s => String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 const n2 = i => String(i + 1).padStart(2, '0');
+const P = D.P;
 
 /* ── glassware ──────────────────────────────────────────────────────────────
    The glass is DERIVED from the wine's own colour line on their sheet: Rautt
@@ -63,7 +64,7 @@ function wineRow(w, kind, id, i, opts = {}) {
               <p class="dish__top"><span class="dish__n mono">${n2(i)}</span><span class="dish__name">${esc(w.prod)}<span class="dish__cuv">, ${esc(w.cuv)}</span></span><span class="dish__rule" aria-hidden="true"></span><span class="dish__p mono">${price}</span></p>
               <p class="dish__tags mono">${esc(w.app)}${w.reg || w.place ? ` &middot; ${esc(w.reg || w.place)}` : ''}</p>
               <ul class="dish__spec">${spec}</ul>
-              ${w.pick ? `<p class="dish__pick mono">GRÆNT Á SEÐLINUM ÞEIRRA</p>` : ''}
+              ${w.pick ? `<p class="dish__pick mono">GRÆNT Á SEÐLINUM</p>` : ''}
             </div>
           </li>`;
 }
@@ -109,27 +110,34 @@ Object.values(D.byGlass).forEach(c => c.items.forEach(w => w.grapes.forEach(x =>
 const regionSet = new Set();
 D.bottles.forEach(c => c.groups.forEach(g => g.items.forEach(w => regionSet.add(w.reg))));
 
-const railBlock = D.bottles.map((c, i) => {
-  const n = c.groups.reduce((a, g) => a + g.items.length, 0);
-  const regions = [...new Set(c.groups.flatMap(g => g.items.map(w => w.reg)))];
-  const first = c.groups[0];
-  const kind = first.c === 'orange' ? 'white' : first.c;
-  const ing = c.groups.map(g => [g.head, WINE[g.c === 'orange' ? 'orange' : g.c] || D.W.red]);
-  return `        <li class="crew__card" data-year="${esc(c.country)}">
-          <div class="crew__arch crew__arch--glass" aria-hidden="true">
-            <span class="crew__cat mono">${esc(c.en).toUpperCase()} &middot; ${n} ${n === 1 ? 'FLASKA' : 'FLÖSKUR'}</span>
-            ${glassSvg(kind, `rail-${i}`, ing)}
+/* ── FÓLKIÐ - six empty plates, ready for their portraits ─────────────────
+   No stock faces and no placeholder names: a made-up "Anna, barþjónn" reads as
+   real to anyone who does not know better, and the first thing it would do is
+   go out in an email as if it were their staff. An empty plate cannot lie, and
+   dropping the photographs in later changes nothing but the src. */
+const STAFF_SLOTS = 6;
+const staffBlock = Array.from({ length: STAFF_SLOTS }, (_, i) => `        <li class="crew__card crew__card--slot">
+          <div class="crew__plate" aria-hidden="true">
+            <img class="crew__ghost" src="assets/img/roundel-white.png" alt="" width="600" height="600" loading="lazy" decoding="async" />
+            <span class="crew__slot-n mono">${n2(i)}</span>
           </div>
           <div class="crew__body">
-            <h3>${esc(c.country)}</h3>
-            <p class="crew__ing">${regions.map(esc).join(' &middot; ')}</p>
-            <p class="crew__await mono">${c.groups.map(g => `${esc(g.head).toUpperCase()} ${g.items.length}`).join(' &middot; ')}</p>
+            <h3>Nafn</h3>
+            <p class="crew__await mono">STARF &middot; PORT 9</p>
           </div>
-        </li>`;
-}).join('\n');
+        </li>`).join('\n');
 
-/* ── FLÖSKUR - every bottle, on the dark ground, by country ─────────────── */
+/* ── FLÖSKUR - every bottle, on the dark ground, by country ───────────────
+   9,150px of unbroken list was the problem: one flat sheet, forty-four rows,
+   nothing to mark where you were or to rest the eye. Each country is a chapter
+   now — its own number, its name held at the top of the screen while you read
+   it, its regions and count stated once — and two of them open onto a
+   photograph, so the scroll breathes twice on the way down. */
+const CHAPTER_PLATES = { 1: ['tasting', 'VÍNSMÖKKUN Í SALNUM'], 4: ['bucket', 'Á BARNUM · FLASKAN Í KLAKANUM'] };
+
 const bottleCourses = D.bottles.map((c, ci) => {
+  const n = c.groups.reduce((a, g) => a + g.items.length, 0);
+  const regions = [...new Set(c.groups.flatMap(g => g.items.map(w => w.reg)))];
   const rows = c.groups.map((g, gi) => {
     const head = `          <li class="dish dish--head"><p class="dish__grp"><span class="dish__grp-t">${esc(g.head)}</span><span class="mono">${g.items.map(w => w.reg).filter((v, i, a) => a.indexOf(v) === i).map(esc).join(' &middot; ')}</span></p></li>`;
     const items = g.items.map((w, i) => {
@@ -140,8 +148,32 @@ const bottleCourses = D.bottles.map((c, ci) => {
     }).join('\n');
     return head + '\n' + items;
   }).join('\n');
-  return course(`b-${ci}`, `${esc(c.country)} <em class="course__en">${esc(c.en)}</em>`, 'FLASKA', rows);
+
+  const pl = CHAPTER_PLATES[ci];
+  const plate = pl ? `    <figure class="chapter__plate" data-pour>
+      <img src="${P[pl[0]].src}" alt="${esc(P[pl[0]].alt)}" width="${P[pl[0]].w}" height="${P[pl[0]].h}" loading="lazy" decoding="async" />
+      <figcaption class="mono">${esc(pl[1])}</figcaption>
+    </figure>` : '';
+
+  return `  <article class="chapter${pl ? ' chapter--plated' : ''}" id="land-${ci}" aria-labelledby="chapter-${ci}">
+    <header class="chapter__head">
+      <p class="chapter__n mono">${n2(ci)} / ${n2(D.bottles.length - 1)}</p>
+      <h3 class="chapter__t" id="chapter-${ci}">${esc(c.country)} <em>${esc(c.en)}</em></h3>
+      <p class="chapter__meta mono">${n} ${n === 1 ? 'FLASKA' : 'FLÖSKUR'} &middot; ${regions.map(esc).join(' &middot; ')}</p>
+    </header>
+${plate}
+    <div class="chapter__sheet">
+      <ul class="course__list">
+${rows}
+      </ul>
+    </div>
+  </article>`;
 }).join('\n');
+
+/* the jump strip: seven countries, so the list can be entered anywhere */
+const chapterNav = `  <nav class="chapter-nav" aria-label="Lönd á flöskulistanum">
+${D.bottles.map((c, ci) => `    <a href="#land-${ci}">${esc(c.country)}<i class="mono" aria-hidden="true">${c.groups.reduce((a, g) => a + g.items.length, 0)}</i></a>`).join('\n')}
+  </nav>`;
 
 /* ── tasting packages ───────────────────────────────────────────────────── */
 const tastingBlock = D.tasting.packages.map((p, i) => {
@@ -170,11 +202,24 @@ const zeroSpark = D.zero.spark.map(z => `<li class="cw"><span class="cw__n">${es
 const zeroBeer = D.zero.beer.map(z => `<li class="cw"><span class="cw__n">${esc(z.n)}</span><span class="cw__rule" aria-hidden="true"></span><span class="cw__p mono">${esc(z.p)}</span></li>`).join('');
 const zeroSoft = D.zero.soft.map(([n, p]) => `<li class="cw"><span class="cw__n">${esc(n)}</span><span class="cw__rule" aria-hidden="true"></span><span class="cw__p mono">${esc(p)}</span></li>`).join('');
 
-const P = D.P;
 const fig = (k, cap, cls = '') => `  <figure class="bleed ${cls}" data-pour>
     <img src="${P[k].src}" alt="${esc(P[k].alt)}" width="${P[k].w}" height="${P[k].h}" loading="lazy" decoding="async" />
     <figcaption class="mono">${esc(cap)}</figcaption>
   </figure>`;
+
+/* ── the landing film: four frames of the room, crossfaded ────────────────
+   The still was the bar with its back to us. These are the frames with people
+   in them, in the order they read best: a laugh, a toast, the room, the pair
+   in black and white. Frame one is the LCP image and the only eager load; the
+   rest are lazy and carry empty alts, because they say the same thing. */
+const HERO_FRAMES = ['laugh', 'twoMen', 'sofa', 'coupleBw'];
+const heroStack = HERO_FRAMES.map((k, i) => {
+  const f = P[k];
+  return `    <img class="hero__film${i ? '' : ' is-live'}" src="${f.src}" ` +
+         `alt="${i ? '' : esc(f.alt)}"${i ? ' aria-hidden="true"' : ''} ` +
+         `width="${f.w}" height="${f.h}" ` +
+         `${i ? 'loading="lazy"' : 'fetchpriority="high"'} decoding="async" />`;
+}).join('\n');
 
 const html = `<!doctype html>
 <html lang="is">
@@ -196,7 +241,7 @@ const html = `<!doctype html>
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
 <link rel="preload" href="assets/fonts/YoungSerif-Regular.woff2" as="font" type="font/woff2" crossorigin />
 <link rel="preload" href="assets/fonts/Switzer-Regular.woff2" as="font" type="font/woff2" crossorigin />
-<link rel="preload" as="image" href="${P.hero.src}" />
+<link rel="preload" as="image" href="${P[HERO_FRAMES[0]].src}" fetchpriority="high" />
 <link rel="stylesheet" href="styles.css" />
 <script type="application/ld+json">
 {
@@ -256,7 +301,7 @@ const html = `<!doctype html>
   <div class="menu__inner">
     <nav class="menu__nav" aria-label="Síðan">
       <a href="#glasi"><span><i class="mono" aria-hidden="true">01</i>Á glasi</span></a>
-      <a href="#heimur"><span><i class="mono" aria-hidden="true">02</i>Heimurinn</span></a>
+      <a href="#folkid"><span><i class="mono" aria-hidden="true">02</i>Fólkið</span></a>
       <a href="#floskur"><span><i class="mono" aria-hidden="true">03</i>Flöskur</span></a>
       <a href="#salurinn"><span><i class="mono" aria-hidden="true">04</i>Salurinn</span></a>
       <a href="#smokkun"><span><i class="mono" aria-hidden="true">05</i>Vínsmökkun</span></a>
@@ -274,11 +319,14 @@ const html = `<!doctype html>
 <main id="main">
 
 <!-- ══════════ 1. hero ══════════ -->
-<div class="heropin" id="heropin">
 <section class="hero" id="top">
-  <img class="hero__film" id="heroPlate" src="${P.hero.src}" alt="${esc(P.hero.alt)}" width="${P.hero.w}" height="${P.hero.h}" fetchpriority="high" decoding="async" />
+  <div class="hero__stack">
+${heroStack}
+  </div>
   <div class="hero__scrim" aria-hidden="true"></div>
   <div class="hero__veil" aria-hidden="true"></div>
+  <!-- the header watches this: above the fold line, the bar has no ground -->
+  <div class="hero__cue" id="hdrCue" aria-hidden="true"></div>
 
   <div class="hero__content">
     <p class="hero__eyebrow mono">VÍNBAR &middot; SÍÐAN ${esc(D.biz.since)} &middot; REYKJAVÍK</p>
@@ -295,34 +343,35 @@ const html = `<!doctype html>
     </div>
   </div>
 </section>
-</div>
 
 <!-- ══════════ 2. thesis ══════════ -->
+<!-- Was: a headline, a three-sentence lede, a pull quote, a gloss paragraph and
+     four stacked facts whose labels ran to twenty words each — an essay standing
+     between the film and the wine. Now it is the front door: one line of who we
+     are, the way in, and three numbers held to two words apiece, with the house
+     itself carrying the right-hand side of the screen. -->
 <section class="thesis" id="about">
   <div class="thesis__grid">
     <div class="thesis__text">
       <p class="kicker mono">01 / HÚSIÐ</p>
       <h2 class="h2">Ef þú ratar einu sinni,<br /><em>þá ratarðu aftur</em></h2>
-      <p class="lead">${esc(D.about.is[0])}</p>
-      <blockquote class="quote">
-        <p>&bdquo;${esc(D.about.is[1])}&ldquo;</p>
-        <footer>
-          <span class="quote__who">Þeirra eigin orð um seðilinn</span>
-          <span class="quote__src mono">PORT9.IS</span>
-        </footer>
-      </blockquote>
-      <p class="thesis__gloss">Seðillinn þeirra skrifar undir hvert vín hvaða þrúgur eru í því. Hér hellir hvert vín sér í glasið sem liturinn segir til um, ein rönd á hverja þrúgu. Ekkert valið af smekk, allt af þeirra eigin seðli.</p>
+      <p class="lead">Elsti vínbar landsins, opinn síðan ${esc(D.biz.since)}. Kertaljós, vín frá öllum heimshornum og seðill sem breytist á tveggja vikna fresti.</p>
+      <div class="thesis__acts">
+        <a class="btn btn--main" href="#glasi">Vínin á glasi núna</a>
+        <a class="btn btn--ghost" href="${D.biz.booking}" rel="noopener">Bóka borð</a>
+      </div>
+      <ul class="ledger">
+        <li><span class="ledger__n">${nGlass}</span><span class="ledger__l mono">Á GLASI</span></li>
+        <li><span class="ledger__n">${bottleCount}</span><span class="ledger__l mono">FLÖSKUR</span></li>
+        <li><span class="ledger__n">${countryCount}</span><span class="ledger__l mono">LÖND</span></li>
+      </ul>
     </div>
 
-    <ul class="facts">
-      <li><span class="facts__n">${nGlass}</span><span class="facts__l">Vín á glasi þessa vikuna, í sex litum frá rauðu að sterku, og þau skiptast út á tveggja vikna fresti</span></li>
-      <li><span class="facts__n">${bottleCount}</span><span class="facts__l">Flöskur á listanum, frá ${countryCount} löndum, Frakkland, Spánn, Ítalía, Austurríki og Þýskaland, Georgía, Grikkland og Líbanon</span></li>
-      <li><span class="facts__n">${grapeSet.size}</span><span class="facts__l">Þrúgur skrifaðar undir vínin, frá Aligoté að Xinomavro</span></li>
-      <li><span class="facts__n">${D.biz.since}</span><span class="facts__l">Árið sem dyrnar opnuðust, fyrsti vínbar landsins að þeirra sögn</span></li>
-    </ul>
+    <figure class="thesis__plate" data-pour>
+      <img src="${P.facade.src}" alt="${esc(P.facade.alt)}" width="${P.facade.w}" height="${P.facade.h}" loading="lazy" decoding="async" />
+      <figcaption class="mono">VEGHÚSASTÍGUR 7-9 &middot; SVARTA HÚSIÐ MEÐ LJÓSUNUM</figcaption>
+    </figure>
   </div>
-
-${fig('facade', 'VEGHÚSASTÍGUR 7-9 · SVARTA HÚSIÐ MEÐ LJÓSUNUM', 'bleed--tall')}
 </section>
 
 <!-- ══════════ 3. Á GLASI ══════════ -->
@@ -330,7 +379,7 @@ ${fig('facade', 'VEGHÚSASTÍGUR 7-9 · SVARTA HÚSIÐ MEÐ LJÓSUNUM', 'bleed--
   <header class="sec-head">
     <p class="kicker mono">02 / Á GLASI</p>
     <h2 class="h2">Hvert vín hellir sér<br />í sitt eigið glas</h2>
-    <p class="sec-head__note">Liturinn á seðlinum þeirra velur glasið: rautt í víðu skálina, hvítt, rósa og appelsínu í þá mjórri, freyðivín í flautuna, sterkt í litla glasið. Ein rönd á hverja þrúgu sem þau skrifa undir vínið. ${esc(D.about.rotation)}</p>
+    <p class="sec-head__note">Liturinn á seðlinum velur glasið: rautt í víðu skálina, hvítt, rósa og appelsínu í þá mjórri, freyðivín í flautuna, sterkt í litla glasið. Ein rönd á hverja þrúgu sem við skrifum undir vínið. Vínin á glasi skiptast út á tveggja vikna fresti, svo það borgar sig að kíkja reglulega.</p>
   </header>
 
   <div class="sheet">
@@ -342,10 +391,10 @@ ${glassCourses}
       <svg viewBox="0 0 100 130" class="gl gl--red gl--empty"><path class="gl__out" d="${GLASS.red.d}"/><text class="gl__q" x="50" y="64" text-anchor="middle">?</text></svg>
     </div>
     <div>
-      <p class="kicker mono">Á SEÐLINUM ÞEIRRA</p>
+      <p class="kicker mono">Á SEÐLINUM OKKAR</p>
       <h3 class="mystery__h" id="mystery-h">${esc(D.mystery.name)}</h3>
       <p class="mystery__p mono">${esc(D.mystery.price)}</p>
-      <p class="mystery__note">Þeirra eigin leikur, eins og hann stendur á blaðinu: glasið kostar 2.500 krónur, eða ekkert. Spyrjið við barinn hvernig maður vinnur það.</p>
+      <p class="mystery__note">Leikurinn okkar, eins og hann stendur á seðlinum: glasið kostar 2.500 krónur, eða ekkert. Spyrjið okkur við barinn hvernig maður vinnur hann.</p>
     </div>
   </aside>
 
@@ -355,23 +404,32 @@ ${fig('redglass', 'VIÐ BARINN · GLASI LYFT YFIR LJÓSIN', 'bleed--port')}
 ${course('ck', 'Kokteilar', 'ÞEIRRA EIGIN SEÐILL', cocktailRows)}
   </div>
 
-  <p class="sheet__note">Vín, þrúgur, upprunahéruð og verð eins og þau standa á vínseðli Port 9 í ágúst 2026. Vín á glasi skiptast út á tveggja vikna fresti, svo listinn hér er einn tiltekinn seðill. Randalitir eru til skýringar, ekki smakknótur.</p>
+  <p class="sheet__note">Vín, þrúgur, upprunahéruð og verð eins og þau standa á seðlinum okkar í ágúst 2026. Vínin á glasi skiptast út á tveggja vikna fresti, svo þetta er einn tiltekinn seðill. Randalitir eru til skýringar, ekki smakknótur.</p>
 </section>
 
-<!-- ══════════ 4. THE RAIL: the world, one country per station ══════════ -->
-<section class="crew" id="heimur">
+<!-- ══════════ 4. FÓLKIÐ: the rail, waiting for their portraits ══════════ -->
+<!-- The countries used to live here, which said the same thing as the bottle
+     list below it twice. The rail is the one place on the page shaped like
+     people, so it holds them: empty plates until Port 9 send portraits, with
+     no invented names or borrowed faces standing in. -->
+<section class="crew" id="folkid">
   <div class="crew__pin" id="crewPin">
     <header class="crew__head">
-      <p class="kicker mono">03 / HEIMURINN Í FLÖSKUM</p>
-      <h2 class="h2">Sjö lönd,<br />${bottleCount} flöskur</h2>
-      <p class="crew__note">&bdquo;Það er okkar hjartans mál að bjóða upp á vín frá öllum heimshornum.&ldquo; Flöskulistinn þeirra er raðaður eftir löndum og héruðum. Skrunið ferðast á milli þeirra.</p>
+      <p class="kicker mono">03 / FÓLKIÐ</p>
+      <h2 class="h2">Fólkið<br /><em>á bak við barinn</em></h2>
+      <p class="crew__note">Öll vaktin okkar kann að tala um það sem hún hellir í glasið. Hér koma myndirnar af hópnum, ein fyrir hvern.</p>
     </header>
-    <ul class="crew__track" id="crewTrack" data-lenis-prevent>
-${railBlock}
+    <!-- tabindex: a scroll container with no focusable children cannot be
+         reached or scrolled by keyboard at all without it -->
+    <ul class="crew__track" id="crewTrack" data-lenis-prevent
+        tabindex="0" role="group" aria-label="Starfsfólk, skrunið til hliðar">
+${staffBlock}
     </ul>
-    <p class="crew__progress mono">LAND <span id="crewCount">${esc(D.bottles[0].country)}</span></p>
+    <div class="crew__rail-foot">
+      <p class="crew__hint mono">DRAGIÐ TIL HLIÐAR</p>
+      <div class="crew__bar" id="crewBar" aria-hidden="true"><span></span></div>
+    </div>
   </div>
-${fig('bucket', 'Á BARNUM · FLASKAN Í KLAKANUM')}
 </section>
 
 <!-- ══════════ 5. FLÖSKUR - the whole bottle list, on the dark ground ══════════ -->
@@ -380,12 +438,13 @@ ${fig('bucket', 'Á BARNUM · FLASKAN Í KLAKANUM')}
   <header class="sec-head sec-head--mid">
     <p class="kicker mono">04 / FLÖSKUR</p>
     <h2 class="h2">Frá Bordeaux<br />að Bekaa</h2>
-    <p class="sec-head__note">Allur flöskulistinn, land fyrir land og hérað fyrir hérað, hver flaska með framleiðanda, árgangi, upprunavottun og þrúgum, eins og þau skrifa hann sjálf.</p>
+    <p class="sec-head__note">Allur flöskulistinn okkar, land fyrir land og hérað fyrir hérað, hver flaska með framleiðanda, árgangi, upprunavottun og þrúgum.</p>
   </header>
-  <div class="sheet sheet--gin">
+${chapterNav}
+  <div class="chapters">
 ${bottleCourses}
   </div>
-  <p class="sheet__note">Flöskuverð eins og þau standa á seðlinum. Tvær flöskur bera grænan lit á blaðinu þeirra, Famille Hugel 1998 og Llopart Reserva Brut, og eru merktar þannig hér.</p>
+  <p class="sheet__note">Flöskuverð eins og þau standa á seðlinum. Tvær flöskur bera grænan lit hjá okkur, Famille Hugel 1998 og Llopart Reserva Brut, og eru merktar þannig hér.</p>
 </section>
 
 <!-- ══════════ 6. the room ══════════ -->
@@ -393,7 +452,7 @@ ${bottleCourses}
   <header class="sec-head">
     <p class="kicker mono">05 / SALURINN</p>
     <h2 class="h2">Steinsteypa,<br /><em>kertaljós og grænir sófar</em></h2>
-    <p class="sec-head__note">&bdquo;Finnið okkur, segið hæ og njótið vínglass umvafin kertaljósum í afslöppuðu andrúmslofti.&ldquo; Myndirnar eru þeirra.</p>
+    <p class="sec-head__note">Finnið okkur, segið hæ og njótið vínglass umvafin kertaljósum í afslöppuðu andrúmslofti.</p>
   </header>
   <div class="room__mosaic">
     <figure class="room__cell room__cell--wide" data-pour>
@@ -438,7 +497,7 @@ ${tastingBlock}
     <p class="kicker mono">07 / HAPPY HOUR &amp; MATUR</p>
     <h2 class="h2" id="happy-h">Happy hour<br />${esc(D.happy.time)}</h2>
     <div class="rent__cols">
-      <p class="lead">Þriðjudaga til sunnudaga, fyrstu tvo tímana. Verðin eru þeirra eigin, af happy hour-blaðinu.</p>
+      <p class="lead">Þriðjudaga til sunnudaga, fyrstu tvo tímana. Verðin eru af happy hour-seðlinum okkar.</p>
       <ul class="rent__nums">
         <li><strong>${esc(D.happy.gl)}</strong><span>${esc(D.happy.house).toUpperCase()} · GLAS</span></li>
         <li><strong>${esc(D.happy.fl)}</strong><span>${esc(D.happy.house).toUpperCase()} · FLASKA</span></li>
@@ -449,7 +508,7 @@ ${tastingBlock}
     <ul class="hh-list">
 ${foodRows}
     </ul>
-    <p class="rent__alt">Vegan útgáfa af platta í boði sé þess óskað, að þeirra sögn. Látið vita af ofnæmi.</p>
+    <p class="rent__alt">Vegan útgáfa af platta í boði sé þess óskað. Látið vita af ofnæmi.</p>
   </div>
 </section>
 
@@ -458,7 +517,7 @@ ${foodRows}
   <header class="sec-head">
     <p class="kicker mono">08 / MENNING</p>
     <h2 class="h2">Sýningar á veggjunum,<br /><em>tónleikar við barinn</em></h2>
-    <p class="sec-head__note">&bdquo;${esc(D.about.en[2])}&ldquo; Nöfnin hér að neðan eru úr þeirra eigin texta.</p>
+    <p class="sec-head__note">Við höldum reglulega sýningar á veggjunum og tónleika við barinn. Hér eru nokkur nöfnin sem hafa komið við.</p>
   </header>
   <div class="culture__grid">
     <figure class="culture__fig" data-pour>
