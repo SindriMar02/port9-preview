@@ -197,10 +197,13 @@ body.gate-on{overflow:hidden}
    keeps it solid ink at every scroll position. At rest it is real headroom
    so the bar starts below the island zone. Requires overflow-x:clip on the
    root — hidden kills it silently. Permanent, no state, first in flow. */
-.awning{
-  position:sticky;top:-100px;height:106px;flex:none;
-  z-index:89;background:var(--void);pointer-events:none;
-}
+/* The awning is GONE. It was a 106px opaque sticky block sitting above <main>,
+   reserving space under a bar that used to be opaque — which meant the landing
+   film began 106px down the page with a black strip above it, and the hero's
+   own 100svh then ran 106px past the fold, taking the buttons with it. The bar
+   floats over the film now, so the film starts at the top of the window and the
+   hero is exactly one screen. Every section below already clears the bar with
+   scroll-margin-top; nothing else depended on this. */
 
 /* ── header: address left, their real logo centred, hours right ──
    The constant bar. Fixed from FIRST PAINT. It still never hides, never
@@ -372,11 +375,14 @@ body.gate-on{overflow:hidden}
 .hero__content{
   position:absolute;inset:0;
   display:grid;place-items:center;
-  padding:0 var(--pad);
+  /* top clears the floating bar and the eyebrow; bottom reserves the blurb and
+     the buttons. The h1 centres in what is left, so the wordmark can never
+     stand on the call to action however short the window is. */
+  padding:clamp(74px,11svh,124px) var(--pad) clamp(158px,25svh,248px);
   text-align:center;
 }
 .hero__eyebrow{
-  position:absolute;top:clamp(84px,13svh,150px);left:var(--pad);right:var(--pad);
+  position:absolute;top:clamp(112px,15svh,168px);left:var(--pad);right:var(--pad);
   color:var(--dim);text-shadow:0 1px 12px rgba(5,9,6,.9);
 }
 
@@ -391,7 +397,7 @@ body.gate-on{overflow:hidden}
   gap:clamp(16px,2.8svh,34px);
 }
 .hero__mark{
-  width:min(52vw,420px);height:auto;
+  width:min(52vw,420px,42svh);height:auto;
   filter:drop-shadow(0 10px 60px rgba(5,9,6,.85));
   will-change:transform;
 }

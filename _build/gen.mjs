@@ -263,7 +263,6 @@ const html = `<!doctype html>
 <body>
 
 <a class="skip" href="#main">Beint í efnið</a>
-<div class="awning" aria-hidden="true"></div>
 
 <!-- ══════════ opening scene ══════════
      The Jungle pour: a live liquid surface rises behind the wordmark, which is
@@ -335,7 +334,7 @@ ${heroStack}
       <span class="hero__tag">${esc(D.biz.tagIs)}</span>
     </h1>
     <div class="hero__base" id="heroBase">
-      <p class="hero__blurb">Elsti vínbar Íslands. Vín frá öllum heimshornum, á glasi sem skiptast út á tveggja vikna fresti og í flösku frá Bordeaux að Bekaa.</p>
+      <p class="hero__blurb">Elsti vínbar landsins. Vín frá öllum heimshornum, á glasi og í flösku.</p>
       <div class="hero__acts">
         <a class="btn btn--main" href="#glasi">Skoða vínseðilinn</a>
         <a class="btn btn--ghost" href="${D.biz.booking}" rel="noopener">Bóka borð</a>
