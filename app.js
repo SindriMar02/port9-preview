@@ -183,10 +183,21 @@ const SCRUB_MODE = MOTION && WIDE;
       return (/(auto|scroll)/.test(c.overflowX) && el.scrollWidth  > el.clientWidth  + 4) ||
              (/(auto|scroll)/.test(c.overflowY) && el.scrollHeight > el.clientHeight + 4);
     };
-    const tagScrollers = () => $$('.crew__track, [data-scroller], [data-lenis-prevent]').forEach(el => {
-      if (scrolls(el)) el.setAttribute('data-lenis-prevent', '');
-      else el.removeAttribute('data-lenis-prevent');
-    });
+    /* The rail is deliberately NOT in this list any more, and is stripped if it
+       ever picks the attribute up. It scrolls horizontally, so `scrolls()` says
+       true and it used to be tagged automatically — which handed the wheel back
+       to the browser over the whole section: the page ramped smoothly, decayed
+       to a crawl, jumped three raw 100px steps, then smoothed again. That is
+       the stutter. It takes only horizontal intent now, via its own wheel
+       handler below; vertical wheel stays with Lenis everywhere on the page. */
+    const tagScrollers = () => {
+      $$('[data-scroller], [data-lenis-prevent]').forEach(el => {
+        if (el.id === 'crewTrack') { el.removeAttribute('data-lenis-prevent'); return; }
+        if (scrolls(el)) el.setAttribute('data-lenis-prevent', '');
+        else el.removeAttribute('data-lenis-prevent');
+      });
+      $('#crewTrack')?.removeAttribute('data-lenis-prevent');
+    };
     tagScrollers();
     ScrollTrigger.addEventListener('refresh', tagScrollers);
     window.addEventListener('resize', tagScrollers, { passive: true });
@@ -319,8 +330,12 @@ const SCRUB_MODE = MOTION && WIDE;
   const track = $('#crewTrack');
   if (track) {
     const cards = $$('.crew__card', track);
-    gsap.set(cards, { y: 34, opacity: 0 });
-    const show = c => gsap.to(c, { y: 0, opacity: 1, duration: 0.7, ease: EASE, overwrite: 'auto' });
+    /* No translate: a transform counts toward a scroll container's scrollable
+       overflow, so a 34px downward reveal gave the rail 34px of vertical scroll
+       it should never have had — and a focus or a stray gesture jolted it down
+       that far. Opacity and blur say the same thing and move nothing. */
+    gsap.set(cards, { opacity: 0, filter: 'blur(10px)' });
+    const show = c => gsap.to(c, { opacity: 1, filter: 'blur(0px)', duration: 0.7, ease: EASE, overwrite: 'auto' });
     const io = new IntersectionObserver((es) => {
       es.forEach(e => { if (e.isIntersecting) { show(e.target); io.unobserve(e.target); } });
     }, { root: track, threshold: 0.12 });
@@ -331,6 +346,20 @@ const SCRUB_MODE = MOTION && WIDE;
       trigger: '.crew', start: 'bottom 60%',
       onEnter: () => { cards.forEach(show); io.disconnect(); }
     });
+
+    /* Why the page stuttered over this section: the track carried
+       data-lenis-prevent, so Lenis released the wheel while the pointer was
+       over it and the document fell back to raw 100px steps — smooth ramp,
+       decay, then three hard 100px jumps, then smooth again. The attribute is
+       gone. Vertical wheel now belongs to Lenis everywhere on the page, and
+       only a HORIZONTAL intent is taken by the rail (and stopped before Lenis
+       sees it, since Lenis preventDefaults what it handles). */
+    track.addEventListener('wheel', e => {
+      if (Math.abs(e.deltaX) <= Math.abs(e.deltaY)) return;   // vertical: not ours
+      e.stopPropagation();
+      e.preventDefault();
+      track.scrollLeft += e.deltaX;
+    }, { passive: false });
 
     // drag-to-pan on a pointer device; native touch scrolling is left alone
     if (FINE) {

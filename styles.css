@@ -361,7 +361,7 @@ body.gate-on{overflow:hidden}
     linear-gradient(to bottom,
       rgba(5,9,6,.90) 0%, rgba(5,9,6,.80) 26%,
       rgba(5,9,6,.34) 40%, rgba(5,9,6,.34) 56%,
-      rgba(5,9,6,.84) 72%, rgba(5,9,6,.94) 100%),
+      rgba(5,9,6,.84) 72%, rgba(12,12,13,.96) 93%, var(--void) 99.2%),
     radial-gradient(140% 105% at 50% 48%,transparent 18%,rgba(5,9,6,.55) 78%,rgba(5,9,6,.9) 100%);
 }
 .hero__veil{
@@ -779,14 +779,22 @@ body.gate-on{overflow:hidden}
   flex:1 1 auto;min-height:0;align-items:stretch;
   display:flex;gap:clamp(14px,1.8vw,26px);
   padding-inline:var(--pad);width:auto;
+  /* overflow-y cannot be `clip` next to an `auto` axis — the used value is
+     coerced back to `hidden`, which is still a scroll PORT. So nothing inside
+     may translate downward: the cards reveal on opacity and blur alone, and
+     the rail has no vertical overflow to be jolted along. */
   overflow-x:auto;overflow-y:hidden;
-  scroll-snap-type:x proximity;scroll-padding-inline:var(--pad);
+  /* No snap on a pointer device: snapping resolves the moment scrollLeft is
+     assigned, so a wheel or drag of less than half a card is yanked straight
+     back to where it started. Touch keeps its snap (see the ≤1080 block) —
+     a flick there ends in a gesture, which is what snap is for. */
+  scroll-padding-inline:var(--pad);
   overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch;
   scrollbar-width:none;cursor:grab;
 }
 .crew__track::-webkit-scrollbar{display:none}
 .crew__track.is-drag{cursor:grabbing;user-select:none}
-.crew__card{scroll-snap-align:start}
+@media (hover:none){.crew__track{scroll-snap-type:x proximity}.crew__card{scroll-snap-align:start}}
 
 /* the empty plates: a slot that cannot be mistaken for a person */
 .crew__plate{
@@ -1601,12 +1609,13 @@ section[id],[id="top"]{scroll-margin-top:clamp(76px,9vh,110px)}
 /* Sticky needs every ancestor to keep its overflow visible — .drinks and
    .chapters both do, deliberately. If a future rule clips either of them this
    head silently stops holding, so check here first. */
+/* Was sticky, on its own opaque band. Both are gone: the band read as a slab
+   of black sitting on the list, and a head that holds while you read pins a
+   second fixed bar under the real one. It is an ordinary chapter opening now —
+   space above it, a rule under it, and it scrolls away like everything else. */
 .chapter__head{
-  position:sticky;top:0;z-index:4;
   display:grid;gap:8px;
-  padding:clamp(74px,9vh,96px) 0 clamp(12px,1.6vw,18px);
-  background:var(--void);
-  box-shadow:0 18px 22px -18px var(--void);
+  padding:0 0 clamp(12px,1.6vw,18px);
   border-bottom:1px solid var(--line);
 }
 .chapter__n{color:var(--bronze-lift);font-size:.58rem;letter-spacing:.2em}
@@ -1628,15 +1637,13 @@ section[id],[id="top"]{scroll-margin-top:clamp(76px,9vh,110px)}
     grid-template-columns:1fr 1fr;column-gap:clamp(38px,4vw,70px);
   }
   .chapter:not(.chapter--plated) .chapter__sheet .dish--head{grid-column:1 / -1}
-  /* a plated chapter reads as a spread: the photograph holds while its
-     country's wines pass it */
+  /* a plated chapter reads as a spread — but nothing holds position: the
+     photograph sits with its country and leaves with it */
   .chapter--plated{grid-template-columns:minmax(0,.44fr) minmax(0,1fr);column-gap:clamp(34px,4vw,64px)}
   .chapter--plated .chapter__head{grid-column:1 / -1}
-  .chapter--plated .chapter__plate{position:sticky;top:132px}
+  .chapter--plated .chapter__plate{align-self:start}
 }
-@media (prefers-reduced-motion:reduce){
-  .chapter--plated .chapter__plate{position:static}
-}
+
 
 /* One glass per row was a signature at 44 rows down a single column. In two
    columns it is 44 drawings on one screen, and the row's height was being set

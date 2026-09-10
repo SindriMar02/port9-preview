@@ -420,7 +420,7 @@ ${course('ck', 'Kokteilar', 'ÞEIRRA EIGIN SEÐILL', cocktailRows)}
     </header>
     <!-- tabindex: a scroll container with no focusable children cannot be
          reached or scrolled by keyboard at all without it -->
-    <ul class="crew__track" id="crewTrack" data-lenis-prevent
+    <ul class="crew__track" id="crewTrack"
         tabindex="0" role="group" aria-label="Starfsfólk, skrunið til hliðar">
 ${staffBlock}
     </ul>
