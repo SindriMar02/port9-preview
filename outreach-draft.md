@@ -1,10 +1,17 @@
 # Outreach draft · Port 9 winebar
 
-**Status: DRAFT, NOT SENT.** Sending is Sindri's call.
+**Status: DRAFT OPEN IN MAIL 2026-09-10, NOT SENT.** Sending is Sindri's call.
 
-- **To:** info@port9.is
-- **Live preview (preflight PASSED 2026-08-22):** https://sindrimar02.github.io/port9-preview/
+- **To:** nury@port9.is (was info@port9.is; Sindri redirected it 2026-09-10)
+- **Live preview (preflight PASSED again 2026-09-10, 12/12 checks):** https://sindrimar02.github.io/port9-preview/
 - **Landing shot to attach:** `~/Downloads/frumgerd-port9.jpg`
+
+- **Re-verified on port9.is 2026-09-10, right before opening the draft:** the splash still
+  shows nothing but ÍSLENSKA / ENGLISH, `/vinseill` still carries 27 images and 87 characters
+  of text, the footer still reads © 2020, and "oldest wine bar in Iceland" is still their own
+  claim on the English about page.
+- **Footer fixed:** `sndr-studio.pages.dev` in the 2026-08-22 draft is dead and now serves a
+  moved notice — replaced with `sndrstudio.is`.
 
 ---
 
@@ -37,4 +44,4 @@ Endilega látið mig vita ef þið hafið áhuga.
 Bestu kveðjur,
 Sindri Már
 845 1758
-sndr-studio.pages.dev
+sndrstudio.is
