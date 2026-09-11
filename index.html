@@ -1,0 +1,1520 @@
+<!doctype html>
+<html lang="is">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Port 9 winebar &middot; Veghúsastígur 9, Reykjavík</title>
+<meta name="description" content="Port 9 er elsti vínbar Íslands, opnaður 2016. Vín á glasi sem skiptast út á tveggja vikna fresti, flöskulisti frá Bordeaux að Bekaa, vínsmökkun fyrir hópa og happy hour 16-18." />
+<meta name="robots" content="noindex" />
+<meta name="theme-color" content="#0C0C0D" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Port 9 winebar &middot; Veghúsastígur 9, Reykjavík" />
+<meta property="og:description" content="Elsti vínbar Íslands. Vín frá öllum heimshornum, á glasi og í flösku." />
+<meta property="og:image" content="https://sindrimar02.github.io/port9-preview/assets/img/hero-bar.jpg?v=88ea236e" />
+<meta property="og:locale" content="is_IS" />
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+<link rel="icon" href="assets/favicon-48.png" type="image/png" sizes="48x48" />
+<link rel="icon" href="assets/favicon-32.png" type="image/png" sizes="32x32" />
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
+<link rel="preload" href="assets/fonts/YoungSerif-Regular.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="preload" href="assets/fonts/Switzer-Regular.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="preload" as="image" href="assets/img/laugh.jpg?v=0441f9f2" fetchpriority="high" />
+<link rel="stylesheet" href="styles.css?v=a7a2c30b" />
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BarOrPub",
+  "name": "Port 9 winebar",
+  "url": "https://www.port9.is/",
+  "email": "info@port9.is",
+  "telephone": "+354 832 2929",
+  "servesCuisine": "Wine bar",
+  "foundingDate": "2016",
+  "address": { "@type": "PostalAddress", "streetAddress": "Veghúsastígur 7-9", "postalCode": "101", "addressLocality": "Reykjavík", "addressCountry": "IS" },
+  "openingHoursSpecification": [
+    { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"], "opens": "16:00", "closes": "23:00" }
+  ]
+}
+</script>
+</head>
+<body>
+
+<a class="skip" href="#main">Beint í efnið</a>
+
+<!-- ══════════ opening scene ══════════
+     The Jungle pour: a live liquid surface rises behind the wordmark, which is
+     knocked out of it by blend-difference; the counter runs to 100, the label
+     flips, and the whole level drains away through the arch. Here the liquid
+     is the red on their sheet, and the mark is their own roundel. -->
+<div class="gate" id="gate">
+  <svg class="gate__liquid" id="gateLiquid" viewBox="0 0 1200 1000" preserveAspectRatio="none" aria-hidden="true">
+    <path id="gateWave" fill="#7A1E2F" d="M0,1000 L0,1000 Q300,1000 600,1000 T1200,1000 L1200,1000 Z"/>
+  </svg>
+  <div class="gate__inner">
+    <img class="gate__logo" src="assets/img/roundel-white.png?v=ae1e7aba" alt="" width="600" height="600" />
+    <p class="gate__line mono" id="gateLine">HELLT Í</p>
+  </div>
+  <p class="gate__count mono" id="gateCount">00</p>
+  <button class="gate__skip mono" id="gateSkip" type="button">Sleppa</button>
+</div>
+
+<!-- ══════════ header ══════════ -->
+<header class="hdr" id="hdr">
+  <p class="hdr__side hdr__side--l mono">VEGHÚSASTÍGUR 7-9 &middot; 101 REYKJAVÍK</p>
+  <a class="hdr__mark" href="#top" aria-label="Port 9, efst á síðu">
+    <img src="assets/img/roundel-white.png?v=ae1e7aba" alt="Port 9 winebar" width="112" height="112" />
+  </a>
+  <div class="hdr__side hdr__side--r">
+    <p class="mono hdr__open">HAPPY HOUR 16-18</p>
+    <button class="burger" id="burger" type="button" aria-expanded="false" aria-controls="menu" aria-label="Opna valmynd">
+      <span class="burger__box" aria-hidden="true"><i></i><i></i></span>
+      <span class="burger__word mono" aria-hidden="true">VALMYND</span>
+    </button>
+  </div>
+</header>
+
+<div class="menu" id="menu" hidden>
+  <div class="menu__inner">
+    <nav class="menu__nav" aria-label="Síðan">
+      <a href="#glasi"><span><i class="mono" aria-hidden="true">01</i>Á glasi</span></a>
+      <a href="#folkid"><span><i class="mono" aria-hidden="true">02</i>Fólkið</span></a>
+      <a href="#floskur"><span><i class="mono" aria-hidden="true">03</i>Flöskur</span></a>
+      <a href="#salurinn"><span><i class="mono" aria-hidden="true">04</i>Salurinn</span></a>
+      <a href="#smokkun"><span><i class="mono" aria-hidden="true">05</i>Vínsmökkun</span></a>
+      <a href="#happy"><span><i class="mono" aria-hidden="true">06</i>Happy hour &amp; matur</span></a>
+      <a href="#menning"><span><i class="mono" aria-hidden="true">07</i>Menning</span></a>
+      <a href="#visit"><span><i class="mono" aria-hidden="true">08</i>Heimsókn</span></a>
+    </nav>
+    <div class="menu__foot">
+      <p class="mono">Veghúsastígur 7-9 &middot; 101 Reykjavík &middot; 832 2929</p>
+      <a class="btn btn--main" href="https://www.dineout.is/port9" rel="noopener">Bóka borð á Dineout</a>
+    </div>
+  </div>
+</div>
+
+<main id="main">
+
+<!-- ══════════ 1. hero ══════════ -->
+<section class="hero" id="top">
+  <div class="hero__stack">
+    <img class="hero__film is-live" src="assets/img/laugh.jpg?v=0441f9f2" alt="Gestur hlær með vínglas í hendi í lampaljósi" width="1773" height="1182" fetchpriority="high" decoding="async" />
+    <img class="hero__film" src="assets/img/two-men.jpg?v=db645ad9" alt="" aria-hidden="true" width="2000" height="1334" loading="lazy" decoding="async" />
+    <img class="hero__film" src="assets/img/sofa.jpg?v=ca28d893" alt="" aria-hidden="true" width="2000" height="1334" loading="lazy" decoding="async" />
+    <img class="hero__film" src="assets/img/couple-bw.jpg?v=53820cd5" alt="" aria-hidden="true" width="2000" height="1334" loading="lazy" decoding="async" />
+  </div>
+  <div class="hero__scrim" aria-hidden="true"></div>
+  <div class="hero__veil" aria-hidden="true"></div>
+  <!-- the header watches this: above the fold line, the bar has no ground -->
+  <div class="hero__cue" id="hdrCue" aria-hidden="true"></div>
+
+  <div class="hero__content">
+    <p class="hero__eyebrow mono">VÍNBAR &middot; SÍÐAN 2016 &middot; REYKJAVÍK</p>
+    <h1 class="hero__h1">
+      <img class="hero__mark" id="heroMark" src="assets/img/roundel-white.png?v=ae1e7aba" alt="Port 9 winebar" width="600" height="600" fetchpriority="high" />
+      <span class="hero__tag">Ef þú ratar einusinni, þá ratarðu aftur.</span>
+    </h1>
+    <div class="hero__base" id="heroBase">
+      <p class="hero__blurb">Elsti vínbar landsins. Vín frá öllum heimshornum, á glasi og í flösku.</p>
+      <div class="hero__acts">
+        <a class="btn btn--main" href="#glasi">Skoða vínseðilinn</a>
+        <a class="btn btn--ghost" href="https://www.dineout.is/port9" rel="noopener">Bóka borð</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ 2. thesis ══════════ -->
+<!-- Was: a headline, a three-sentence lede, a pull quote, a gloss paragraph and
+     four stacked facts whose labels ran to twenty words each — an essay standing
+     between the film and the wine. Now it is the front door: one line of who we
+     are, the way in, and three numbers held to two words apiece, with the house
+     itself carrying the right-hand side of the screen. -->
+<section class="thesis" id="about">
+  <div class="thesis__grid">
+    <div class="thesis__text">
+      <p class="kicker mono">01 / HÚSIÐ</p>
+      <h2 class="h2">Ef þú ratar einu sinni,<br /><em>þá ratarðu aftur</em></h2>
+      <p class="lead">Elsti vínbar landsins, opinn síðan 2016. Kertaljós, vín frá öllum heimshornum og seðill sem breytist á tveggja vikna fresti.</p>
+      <div class="thesis__acts">
+        <a class="btn btn--main" href="#glasi">Vínin á glasi núna</a>
+        <a class="btn btn--ghost" href="https://www.dineout.is/port9" rel="noopener">Bóka borð</a>
+      </div>
+      <ul class="ledger">
+        <li><span class="ledger__n">18</span><span class="ledger__l mono">Á GLASI</span></li>
+        <li><span class="ledger__n">44</span><span class="ledger__l mono">FLÖSKUR</span></li>
+        <li><span class="ledger__n">7</span><span class="ledger__l mono">LÖND</span></li>
+      </ul>
+    </div>
+
+    <figure class="thesis__plate" data-pour>
+      <img src="assets/img/facade.jpg?v=f243dc21" alt="Svartklædd framhliðin við Veghúsastíg með ljósaseríu yfir dyrunum" width="1316" height="2048" loading="lazy" decoding="async" />
+      <figcaption class="mono">VEGHÚSASTÍGUR 7-9 &middot; SVARTA HÚSIÐ MEÐ LJÓSUNUM</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ══════════ 3. Á GLASI ══════════ -->
+<section class="drinks paper" id="glasi">
+  <header class="sec-head">
+    <p class="kicker mono">02 / Á GLASI</p>
+    <h2 class="h2">Hvert vín hellir sér<br />í sitt eigið glas</h2>
+    <p class="sec-head__note">Liturinn á seðlinum velur glasið: rautt í víðu skálina, hvítt, rósa og appelsínu í þá mjórri, freyðivín í flautuna, sterkt í litla glasið. Ein rönd á hverja þrúgu sem við skrifum undir vínið. Vínin á glasi skiptast út á tveggja vikna fresti, svo það borgar sig að kíkja reglulega.</p>
+  </header>
+
+  <div class="sheet">
+      <section class="course" aria-labelledby="course-g-red">
+        <header class="course__head">
+          <h3 class="course__title" id="course-g-red">Rautt <em class="course__en">á glasi</em></h3>
+          <p class="course__price mono">GLAS // FLASKA</p>
+        </header>
+        <ul class="course__list">
+          <li class="dish dish--pick">
+            <div class="dish__glass" aria-hidden="true"><svg viewBox="0 0 100 130" class="gl gl--red" data-fill>
+                <defs><clipPath id="cp-g-red-0"><path d="M20 28 Q20 78 44 85 L44 110 L30 116 L30 122 L70 122 L70 116 L56 110 L56 85 Q80 78 80 28 Z"/></clipPath></defs>
+                <g clip-path="url(#cp-g-red-0)"><rect class="gl__band" data-band="0" x="0" y="32.0" width="100" height="50.6" fill="#7a1e2f"/></g>
+                <path class="gl__out" d="M20 28 Q20 78 44 85 L44 110 L30 116 L30 122 L70 122 L70 116 L56 110 L56 85 Q80 78 80 28 Z"/>
+              </svg></div>
+            <div class="dish__body">
+              <p class="dish__top"><span class="dish__n mono">01</span><span class="dish__name">Burgo Viejo<span class="dish__cuv">, Crianza</span></span><span class="dish__rule" aria-hidden="true"></span><span class="dish__p mono">2.200 <span class="dish__slash">//</span> 10.900</span></p>
+              <p class="dish__tags mono">D.O. Rioja &middot; Rioja, Spánn</p>
+              <ul class="dish__spec"><li data-ing="0"><i style="--c:#7a1e2f" aria-hidden="true"></i>Tempranillo</li></ul>
+              <p class="dish__pick mono">GRÆNT Á SEÐLINUM</p>
+            </div>
+          </li>
+          <li class="dish">
+            <div class="dish__glass" aria-hidden="true"><svg viewBox="0 0 100 130" class="gl gl--red" data-fill>
+                <defs><clipPath id="cp-g-red-1"><path d="M20 28 Q20 78 44 85 L44 110 L30 116 L30 122 L70 122 L70 116 L56 110 L56 85 Q80 78 80 28 Z"/></clipPath></defs>
+                <g clip-path="url(#cp-g-red-1)"><rect class="gl__band" data-band="0" x="0" y="65.3" width="100" height="17.3" fill="#7a1e2f"/><rect class="gl__band" data-band="1" x="0" y="48.7" width="100" height="17.3" fill="#8b3b4a"/><rect class="gl__band" data-band="2" x="0" y="32.0" width="100" height="17.3" fill="#9d5965"/></g>
+                <path class="gl__out" d="M20 28 Q20 78 44 85 L44 110 L30 116 L30 122 L70 122 L70 116 L56 110 L56 85 Q80 78 80 28 Z"/>
+              </svg></div>
+            <div class="dish__body">
+              <p class="dish__top"><span class="dish__n mono">02</span><span class="dish__name">Joel Gott<span class="dish__cuv">, Zinfandel 2017</span></span><span class="dish__rule" aria-hidden="true"></span><span class="dish__p mono">2.500 <span class="dish__slash">//</span> 11.900</span></p>
+              <p class="dish__tags mono">St. Helena VA &middot; California, Bandaríkin</p>
+              <ul class="dish__spec"><li data-ing="0"><i style="--c:#7a1e2f" aria-hidden="true"></i>Grenache</li><li data-ing="1"><i style="--c:#8b3b4a" aria-hidden="true"></i>Syrah</li><li data-ing="2"><i style="--c:#9d5965" aria-hidden="true"></i>Mourvèdre</li></ul>
+              
+            </div>
+          </li>
+          <li class="dish">
+            <div class="dish__glass" aria-hidden="true"><svg viewBox="0 0 100 130" class="gl gl--red" data-fill>
+                <defs><clipPath id="cp-g-red-2"><path d="M20 28 Q20 78 44 85 L44 110 L30 116 L30 122 L70 122 L70 116 L56 110 L56 85 Q80 78 80 28 Z"/></clipPath></defs>
+                <g clip-path="url(#cp-g-red-2)"><rect class="gl__band" data-band="0" x="0" y="32.0" width="100" height="50.6" fill="#7a1e2f"/></g>
+                <path class="gl__out" d="M20 28 Q20 78 44 85 L44 110 L30 116 L30 122 L70 122 L70 116 L56 110 L56 85 Q80 78 80 28 Z"/>
+              </svg></div>
+            <div class="dish__body">
+              <p class="dish__top"><span class="dish__n mono">03</span><span class="dish__name">Viberti<span class="dish__cuv">, Langhe Nebiollo</span></span><span class="dish__rule" aria-hidden="true"></span><span class="dish__p mono">2.900 <span class="dish__slash">//</span> 14.900</span></p>
+              <p class="dish__tags mono">Langhe DOC Nebbiolo &middot; Piemonte, Ítalía</p>
+              <ul class="dish__spec"><li data-ing="0"><i style="--c:#7a1e2f" aria-hidden="true"></i>Nebiollo</li></ul>
+              
+            </div>
+          </li>
+          <li class="dish">
+            <div class="dish__glass" aria-hidden="true"><svg viewBox="0 0 100 130" class="gl gl--red" data-fill>
+                <defs><clipPath id="cp-g-red-3"><path d="M20 28 Q20 78 44 85 L44 110 L30 116 L30 122 L70 122 L70 116 L56 110 L56 85 Q80 78 80 28 Z"/></clipPath></defs>
+                <g clip-path="url(#cp-g-red-3)"><rect class="gl__band" data-band="0" x="0" y="65.3" width="100" height="17.3" fill="#7a1e2f"/><rect class="gl__band" data-band="1" x="0" y="48.7" width="100" height="17.3" fill="#8b3b4a"/><rect class="gl__band" data-band="2" x="0" y="32.0" width="100" height="17.3" fill="#9d5965"/></g>
+                <path class="gl__out" d="M20 28 Q20 78 44 85 L44 110 L30 116 L30 122 L70 122 L70 116 L56 110 L56 85 Q80 78 80 28 Z"/>
+              </svg></div>
+            <div class="dish__body">
+              <p class="dish__top"><span class="dish__n mono">04</span><span class="dish__name">l’Hortus<span class="dish__cuv">, Le loup dans la bergerie</span></span><span class="dish__rule" aria-hidden="true"></span><span class="dish__p mono">2.300 <span class="dish__slash">//</span> 10.900</span></p>
+              <p class="dish__tags mono">Saint-Guilhem le désert &middot; Roussillon, Frakkland</p>
+              <ul class="dish__spec"><li data-ing="0"><i style="--c:#7a1e2f" aria-hidden="true"></i>Grenache</li><li data-ing="1"><i style="--c:#8b3b4a" aria-hidden="true"></i>Syrah</li><li data-ing="2"><i style="--c:#9d5965" aria-hidden="true"></i>Mourvèdre</li></ul>
+              
+            </div>
+          </li>
+          <li class="dish">
+            <div class="dish__glass" aria-hidden="true"><svg viewBox="0 0 100 130" class="gl gl--red" data-fill>
+                <defs><clipPath id="cp-g-red-4"><path d="M20 28 Q20 78 44 85 L44 110 L30 116 L30 122 L70 122 L70 116 L56 110 L56 85 Q80 78 80 28 Z"/></clipPath></defs>
+                <g clip-path="url(#cp-g-red-4)"><rect class="gl__band" data-band="0" x="0" y="32.0" width="100" height="50.6" fill="#7a1e2f"/></g>
+                <path class="gl__out" d="M20 28 Q20 78 44 85 L44 110 L30 116 L30 122 L70 122 L70 116 L56 110 L56 85 Q80 78 80 28 Z"/>
+              </svg></div>
+            <div class="dish__body">
+              <p class="dish__top"><span class="dish__n mono">05</span><span class="dish__name">Nicolas Potel<span class="dish__cuv">, Pinot Noir</span></span><span class="dish__rule" aria-hidden="true"></span><span class="dish__p mono">3.200 <span class="dish__slash">//</span> 15.900</span></p>
+              <p class="dish__tags mono">AOP Bourgogne &middot; Bourgogne, Frakkland</p>
+              <ul class="dish__spec"><li data-ing="0"><i style="--c:#7a1e2f" aria-hidden="true"></i>Pinot Noir</li></ul>
+              
+            </div>
+          </li>
+        </ul>
+      </section>
+      <section class="course" aria-labelledby="course-g-white">
+        <header class="course__head">
+          <h3 class="course__title" id="course-g-white">Hvítt <em class="course__en">á glasi</em></h3>
+          <p class="course__price mono">GLAS // FLASKA</p>
+        </header>
+        <ul class="course__list">
+          <li class="dish dish--pick">
+            <div class="dish__glass" aria-hidden="true"><svg viewBox="0 0 100 130" class="gl gl--white" data-fill>
+                <defs><clipPath id="cp-g-white-0"><path d="M27 24 Q27 76 45 83 L45 110 L31 116 L31 122 L69 122 L69 116 L55 110 L55 83 Q73 76 73 24 Z"/></clipPath></defs>
+                <g clip-path="url(#cp-g-white-0)"><rect class="gl__band" data-band="0" x="0" y="28.0" width="100" height="54.6" fill="#e9d98c"/></g>
+                <path class="gl__out" d="M27 24 Q27 76 45 83 L45 110 L31 116 L31 122 L69 122 L69 116 L55 110 L55 83 Q73 76 73 24 Z"/>
+              </svg></div>
+            <div class="dish__body">
+              <p class="dish__top"><span class="dish__n mono">01</span><span class="dish__name">José Pariente<span class="dish__cuv">, Verdejo</span></span><span class="dish__rule" aria-hidden="true"></span><span class="dish__p mono">2.200 <span class="dish__slash">//</span> 10.900</span></p>
+              <p class="dish__tags mono">D.O. Rueda &middot; Castilla y León, Spánn</p>
+              <ul class="dish__spec"><li data-ing="0"><i style="--c:#e9d98c" aria-hidden="true"></i>Verdejo</li></ul>
+              <p class="dish__pick mono">GRÆNT Á SEÐLINUM</p>
+            </div>
+          </li>
+          <li class="dish">
+            <div class="dish__glass" aria-hidden="true"><svg viewBox="0 0 100 130" class="gl gl--white" data-fill>
+                <defs><clipPath id="cp-g-white-1"><path d="M27 24 Q27 76 45 83 L45 110 L31 116 L31 122 L69 122 L69 116 L55 110 L55 83 Q73 76 73 24 Z"/></clipPath></defs>
+                <g clip-path="url(#cp-g-white-1)"><rect class="gl__band" data-band="0" x="0" y="28.0" width="100" height="54.6" fill="#e9d98c"/></g>
+                <path class="gl__out" d="M27 24 Q27 76 45 83 L45 110 L31 116 L31 122 L69 122 L69 116 L55 110 L55 83 Q73 76 73 24 Z"/>
+              </svg></div>
+            <div class="dish__body">
+              <p class="dish__top"><span class="dish__n mono">02</span><span class="dish__name">Artazu<span class="dish__cuv">, Santa Cruz De Artazu 2015</span></span><span class="dish__rule" aria-hidden="true"></span><span class="dish__p mono">2.500 <span class="dish__slash">//</span> 11.900</span></p>
+              <p class="dish__tags mono">Navarra D.O. &middot; Navarra, Spánn</p>
+              <ul class="dish__spec"><li data-ing="0"><i style="--c:#e9d98c" aria-hidden="true"></i>White Garnacha</li></ul>
+              
+            </div>
+          </li>
+          <li class="dish">
+            <div class="dish__glass" aria-hidden="true"><svg viewBox="0 0 100 130" class="gl gl--white" data-fill>
+                <defs><clipPath id="cp-g-white-2"><path d="M27 24 Q27 76 45 83 L45 110 L31 116 L31 122 L69 122 L69 116 L55 110 L55 83 Q73 76 73 24 Z"/></clipPath></defs>
+                <g clip-path="url(#cp-g-white-2)"><rect class="gl__band" data-band="0" x="0" y="28.0" width="100" height="54.6" fill="#e9d98c"/></g>
+                <path class="gl__out" d="M27 24 Q27 76 45 83 L45 110 L31 116 L31 122 L69 122 L69 116 L55 110 L55 83 Q73 76 73 24 Z"/>
+              </svg></div>
+            <div class="dish__body">
+              <p class="dish__top"><span class="dish__n mono">03</span><span class="dish__name">Brotte<span class="dish__cuv">, Baies Dorrées</span></span><span class="dish__rule" aria-hidden="true"></span><span class="dish__p mono">2.500 <span class="dish__slash">//</span> 11.900</span></p>
+              <p class="dish__tags mono">Pays D’Oc IGP &middot; Occitanie, Frakkland</p>
+              <ul class="dish__spec"><li data-ing="0"><i style="--c:#e9d98c" aria-hidden="true"></i>Viognier</li></ul>
+              
+            </div>
+          </li>
+          <li class="dish">
+            <div class="dish__glass" aria-hidden="true"><svg viewBox="0 0 100 130" class="gl gl--white" data-fill>
+                <defs><clipPath id="cp-g-white-3"><path d="M27 24 Q27 76 45 83 L45 110 L31 116 L31 122 L69 122 L69 116 L55 110 L55 83 Q73 76 73 24 Z"/></clipPath></defs>
+                <g clip-path="url(#cp-g-white-3)"><rect class="gl__band" data-band="0" x="0" y="28.0" width="100" height="54.6" fill="#e9d98c"/></g>
+                <path class="gl__out" d="M27 24 Q27 76 45 83 L45 110 L31 116 L31 122 L69 122 L69 116 L55 110 L55 83 Q73 76 73 24 Z"/>
+              </svg></div>
+            <div class="dish__body">
+              <p class="dish__top"><span class="dish__n mono">04</span><span class="dish__name">Beykush<span class="dish__cuv">, Mr. Albarino</span></span><span class="dish__rule" aria-hidden="true"></span><span class="dish__p mono">2.900 <span class="dish__slash">//</span> 14.900</span></p>
+              <p class="dish__tags mono">Odessa &middot; Odessa, Ukraínu</p>
+              <ul class="dish__spec"><li data-ing="0"><i style="--c:#e9d98c" aria-hidden="true"></i>Albarino</li></ul>
+              
+            </div>
+          </li>
+          <li class="dish">
+            <div class="dish__glass" aria-hidden="true"><svg viewBox="0 0 100 130" class="gl gl--white" data-fill>
+                <defs><clipPath id="cp-g-white-4"><path d="M27 24 Q27 76 45 83 L45 110 L31 116 L31 122 L69 122 L69 116 L55 110 L55 83 Q73 76 73 24 Z"/></clipPath></defs>
+                <g clip-path="url(#cp-g-white-4)"><rect class="gl__band" data-band="0" x="0" y="64.0" width="100" height="18.6" fill="#e9d98c"/><rect class="gl__band" data-band="1" x="0" y="46.0" width="100" height="18.6" fill="#ecde9b"/><rect class="gl__band" data-band="2" x="0" y="28.0" width="100" height="18.6" fill="#efe3aa"/></g>
+                <path class="gl__out" d="M27 24 Q27 76 45 83 L45 110 L31 116 L31 122 L69 122 L69 116 L55 110 L55 83 Q73 76 73 24 Z"/>
+              </svg></div>
+            <div class="dish__body">
+              <p class="dish__top"><span class="dish__n mono">05</span><span class="dish__name">Gérard Bertrand<span class="dish__cuv">, Cigalus Blanc</span></span><span class="dish__rule" aria-hidden="true"></span><span class="dish__p mono">3.200 <span class="dish__slash">//</span> 15.900</span></p>
+              <p class="dish__tags mono">IGP Aude Hauterive &middot; Corbières, Frakkland</p>
+              <ul class="dish__spec"><li data-ing="0"><i style="--c:#e9d98c" aria-hidden="true"></i>Chardonnay</li><li data-ing="1"><i style="--c:#ecde9b" aria-hidden="true"></i>Sauvignon blanc</li><li data-ing="2"><i style="--c:#efe3aa" aria-hidden="true"></i>Viognier</li></ul>
+              
+            </div>
+          </li>
+        </ul>
+      </section>
+      <section class="course" aria-labelledby="course-g-rose">
+        <header class="course__head">
+          <h3 class="course__title" id="course-g-rose">Rósavín <em class="course__en">á glasi</em></h3>
+          <p class="course__price mono">GLAS // FLASKA</p>
+        </header>
+        <ul class="course__list">
+          <li class="dish">
+            <div class="dish__glass" aria-hidden="true"><svg viewBox="0 0 100 130" class="gl gl--white" data-fill>
+                <defs><clipPath id="cp-g-rose-0"><path d="M27 24 Q27 76 45 83 L45 110 L31 116 L31 122 L69 122 L69 116 L55 110 L55 83 Q73 76 73 24 Z"/></clipPath></defs>
+                <g clip-path="url(#cp-g-rose-0)"><rect class="gl__band" data-band="0" x="0" y="64.0" width="100" height="18.6" fill="#e8a4a8"/><rect class="gl__band" data-band="1" x="0" y="46.0" width="100" height="18.6" fill="#ebb0b3"/><rect class="gl__band" data-band="2" x="0" y="28.0" width="100" height="18.6" fill="#eebcbf"/></g>
+                <path class="gl__out" d="M27 24 Q27 76 45 83 L45 110 L31 116 L31 122 L69 122 L69 116 L55 110 L55 83 Q73 76 73 24 Z"/>
+              </svg></div>
+            <div class="dish__body">
+              <p class="dish__top"><span class="dish__n mono">01</span><span class="dish__name">Gueissard<span class="dish__cuv">, Les Papilles</span></span><span class="dish__rule" aria-hidden="true"></span><span class="dish__p mono">2.500 <span class="dish__slash">//</span> 11.900</span></p>
+              <p class="dish__tags mono">AOP Cotes de Provence &middot; Provence, Frakkland</p>
+              <ul class="dish__spec"><li data-ing="0"><i style="--c:#e8a4a8" aria-hidden="true"></i>Mourvedre</li><li data-ing="1"><i style="--c:#ebb0b3" aria-hidden="true"></i>Grenache</li><li data-ing="2"><i style="--c:#eebcbf" aria-hidden="true"></i>Cinsault</li></ul>
+              
+            </div>
+          </li>
+        </ul>
+      </section>
+      <section class="course" aria-labelledby="course-g-orange">
+        <header class="course__head">
+          <h3 class="course__title" id="course-g-orange">Appelsínuvín <em class="course__en">á glasi</em></h3>
+          <p class="course__price mono">GLAS // FLASKA</p>
+        </header>
+        <ul class="course__list">
+          <li class="dish">
+            <div class="dish__glass" aria-hidden="true"><svg viewBox="0 0 100 130" class="gl gl--white" data-fill>
+                <defs><clipPath id="cp-g-orange-0"><path d="M27 24 Q27 76 45 83 L45 110 L31 116 L31 122 L69 122 L69 116 L55 110 L55 83 Q73 76 73 24 Z"/></clipPath></defs>
+                <g clip-path="url(#cp-g-orange-0)"><rect class="gl__band" data-band="0" x="0" y="28.0" width="100" height="54.6" fill="#d68a3b"/></g>
+                <path class="gl__out" d="M27 24 Q27 76 45 83 L45 110 L31 116 L31 122 L69 122 L69 116 L55 110 L55 83 Q73 76 73 24 Z"/>
+              </svg></div>
+            <div class="dish__body">
+              <p class="dish__top"><span class="dish__n mono">01</span><span class="dish__name">Le temps des cerises<span class="dish__cuv">, “La Capitulation Ne Paie Pas”</span></span><span class="dish__rule" aria-hidden="true"></span><span class="dish__p mono">2.200 <span class="dish__slash">//</span> 10.900</span></p>
+              <p class="dish__tags mono">Languedoc &middot; Occitanie, Frakkland</p>
+              <ul class="dish__spec"><li data-ing="0"><i style="--c:#d68a3b" aria-hidden="true"></i>Cinsault</li></ul>
+              
+            </div>
+          </li>
+        </ul>
+      </section>
+      <section class="course" aria-labelledby="course-g-spark">
+        <header class="course__head">
+          <h3 class="course__title" id="course-g-spark">Freyðivín <em class="course__en">á glasi</em></h3>
+          <p class="course__price mono">GLAS // FLASKA</p>
+        </header>
+        <ul class="course__list">
+          <li class="dish dish--pick">
+            <div class="dish__glass" aria-hidden="true"><svg viewBox="0 0 100 130" class="gl gl--flute" data-fill>
+                <defs><clipPath id="cp-g-spark-0"><path d="M38 12 Q35 82 46 89 L46 110 L33 116 L33 122 L67 122 L67 116 L54 110 L54 89 Q65 82 62 12 Z"/></clipPath></defs>
+                <g clip-path="url(#cp-g-spark-0)"><rect class="gl__band" data-band="0" x="0" y="64.0" width="100" height="24.6" fill="#eee4b5"/><rect class="gl__band" data-band="1" x="0" y="40.0" width="100" height="24.6" fill="#f0e8bf"/><rect class="gl__band" data-band="2" x="0" y="16.0" width="100" height="24.6" fill="#f2ebc8"/></g>
+                <path class="gl__out" d="M38 12 Q35 82 46 89 L46 110 L33 116 L33 122 L67 122 L67 116 L54 110 L54 89 Q65 82 62 12 Z"/>
+              </svg></div>
+            <div class="dish__body">
+              <p class="dish__top"><span class="dish__n mono">01</span><span class="dish__name">Llopart<span class="dish__cuv">, Reserva Brut</span></span><span class="dish__rule" aria-hidden="true"></span><span class="dish__p mono">2.500 <span class="dish__slash">//</span> 11.900</span></p>
+              <p class="dish__tags mono">Corpinnat &middot; Subirats, Katalónía</p>
+              <ul class="dish__spec"><li data-ing="0"><i style="--c:#eee4b5" aria-hidden="true"></i>Macabeu</li><li data-ing="1"><i style="--c:#f0e8bf" aria-hidden="true"></i>Parrellada</li><li data-ing="2"><i style="--c:#f2ebc8" aria-hidden="true"></i>Xarel-lo</li></ul>
+              <p class="dish__pick mono">GRÆNT Á SEÐLINUM</p>
+            </div>
+          </li>
+          <li class="dish">
+            <div class="dish__glass" aria-hidden="true"><svg viewBox="0 0 100 130" class="gl gl--flute" data-fill>
+                <defs><clipPath id="cp-g-spark-1"><path d="M38 12 Q35 82 46 89 L46 110 L33 116 L33 122 L67 122 L67 116 L54 110 L54 89 Q65 82 62 12 Z"/></clipPath></defs>
+                <g clip-path="url(#cp-g-spark-1)"><rect class="gl__band" data-band="0" x="0" y="64.0" width="100" height="24.6" fill="#eee4b5"/><rect class="gl__band" data-band="1" x="0" y="40.0" width="100" height="24.6" fill="#f0e8bf"/><rect class="gl__band" data-band="2" x="0" y="16.0" width="100" height="24.6" fill="#f2ebc8"/></g>
+                <path class="gl__out" d="M38 12 Q35 82 46 89 L46 110 L33 116 L33 122 L67 122 L67 116 L54 110 L54 89 Q65 82 62 12 Z"/>
+              </svg></div>
+            <div class="dish__body">
+              <p class="dish__top"><span class="dish__n mono">02</span><span class="dish__name">Camille Giroud<span class="dish__cuv">, Guérin &amp; Blois</span></span><span class="dish__rule" aria-hidden="true"></span><span class="dish__p mono">2.200 <span class="dish__slash">//</span> 10.900</span></p>
+              <p class="dish__tags mono">Crémant de Bourgogne AOC &middot; Bourgogne, Frakkland</p>
+              <ul class="dish__spec"><li data-ing="0"><i style="--c:#eee4b5" aria-hidden="true"></i>Pinot Noir</li><li data-ing="1"><i style="--c:#f0e8bf" aria-hidden="true"></i>Chardonnay</li><li data-ing="2"><i style="--c:#f2ebc8" aria-hidden="true"></i>Aligoté</li></ul>
+              
+            </div>
+          </li>
+          <li class="dish">
+            <div class="dish__glass" aria-hidden="true"><svg viewBox="0 0 100 130" class="gl gl--flute" data-fill>
+                <defs><clipPath id="cp-g-spark-2"><path d="M38 12 Q35 82 46 89 L46 110 L33 116 L33 122 L67 122 L67 116 L54 110 L54 89 Q65 82 62 12 Z"/></clipPath></defs>
+                <g clip-path="url(#cp-g-spark-2)"><rect class="gl__band" data-band="0" x="0" y="16.0" width="100" height="72.6" fill="#eee4b5"/></g>
+                <path class="gl__out" d="M38 12 Q35 82 46 89 L46 110 L33 116 L33 122 L67 122 L67 116 L54 110 L54 89 Q65 82 62 12 Z"/>
+              </svg></div>
+            <div class="dish__body">
+              <p class="dish__top"><span class="dish__n mono">03</span><span class="dish__name">Nino Franco<span class="dish__cuv">, Prosseco Brut</span></span><span class="dish__rule" aria-hidden="true"></span><span class="dish__p mono">3.200 <span class="dish__slash">//</span> 15.900</span></p>
+              <p class="dish__tags mono">Valdobbiadene DOCG &middot; Valdobbiadene, Ítalía</p>
+              <ul class="dish__spec"><li data-ing="0"><i style="--c:#eee4b5" aria-hidden="true"></i>Glera</li></ul>
+              
+            </div>
+          </li>
+          <li class="dish">
+            <div class="dish__glass" aria-hidden="true"><svg viewBox="0 0 100 130" class="gl gl--flute" data-fill>
+                <defs><clipPath id="cp-g-spark-3"><path d="M38 12 Q35 82 46 89 L46 110 L33 116 L33 122 L67 122 L67 116 L54 110 L54 89 Q65 82 62 12 Z"/></clipPath></defs>
+                <g clip-path="url(#cp-g-spark-3)"><rect class="gl__band" data-band="0" x="0" y="64.0" width="100" height="24.6" fill="#eee4b5"/><rect class="gl__band" data-band="1" x="0" y="40.0" width="100" height="24.6" fill="#f0e8bf"/><rect class="gl__band" data-band="2" x="0" y="16.0" width="100" height="24.6" fill="#f2ebc8"/></g>
+                <path class="gl__out" d="M38 12 Q35 82 46 89 L46 110 L33 116 L33 122 L67 122 L67 116 L54 110 L54 89 Q65 82 62 12 Z"/>
+              </svg></div>
+            <div class="dish__body">
+              <p class="dish__top"><span class="dish__n mono">04</span><span class="dish__name">Simpsons<span class="dish__cuv">, Chalklands</span></span><span class="dish__rule" aria-hidden="true"></span><span class="dish__p mono">3.200 <span class="dish__slash">//</span> 15.900</span></p>
+              <p class="dish__tags mono">Great British Classic Method Blend &middot; Kent, Bretland</p>
+              <ul class="dish__spec"><li data-ing="0"><i style="--c:#eee4b5" aria-hidden="true"></i>Chardonnay</li><li data-ing="1"><i style="--c:#f0e8bf" aria-hidden="true"></i>Pinot Noir</li><li data-ing="2"><i style="--c:#f2ebc8" aria-hidden="true"></i>Pinot Meunier</li></ul>
+              
+            </div>
+          </li>
+          <li class="dish">
+            <div class="dish__glass" aria-hidden="true"><svg viewBox="0 0 100 130" class="gl gl--flute" data-fill>
+                <defs><clipPath id="cp-g-spark-4"><path d="M38 12 Q35 82 46 89 L46 110 L33 116 L33 122 L67 122 L67 116 L54 110 L54 89 Q65 82 62 12 Z"/></clipPath></defs>
+                <g clip-path="url(#cp-g-spark-4)"><rect class="gl__band" data-band="0" x="0" y="16.0" width="100" height="72.6" fill="#e8a4a8"/></g>
+                <path class="gl__out" d="M38 12 Q35 82 46 89 L46 110 L33 116 L33 122 L67 122 L67 116 L54 110 L54 89 Q65 82 62 12 Z"/>
+              </svg></div>
+            <div class="dish__body">
+              <p class="dish__top"><span class="dish__n mono">05</span><span class="dish__name">Simpsons<span class="dish__cuv">, Canterburry Rosé</span></span><span class="dish__rule" aria-hidden="true"></span><span class="dish__p mono">3.200 <span class="dish__slash">//</span> 15.900</span></p>
+              <p class="dish__tags mono">Great British Classic Method Blend &middot; Kent, Bretland</p>
+              <ul class="dish__spec"><li data-ing="0"><i style="--c:#e8a4a8" aria-hidden="true"></i>Pinot Noir</li></ul>
+              
+            </div>
+          </li>
+        </ul>
+      </section>
+      <section class="course" aria-labelledby="course-g-port">
+        <header class="course__head">
+          <h3 class="course__title" id="course-g-port">Sterkt <em class="course__en">á glasi</em></h3>
+          <p class="course__price mono">GLAS // FLASKA</p>
+        </header>
+        <ul class="course__list">
+          <li class="dish">
+            <div class="dish__glass" aria-hidden="true"><svg viewBox="0 0 100 130" class="gl gl--port" data-fill>
+                <defs><clipPath id="cp-g-port-0"><path d="M33 46 Q33 86 45 91 L45 110 L34 116 L34 122 L66 122 L66 116 L55 110 L55 91 Q67 86 67 46 Z"/></clipPath></defs>
+                <g clip-path="url(#cp-g-port-0)"><rect class="gl__band" data-band="0" x="0" y="82.0" width="100" height="8.6" fill="#4a1423"/><rect class="gl__band" data-band="1" x="0" y="74.0" width="100" height="8.6" fill="#623340"/><rect class="gl__band" data-band="2" x="0" y="66.0" width="100" height="8.6" fill="#79515c"/><rect class="gl__band" data-band="3" x="0" y="58.0" width="100" height="8.6" fill="#8f6d77"/><rect class="gl__band" data-band="4" x="0" y="50.0" width="100" height="8.6" fill="#8f6d77"/></g>
+                <path class="gl__out" d="M33 46 Q33 86 45 91 L45 110 L34 116 L34 122 L66 122 L66 116 L55 110 L55 91 Q67 86 67 46 Z"/>
+              </svg></div>
+            <div class="dish__body">
+              <p class="dish__top"><span class="dish__n mono">01</span><span class="dish__name">Quinta Do Pégo<span class="dish__cuv">, Port LBV 2019</span></span><span class="dish__rule" aria-hidden="true"></span><span class="dish__p mono">2.500</span></p>
+              <p class="dish__tags mono">LBV Port &middot; Douro Valley, Portúgal</p>
+              <ul class="dish__spec"><li data-ing="0"><i style="--c:#4a1423" aria-hidden="true"></i>Touriga Nacional</li><li data-ing="1"><i style="--c:#623340" aria-hidden="true"></i>Touriga Franca</li><li data-ing="2"><i style="--c:#79515c" aria-hidden="true"></i>Tinta Roriz</li><li data-ing="3"><i style="--c:#8f6d77" aria-hidden="true"></i>Tinto Cão</li><li data-ing="4"><i style="--c:#8f6d77" aria-hidden="true"></i>Sousão</li></ul>
+              
+            </div>
+          </li>
+        </ul>
+      </section>
+  </div>
+
+  <aside class="mystery" aria-labelledby="mystery-h">
+    <div class="mystery__glass" aria-hidden="true">
+      <svg viewBox="0 0 100 130" class="gl gl--red gl--empty"><path class="gl__out" d="M20 28 Q20 78 44 85 L44 110 L30 116 L30 122 L70 122 L70 116 L56 110 L56 85 Q80 78 80 28 Z"/><text class="gl__q" x="50" y="64" text-anchor="middle">?</text></svg>
+    </div>
+    <div>
+      <p class="kicker mono">Á SEÐLINUM OKKAR</p>
+      <h3 class="mystery__h" id="mystery-h">Mystery Wine</h3>
+      <p class="mystery__p mono">2.500,- / FREE</p>
+      <p class="mystery__note">Leikurinn okkar, eins og hann stendur á seðlinum: glasið kostar 2.500 krónur, eða ekkert. Spyrjið okkur við barinn hvernig maður vinnur hann.</p>
+    </div>
+  </aside>
+
+  <figure class="bleed bleed--port" data-pour>
+    <img src="assets/img/redglass.jpg?v=57ef45d6" alt="Rauðvínsglas lyft yfir ljósin á barnum" width="2000" height="1125" loading="lazy" decoding="async" />
+    <figcaption class="mono">VIÐ BARINN · GLASI LYFT YFIR LJÓSIN</figcaption>
+  </figure>
+
+  <div class="sheet">
+      <section class="course" aria-labelledby="course-ck">
+        <header class="course__head">
+          <h3 class="course__title" id="course-ck">Kokteilar</h3>
+          <p class="course__price mono">ÞEIRRA EIGIN SEÐILL</p>
+        </header>
+        <ul class="course__list">
+          <li class="dish">
+            <div class="dish__glass" aria-hidden="true"><svg viewBox="0 0 100 130" class="gl gl--white" data-fill>
+                <defs><clipPath id="cp-ck-0"><path d="M27 24 Q27 76 45 83 L45 110 L31 116 L31 122 L69 122 L69 116 L55 110 L55 83 Q73 76 73 24 Z"/></clipPath></defs>
+                <g clip-path="url(#cp-ck-0)"><rect class="gl__band" data-band="0" x="0" y="64.0" width="100" height="18.6" fill="#E4622A"/><rect class="gl__band" data-band="1" x="0" y="46.0" width="100" height="18.6" fill="#EEE4B5"/><rect class="gl__band" data-band="2" x="0" y="28.0" width="100" height="18.6" fill="#DCE6E6"/></g>
+                <path class="gl__out" d="M27 24 Q27 76 45 83 L45 110 L31 116 L31 122 L69 122 L69 116 L55 110 L55 83 Q73 76 73 24 Z"/>
+              </svg></div>
+            <div class="dish__body">
+              <p class="dish__top"><span class="dish__n mono">01</span><span class="dish__name">Aperol Spritz</span><span class="dish__rule" aria-hidden="true"></span><span class="dish__p mono">2.390</span></p>
+              <ul class="dish__spec"><li data-ing="0"><i style="--c:#E4622A" aria-hidden="true"></i>Aperol</li><li data-ing="1"><i style="--c:#EEE4B5" aria-hidden="true"></i>Sparkling Wine</li><li data-ing="2"><i style="--c:#DCE6E6" aria-hidden="true"></i>Soda</li></ul>
+            </div>
+          </li>
+          <li class="dish">
+            <div class="dish__glass" aria-hidden="true"><svg viewBox="0 0 100 130" class="gl gl--white" data-fill>
+                <defs><clipPath id="cp-ck-1"><path d="M27 24 Q27 76 45 83 L45 110 L31 116 L31 122 L69 122 L69 116 L55 110 L55 83 Q73 76 73 24 Z"/></clipPath></defs>
+                <g clip-path="url(#cp-ck-1)"><rect class="gl__band" data-band="0" x="0" y="64.0" width="100" height="18.6" fill="#E8D35A"/><rect class="gl__band" data-band="1" x="0" y="46.0" width="100" height="18.6" fill="#EEE4B5"/><rect class="gl__band" data-band="2" x="0" y="28.0" width="100" height="18.6" fill="#DCE6E6"/></g>
+                <path class="gl__out" d="M27 24 Q27 76 45 83 L45 110 L31 116 L31 122 L69 122 L69 116 L55 110 L55 83 Q73 76 73 24 Z"/>
+              </svg></div>
+            <div class="dish__body">
+              <p class="dish__top"><span class="dish__n mono">02</span><span class="dish__name">Sarti or Limoncello Spritz</span><span class="dish__rule" aria-hidden="true"></span><span class="dish__p mono">2.590</span></p>
+              <ul class="dish__spec"><li data-ing="0"><i style="--c:#E8D35A" aria-hidden="true"></i>Sarti / Limoncello</li><li data-ing="1"><i style="--c:#EEE4B5" aria-hidden="true"></i>Sparkling Wine</li><li data-ing="2"><i style="--c:#DCE6E6" aria-hidden="true"></i>Soda</li></ul>
+            </div>
+          </li>
+          <li class="dish">
+            <div class="dish__glass" aria-hidden="true"><svg viewBox="0 0 100 130" class="gl gl--rocks" data-fill>
+                <defs><clipPath id="cp-ck-2"><path d="M20 56 L24 118 Q24 124 31 124 L69 124 Q76 124 76 118 L80 56 Z"/></clipPath></defs>
+                <g clip-path="url(#cp-ck-2)"><rect class="gl__band" data-band="0" x="0" y="106.3" width="100" height="16.4" fill="#DDE4DA"/><rect class="gl__band" data-band="1" x="0" y="90.5" width="100" height="16.4" fill="#DDE4DA"/><rect class="gl__band" data-band="2" x="0" y="74.8" width="100" height="16.4" fill="#B4713F"/><rect class="gl__band" data-band="3" x="0" y="59.0" width="100" height="16.4" fill="#C0202B"/></g>
+                <path class="gl__out" d="M20 56 L24 118 Q24 124 31 124 L69 124 Q76 124 76 118 L80 56 Z"/>
+              </svg></div>
+            <div class="dish__body">
+              <p class="dish__top"><span class="dish__n mono">03</span><span class="dish__name">House Negroni</span><span class="dish__rule" aria-hidden="true"></span><span class="dish__p mono">2.950</span></p>
+              <ul class="dish__spec"><li data-ing="0"><i style="--c:#DDE4DA" aria-hidden="true"></i>Himbrimi London Dry Gin</li><li data-ing="1"><i style="--c:#DDE4DA" aria-hidden="true"></i>Himbrimi Old Tom Gin</li><li data-ing="2"><i style="--c:#B4713F" aria-hidden="true"></i>Jarabe De Palo Vermouth</li><li data-ing="3"><i style="--c:#C0202B" aria-hidden="true"></i>Campari</li></ul>
+            </div>
+          </li>
+          <li class="dish">
+            <div class="dish__glass" aria-hidden="true"><svg viewBox="0 0 100 130" class="gl gl--coupe" data-fill>
+                <defs><clipPath id="cp-ck-3"><path d="M14 34 Q14 78 46 84 L46 112 L30 118 L30 124 L70 124 L70 118 L54 112 L54 84 Q86 78 86 34 Z"/></clipPath></defs>
+                <g clip-path="url(#cp-ck-3)"><rect class="gl__band" data-band="0" x="0" y="67.3" width="100" height="16.3" fill="#E7EAE4"/><rect class="gl__band" data-band="1" x="0" y="51.7" width="100" height="16.3" fill="#3A2416"/><rect class="gl__band" data-band="2" x="0" y="36.0" width="100" height="16.3" fill="#5A3A22"/></g>
+                <path class="gl__out" d="M14 34 Q14 78 46 84 L46 112 L30 118 L30 124 L70 124 L70 118 L54 112 L54 84 Q86 78 86 34 Z"/>
+              </svg></div>
+            <div class="dish__body">
+              <p class="dish__top"><span class="dish__n mono">04</span><span class="dish__name">House Espresso Martini</span><span class="dish__rule" aria-hidden="true"></span><span class="dish__p mono">2.950</span></p>
+              <ul class="dish__spec"><li data-ing="0"><i style="--c:#E7EAE4" aria-hidden="true"></i>Zubrovka Vodka</li><li data-ing="1"><i style="--c:#3A2416" aria-hidden="true"></i>Giffard Honduras Coffee Liquor</li><li data-ing="2"><i style="--c:#5A3A22" aria-hidden="true"></i>Homemade Cold Brew</li></ul>
+            </div>
+          </li>
+          <li class="dish">
+            <div class="dish__glass" aria-hidden="true"><svg viewBox="0 0 100 130" class="gl gl--coupe" data-fill>
+                <defs><clipPath id="cp-ck-4"><path d="M14 34 Q14 78 46 84 L46 112 L30 118 L30 124 L70 124 L70 118 L54 112 L54 84 Q86 78 86 34 Z"/></clipPath></defs>
+                <g clip-path="url(#cp-ck-4)"><rect class="gl__band" data-band="0" x="0" y="71.3" width="100" height="12.3" fill="#C9A574"/><rect class="gl__band" data-band="1" x="0" y="59.5" width="100" height="12.3" fill="#D9B89A"/><rect class="gl__band" data-band="2" x="0" y="47.8" width="100" height="12.3" fill="#3A2416"/><rect class="gl__band" data-band="3" x="0" y="36.0" width="100" height="12.3" fill="#5A3A22"/></g>
+                <path class="gl__out" d="M14 34 Q14 78 46 84 L46 112 L30 118 L30 124 L70 124 L70 118 L54 112 L54 84 Q86 78 86 34 Z"/>
+              </svg></div>
+            <div class="dish__body">
+              <p class="dish__top"><span class="dish__n mono">05</span><span class="dish__name">House Tiramisu Martini</span><span class="dish__rule" aria-hidden="true"></span><span class="dish__p mono">2.950</span></p>
+              <ul class="dish__spec"><li data-ing="0"><i style="--c:#C9A574" aria-hidden="true"></i>Tiramisu Liquor</li><li data-ing="1"><i style="--c:#D9B89A" aria-hidden="true"></i>Bailey’s</li><li data-ing="2"><i style="--c:#3A2416" aria-hidden="true"></i>Giffard Honduras Coffee Liquor</li><li data-ing="3"><i style="--c:#5A3A22" aria-hidden="true"></i>Homemade Cold Brew</li></ul>
+            </div>
+          </li>
+        </ul>
+      </section>
+  </div>
+
+  <p class="sheet__note">Vín, þrúgur, upprunahéruð og verð eins og þau standa á seðlinum okkar í ágúst 2026. Vínin á glasi skiptast út á tveggja vikna fresti, svo þetta er einn tiltekinn seðill. Randalitir eru til skýringar, ekki smakknótur.</p>
+</section>
+
+<!-- ══════════ 4. FÓLKIÐ: the rail, waiting for their portraits ══════════ -->
+<!-- The countries used to live here, which said the same thing as the bottle
+     list below it twice. The rail is the one place on the page shaped like
+     people, so it holds them: empty plates until Port 9 send portraits, with
+     no invented names or borrowed faces standing in. -->
+<section class="crew" id="folkid">
+  <div class="crew__pin" id="crewPin">
+    <header class="crew__head">
+      <p class="kicker mono">03 / FÓLKIÐ</p>
+      <h2 class="h2">Fólkið<br /><em>á bak við barinn</em></h2>
+      <p class="crew__note">Öll vaktin okkar kann að tala um það sem hún hellir í glasið. Hér koma myndirnar af hópnum, ein fyrir hvern.</p>
+    </header>
+    <!-- tabindex: a scroll container with no focusable children cannot be
+         reached or scrolled by keyboard at all without it -->
+    <ul class="crew__track" id="crewTrack"
+        tabindex="0" role="group" aria-label="Starfsfólk, skrunið til hliðar">
+        <li class="crew__card crew__card--slot">
+          <div class="crew__plate" aria-hidden="true">
+            <img class="crew__ghost" src="assets/img/roundel-white.png?v=ae1e7aba" alt="" width="600" height="600" loading="lazy" decoding="async" />
+            <span class="crew__slot-n mono">01</span>
+          </div>
+          <div class="crew__body">
+            <h3>Nafn</h3>
+            <p class="crew__await mono">STARF &middot; PORT 9</p>
+          </div>
+        </li>
+        <li class="crew__card crew__card--slot">
+          <div class="crew__plate" aria-hidden="true">
+            <img class="crew__ghost" src="assets/img/roundel-white.png?v=ae1e7aba" alt="" width="600" height="600" loading="lazy" decoding="async" />
+            <span class="crew__slot-n mono">02</span>
+          </div>
+          <div class="crew__body">
+            <h3>Nafn</h3>
+            <p class="crew__await mono">STARF &middot; PORT 9</p>
+          </div>
+        </li>
+        <li class="crew__card crew__card--slot">
+          <div class="crew__plate" aria-hidden="true">
+            <img class="crew__ghost" src="assets/img/roundel-white.png?v=ae1e7aba" alt="" width="600" height="600" loading="lazy" decoding="async" />
+            <span class="crew__slot-n mono">03</span>
+          </div>
+          <div class="crew__body">
+            <h3>Nafn</h3>
+            <p class="crew__await mono">STARF &middot; PORT 9</p>
+          </div>
+        </li>
+        <li class="crew__card crew__card--slot">
+          <div class="crew__plate" aria-hidden="true">
+            <img class="crew__ghost" src="assets/img/roundel-white.png?v=ae1e7aba" alt="" width="600" height="600" loading="lazy" decoding="async" />
+            <span class="crew__slot-n mono">04</span>
+          </div>
+          <div class="crew__body">
+            <h3>Nafn</h3>
+            <p class="crew__await mono">STARF &middot; PORT 9</p>
+          </div>
+        </li>
+        <li class="crew__card crew__card--slot">
+          <div class="crew__plate" aria-hidden="true">
+            <img class="crew__ghost" src="assets/img/roundel-white.png?v=ae1e7aba" alt="" width="600" height="600" loading="lazy" decoding="async" />
+            <span class="crew__slot-n mono">05</span>
+          </div>
+          <div class="crew__body">
+            <h3>Nafn</h3>
+            <p class="crew__await mono">STARF &middot; PORT 9</p>
+          </div>
+        </li>
+        <li class="crew__card crew__card--slot">
+          <div class="crew__plate" aria-hidden="true">
+            <img class="crew__ghost" src="assets/img/roundel-white.png?v=ae1e7aba" alt="" width="600" height="600" loading="lazy" decoding="async" />
+            <span class="crew__slot-n mono">06</span>
+          </div>
+          <div class="crew__body">
+            <h3>Nafn</h3>
+            <p class="crew__await mono">STARF &middot; PORT 9</p>
+          </div>
+        </li>
+    </ul>
+    <div class="crew__rail-foot">
+      <p class="crew__hint mono">DRAGIÐ TIL HLIÐAR</p>
+      <div class="crew__bar" id="crewBar" aria-hidden="true"><span></span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ 5. FLÖSKUR - the whole bottle list, on the dark ground ══════════ -->
+<section class="drinks drinks--dark" id="floskur">
+  <div class="archive__trail" id="trail" aria-hidden="true"></div>
+  <header class="sec-head sec-head--mid">
+    <p class="kicker mono">04 / FLÖSKUR</p>
+    <h2 class="h2">Frá Bordeaux<br />að Bekaa</h2>
+    <p class="sec-head__note">Allur flöskulistinn okkar, land fyrir land og hérað fyrir hérað, hver flaska með framleiðanda, árgangi, upprunavottun og þrúgum.</p>
+  </header>
+  <nav class="chapter-nav" aria-label="Lönd á flöskulistanum">
+    <a href="#land-0">Frakkland<i class="mono" aria-hidden="true">20</i></a>
+    <a href="#land-1">Spánn<i class="mono" aria-hidden="true">7</i></a>
+    <a href="#land-2">Ítalía<i class="mono" aria-hidden="true">9</i></a>
+    <a href="#land-3">Austurríki og Þýskaland<i class="mono" aria-hidden="true">2</i></a>
+    <a href="#land-4">Georgía<i class="mono" aria-hidden="true">4</i></a>
+    <a href="#land-5">Grikkland<i class="mono" aria-hidden="true">1</i></a>
+    <a href="#land-6">Líbanon<i class="mono" aria-hidden="true">1</i></a>
+  </nav>
+  <div class="chapters">
+  <article class="chapter" id="land-0" aria-labelledby="chapter-0">
+    <header class="chapter__head">
+      <p class="chapter__n mono">01 / 07</p>
+      <h3 class="chapter__t" id="chapter-0">Frakkland <em>France</em></h3>
+      <p class="chapter__meta mono">20 FLÖSKUR &middot; Bordeaux &middot; Cotes du Rhône &middot; Alsace &middot; Bourgogne &middot; Occitanie &middot; Non-Millésimé &middot; Millésimé</p>
+    </header>
+
+    <div class="chapter__sheet">
+      <ul class="course__list">
+          <li class="dish dish--head"><p class="dish__grp"><span class="dish__grp-t">Rautt</span><span class="mono">Bordeaux &middot; Cotes du Rhône &middot; Alsace &middot; Bourgogne</span></p></li>
+          <li class="dish">
+            <div class="dish__glass" aria-hidden="true"><svg viewBox="0 0 100 130" class="gl gl--red" data-fill>
+                <defs><clipPath id="cp-b-0-0-0"><path d="M20 28 Q20 78 44 85 L44 110 L30 116 L30 122 L70 122 L70 116 L56 110 L56 85 Q80 78 80 28 Z"/></clipPath></defs>
+                <g clip-path="url(#cp-b-0-0-0)"><rect class="gl__band" data-band="0" x="0" y="57.0" width="100" height="25.6" fill="#7a1e2f"/><rect class="gl__band" data-band="1" x="0" y="32.0" width="100" height="25.6" fill="#8b3b4a"/></g>
+                <path class="gl__out" d="M20 28 Q20 78 44 85 L44 110 L30 116 L30 122 L70 122 L70 116 L56 110 L56 85 Q80 78 80 28 Z"/>
+              </svg></div>
+            <div class="dish__body">
+              <p class="dish__top"><span class="dish__n mono">01</span><span class="dish__name">Chateau Cantenac Brown<span class="dish__cuv">, &quot;Cantennac Brown&quot; 2016</span></span><span class="dish__rule" aria-hidden="true"></span><span class="dish__p mono">29.900</span></p>
+              <p class="dish__tags mono">Grand Cru Classé 1855 &middot; Margaux, Frakkland</p>
+              <ul class="dish__spec"><li data-ing="0"><i style="--c:#7a1e2f" aria-hidden="true"></i>Cabernet Sauvignon</li><li data-ing="1"><i style="--c:#8b3b4a" aria-hidden="true"></i>Merlot</li></ul>
+              
+            </div>
+          </li>
+          <li class="dish">
+            <div class="dish__glass" aria-hidden="true"><svg viewBox="0 0 100 130" class="gl gl--red" data-fill>
+                <defs><clipPath id="cp-b-0-0-1"><path d="M20 28 Q20 78 44 85 L44 110 L30 116 L30 122 L70 122 L70 116 L56 110 L56 85 Q80 78 80 28 Z"/></clipPath></defs>
+                <g clip-path="url(#cp-b-0-0-1)"><rect class="gl__band" data-band="0" x="0" y="65.3" width="100" height="17.3" fill="#7a1e2f"/><rect class="gl__band" data-band="1" x="0" y="48.7" width="100" height="17.3" fill="#8b3b4a"/><rect class="gl__band" data-band="2" x="0" y="32.0" width="100" height="17.3" fill="#9d5965"/></g>
+                <path class="gl__out" d="M20 28 Q20 78 44 85 L44 110 L30 116 L30 122 L70 122 L70 116 L56 110 L56 85 Q80 78 80 28 Z"/>
+              </svg></div>
+            <div class="dish__body">
+              <p class="dish__top"><span class="dish__n mono">02</span><span class="dish__name">Chateau Cantenac Brown<span class="dish__cuv">, &quot;BriO de Cantennac Brown&quot; 2017</span></span><span class="dish__rule" aria-hidden="true"></span><span class="dish__p mono">20.900</span></p>
+              <p class="dish__tags mono">AOC Margaux &middot; Margaux, Frakkland</p>
+              <ul class="dish__spec"><li data-ing="0"><i style="--c:#7a1e2f" aria-hidden="true"></i>Cabernet Sauvignon</li><li data-ing="1"><i style="--c:#8b3b4a" aria-hidden="true"></i>Merlot</li><li data-ing="2"><i style="--c:#9d5965" aria-hidden="true"></i>Cabernet Franc</li></ul>
+              
+            </div>
+          </li>
+          <li class="dish">
+            <div class="dish__glass" aria-hidden="true"><svg viewBox="0 0 100 130" class="gl gl--red" data-fill>
+                <defs><clipPath id="cp-b-0-0-2"><path d="M20 28 Q20 78 44 85 L44 110 L30 116 L30 122 L70 122 L70 116 L56 110 L56 85 Q80 78 80 28 Z"/></clipPath></defs>
+                <g clip-path="url(#cp-b-0-0-2)"><rect class="gl__band" data-band="0" x="0" y="32.0" width="100" height="50.6" fill="#7a1e2f"/></g>
+                <path class="gl__out" d="M20 28 Q20 78 44 85 L44 110 L30 116 L30 122 L70 122 L70 116 L56 110 L56 85 Q80 78 80 28 Z"/>
+              </svg></div>
+            <div class="dish__body">
+              <p class="dish__top"><span class="dish__n mono">03</span><span class="dish__name">E. Guigal<span class="dish__cuv">, &quot;Hermitage&quot; 2019</span></span><span class="dish__rule" aria-hidden="true"></span><span class="dish__p mono">29.900</span></p>
+              <p class="dish__tags mono">AOC Hermitage &middot; Hermitage, Frakkland</p>
+              <ul class="dish__spec"><li data-ing="0"><i style="--c:#7a1e2f" aria-hidden="true"></i>Syrah</li></ul>
+              
+            </div>
+          </li>
+          <li class="dish">
+            <div class="dish__glass" aria-hidden="true"><svg viewBox="0 0 100 130" class="gl gl--white" data-fill>
+                <defs><clipPath id="cp-b-0-0-3"><path d="M27 24 Q27 76 45 83 L45 110 L31 116 L31 122 L69 122 L69 116 L55 110 L55 83 Q73 76 73 24 Z"/></clipPath></defs>
+                <g clip-path="url(#cp-b-0-0-3)"><rect class="gl__band" data-band="0" x="0" y="28.0" width="100" height="54.6" fill="#e9d98c"/></g>
+                <path class="gl__out" d="M27 24 Q27 76 45 83 L45 110 L31 116 L31 122 L69 122 L69 116 L55 110 L55 83 Q73 76 73 24 Z"/>
+              </svg></div>
+            <div class="dish__body">
+              <p class="dish__top"><span class="dish__n mono">04</span><span class="dish__name">Famille Hugel<span class="dish__cuv">, &quot;Pinot Gris Vendanges Tardives&quot; 1998</span></span><span class="dish__rule" aria-hidden="true"></span><span class="dish__p mono">27.900</span></p>
+              <p class="dish__tags mono">AOC Alsace &middot; Riquewihr, Frakkland</p>
+              <ul class="dish__spec"><li data-ing="0"><i style="--c:#e9d98c" aria-hidden="true"></i>Pinot Gris</li></ul>
+              
+            </div>
+          </li>
+          <li class="dish">
+            <div class="dish__glass" aria-hidden="true"><svg viewBox="0 0 100 130" class="gl gl--red" data-fill>
+                <defs><clipPath id="cp-b-0-0-4"><path d="M20 28 Q20 78 44 85 L44 110 L30 116 L30 122 L70 122 L70 116 L56 110 L56 85 Q80 78 80 28 Z"/></clipPath></defs>
+                <g clip-path="url(#cp-b-0-0-4)"><rect class="gl__band" data-band="0" x="0" y="32.0" width="100" height="50.6" fill="#7a1e2f"/></g>
+                <path class="gl__out" d="M20 28 Q20 78 44 85 L44 110 L30 116 L30 122 L70 122 L70 116 L56 110 L56 85 Q80 78 80 28 Z"/>
+              </svg></div>
+            <div class="dish__body">
+              <p class="dish__top"><span class="dish__n mono">05</span><span class="dish__name">Camille Giroud<span class="dish__cuv">, &quot;Maranges Le Croix Moines&quot; 2022</span></span><span class="dish__rule" aria-hidden="true"></span><span class="dish__p mono">23.900</span></p>
+              <p class="dish__tags mono">AOC Maranges 1er Cru &middot; Maranges, Frakkland</p>
+              <ul class="dish__spec"><li data-ing="0"><i style="--c:#7a1e2f" aria-hidden="true"></i>Pinot Noir</li></ul>
+              
+            </div>
+          </li>
+          <li class="dish">
+            <div class="dish__glass" aria-hidden="true"><svg viewBox="0 0 100 130" class="gl gl--red" data-fill>
+                <defs><clipPath id="cp-b-0-0-5"><path d="M20 28 Q20 78 44 85 L44 110 L30 116 L30 122 L70 122 L70 116 L56 110 L56 85 Q80 78 80 28 Z"/></clipPath></defs>
+                <g clip-path="url(#cp-b-0-0-5)"><rect class="gl__band" data-band="0" x="0" y="32.0" width="100" height="50.6" fill="#7a1e2f"/></g>
+                <path class="gl__out" d="M20 28 Q20 78 44 85 L44 110 L30 116 L30 122 L70 122 L70 116 L56 110 L56 85 Q80 78 80 28 Z"/>
+              </svg></div>
+            <div class="dish__body">
+              <p class="dish__top"><span class="dish__n mono">06</span><span class="dish__name">Camille Giroud<span class="dish__cuv">, &quot;Volnay&quot; 2021</span></span><span class="dish__rule" aria-hidden="true"></span><span class="dish__p mono">24.900</span></p>
+              <p class="dish__tags mono">AOC Volnay &middot; Volnay, Frakkland</p>
+              <ul class="dish__spec"><li data-ing="0"><i style="--c:#7a1e2f" aria-hidden="true"></i>Pinot Noir</li></ul>
+              
+            </div>
+          </li>
+          <li class="dish">
+            <div class="dish__glass" aria-hidden="true"><svg viewBox="0 0 100 130" class="gl gl--red" data-fill>
+                <defs><clipPath id="cp-b-0-0-6"><path d="M20 28 Q20 78 44 85 L44 110 L30 116 L30 122 L70 122 L70 116 L56 110 L56 85 Q80 78 80 28 Z"/></clipPath></defs>
+                <g clip-path="url(#cp-b-0-0-6)"><rect class="gl__band" data-band="0" x="0" y="32.0" width="100" height="50.6" fill="#7a1e2f"/></g>
+                <path class="gl__out" d="M20 28 Q20 78 44 85 L44 110 L30 116 L30 122 L70 122 L70 116 L56 110 L56 85 Q80 78 80 28 Z"/>
+              </svg></div>
+            <div class="dish__body">
+              <p class="dish__top"><span class="dish__n mono">07</span><span class="dish__name">Domaine Sorine<span class="dish__cuv">, &quot;Vieilles-Vignes&quot; 2021</span></span><span class="dish__rule" aria-hidden="true"></span><span class="dish__p mono">27.900</span></p>
+              <p class="dish__tags mono">AOC Chassagne-Montrachet &middot; Chassagne-Montrachet, Frakkland</p>
+              <ul class="dish__spec"><li data-ing="0"><i style="--c:#7a1e2f" aria-hidden="true"></i>Pinot Noir</li></ul>
+              
+            </div>
+          </li>
+          <li class="dish">
+            <div class="dish__glass" aria-hidden="true"><svg viewBox="0 0 100 130" class="gl gl--red" data-fill>
+                <defs><clipPath id="cp-b-0-0-7"><path d="M20 28 Q20 78 44 85 L44 110 L30 116 L30 122 L70 122 L70 116 L56 110 L56 85 Q80 78 80 28 Z"/></clipPath></defs>
+                <g clip-path="url(#cp-b-0-0-7)"><rect class="gl__band" data-band="0" x="0" y="32.0" width="100" height="50.6" fill="#7a1e2f"/></g>
+                <path class="gl__out" d="M20 28 Q20 78 44 85 L44 110 L30 116 L30 122 L70 122 L70 116 L56 110 L56 85 Q80 78 80 28 Z"/>
+              </svg></div>
+            <div class="dish__body">
+              <p class="dish__top"><span class="dish__n mono">08</span><span class="dish__name">Christophe Violot-Guillemard<span class="dish__cuv">, &quot;Clos Derrière Saint-Jean, Monopole&quot; 2021</span></span><span class="dish__rule" aria-hidden="true"></span><span class="dish__p mono">29.900</span></p>
+              <p class="dish__tags mono">AOC Pommard &middot; Pommard, Frakkland</p>
+              <ul class="dish__spec"><li data-ing="0"><i style="--c:#7a1e2f" aria-hidden="true"></i>Pinot Noir</li></ul>
+              
+            </div>
+          </li>
+          <li class="dish">
+            <div class="dish__glass" aria-hidden="true"><svg viewBox="0 0 100 130" class="gl gl--red" data-fill>
+                <defs><clipPath id="cp-b-0-0-8"><path d="M20 28 Q20 78 44 85 L44 110 L30 116 L30 122 L70 122 L70 116 L56 110 L56 85 Q80 78 80 28 Z"/></clipPath></defs>
+                <g clip-path="url(#cp-b-0-0-8)"><rect class="gl__band" data-band="0" x="0" y="32.0" width="100" height="50.6" fill="#7a1e2f"/></g>
+                <path class="gl__out" d="M20 28 Q20 78 44 85 L44 110 L30 116 L30 122 L70 122 L70 116 L56 110 L56 85 Q80 78 80 28 Z"/>
+              </svg></div>
+            <div class="dish__body">
+              <p class="dish__top"><span class="dish__n mono">09</span><span class="dish__name">Domaine Maldant Pauvelot<span class="dish__cuv">, &quot;Savigny-Les-Beaunes Aux Gravins&quot; 2018</span></span><span class="dish__rule" aria-hidden="true"></span><span class="dish__p mono">33.900</span></p>
+              <p class="dish__tags mono">AOC Aux Gravins 1er Cru &middot; Savigny-Les-Beaunes, Frakkland</p>
+              <ul class="dish__spec"><li data-ing="0"><i style="--c:#7a1e2f" aria-hidden="true"></i>Pinot Noir</li></ul>
+              
+            </div>
+          </li>
+          <li class="dish">
+            <div class="dish__glass" aria-hidden="true"><svg viewBox="0 0 100 130" class="gl gl--red" data-fill>
+                <defs><clipPath id="cp-b-0-0-9"><path d="M20 28 Q20 78 44 85 L44 110 L30 116 L30 122 L70 122 L70 116 L56 110 L56 85 Q80 78 80 28 Z"/></clipPath></defs>
+                <g clip-path="url(#cp-b-0-0-9)"><rect class="gl__band" data-band="0" x="0" y="32.0" width="100" height="50.6" fill="#7a1e2f"/></g>
+                <path class="gl__out" d="M20 28 Q20 78 44 85 L44 110 L30 116 L30 122 L70 122 L70 116 L56 110 L56 85 Q80 78 80 28 Z"/>
+              </svg></div>
+            <div class="dish__body">
+              <p class="dish__top"><span class="dish__n mono">10</span><span class="dish__name">Bruno Desaunay-Bissey<span class="dish__cuv">, &quot;Vosnes-Romanée&quot; 2022</span></span><span class="dish__rule" aria-hidden="true"></span><span class="dish__p mono">33.900</span></p>
+              <p class="dish__tags mono">AOC Vosnes-Romanée &middot; Vosnes, Frakkland</p>
+              <ul class="dish__spec"><li data-ing="0"><i style="--c:#7a1e2f" aria-hidden="true"></i>Pinot Noir</li></ul>
+              
+            </div>
+          </li>
+          <li class="dish dish--head"><p class="dish__grp"><span class="dish__grp-t">Hvítt</span><span class="mono">Bourgogne &middot; Alsace &middot; Occitanie &middot; Cotes du Rhône</span></p></li>
+          <li class="dish">
+            <div class="dish__glass" aria-hidden="true"><svg viewBox="0 0 100 130" class="gl gl--white" data-fill>
+                <defs><clipPath id="cp-b-0-1-0"><path d="M27 24 Q27 76 45 83 L45 110 L31 116 L31 122 L69 122 L69 116 L55 110 L55 83 Q73 76 73 24 Z"/></clipPath></defs>
+                <g clip-path="url(#cp-b-0-1-0)"><rect class="gl__band" data-band="0" x="0" y="28.0" width="100" height="54.6" fill="#e9d98c"/></g>
+                <path class="gl__out" d="M27 24 Q27 76 45 83 L45 110 L31 116 L31 122 L69 122 L69 116 L55 110 L55 83 Q73 76 73 24 Z"/>
+              </svg></div>
+            <div class="dish__body">
+              <p class="dish__top"><span class="dish__n mono">01</span><span class="dish__name">Arnaud Baillot<span class="dish__cuv">, &quot;A Ma Fille Mahaut&quot; 2023</span></span><span class="dish__rule" aria-hidden="true"></span><span class="dish__p mono">20.900</span></p>
+              <p class="dish__tags mono">AOC Pernand-Vergelesses &middot; Bourgogne, Frakkland</p>
+              <ul class="dish__spec"><li data-ing="0"><i style="--c:#e9d98c" aria-hidden="true"></i>Chardonnay</li></ul>
+              
+            </div>
+          </li>
+          <li class="dish">
+            <div class="dish__glass" aria-hidden="true"><svg viewBox="0 0 100 130" class="gl gl--white" data-fill>
+                <defs><clipPath id="cp-b-0-1-1"><path d="M27 24 Q27 76 45 83 L45 110 L31 116 L31 122 L69 122 L69 116 L55 110 L55 83 Q73 76 73 24 Z"/></clipPath></defs>
+                <g clip-path="url(#cp-b-0-1-1)"><rect class="gl__band" data-band="0" x="0" y="28.0" width="100" height="54.6" fill="#e9d98c"/></g>
+                <path class="gl__out" d="M27 24 Q27 76 45 83 L45 110 L31 116 L31 122 L69 122 L69 116 L55 110 L55 83 Q73 76 73 24 Z"/>
+              </svg></div>
+            <div class="dish__body">
+              <p class="dish__top"><span class="dish__n mono">02</span><span class="dish__name">Olivier Leflaive<span class="dish__cuv">, &quot;Les deux rives&quot; 2023</span></span><span class="dish__rule" aria-hidden="true"></span><span class="dish__p mono">16.900</span></p>
+              <p class="dish__tags mono">AOC Chablis &middot; Bourgogne, Frakkland</p>
+              <ul class="dish__spec"><li data-ing="0"><i style="--c:#e9d98c" aria-hidden="true"></i>Chardonnay</li></ul>
+              
+            </div>
+          </li>
+          <li class="dish">
+            <div class="dish__glass" aria-hidden="true"><svg viewBox="0 0 100 130" class="gl gl--white" data-fill>
+                <defs><clipPath id="cp-b-0-1-2"><path d="M27 24 Q27 76 45 83 L45 110 L31 116 L31 122 L69 122 L69 116 L55 110 L55 83 Q73 76 73 24 Z"/></clipPath></defs>
+                <g clip-path="url(#cp-b-0-1-2)"><rect class="gl__band" data-band="0" x="0" y="28.0" width="100" height="54.6" fill="#e9d98c"/></g>
+                <path class="gl__out" d="M27 24 Q27 76 45 83 L45 110 L31 116 L31 122 L69 122 L69 116 L55 110 L55 83 Q73 76 73 24 Z"/>
+              </svg></div>
+            <div class="dish__body">
+              <p class="dish__top"><span class="dish__n mono">03</span><span class="dish__name">François D’allaines<span class="dish__cuv">, &quot;Tête de Cuvée&quot; 2020</span></span><span class="dish__rule" aria-hidden="true"></span><span class="dish__p mono">15.900</span></p>
+              <p class="dish__tags mono">AOC Meursault &middot; Bourgogne, Frakkland</p>
+              <ul class="dish__spec"><li data-ing="0"><i style="--c:#e9d98c" aria-hidden="true"></i>Chardonnay</li></ul>
+              
+            </div>
+          </li>
+          <li class="dish dish--pick">
+            <div class="dish__glass" aria-hidden="true"><svg viewBox="0 0 100 130" class="gl gl--white" data-fill>
+                <defs><clipPath id="cp-b-0-1-3"><path d="M27 24 Q27 76 45 83 L45 110 L31 116 L31 122 L69 122 L69 116 L55 110 L55 83 Q73 76 73 24 Z"/></clipPath></defs>
+                <g clip-path="url(#cp-b-0-1-3)"><rect class="gl__band" data-band="0" x="0" y="28.0" width="100" height="54.6" fill="#e9d98c"/></g>
+                <path class="gl__out" d="M27 24 Q27 76 45 83 L45 110 L31 116 L31 122 L69 122 L69 116 L55 110 L55 83 Q73 76 73 24 Z"/>
+              </svg></div>
+            <div class="dish__body">
+              <p class="dish__top"><span class="dish__n mono">04</span><span class="dish__name">Famille Hugel<span class="dish__cuv">, &quot;Pinot Gris Vendanges Tardives&quot; 1998</span></span><span class="dish__rule" aria-hidden="true"></span><span class="dish__p mono">27.900</span></p>
+              <p class="dish__tags mono">AOC Alsace &middot; Riquewihr, Frakkland</p>
+              <ul class="dish__spec"><li data-ing="0"><i style="--c:#e9d98c" aria-hidden="true"></i>Pinot Gris</li></ul>
+              <p class="dish__pick mono">GRÆNT Á SEÐLINUM</p>
+            </div>
+          </li>
+          <li class="dish">
+            <div class="dish__glass" aria-hidden="true"><svg viewBox="0 0 100 130" class="gl gl--white" data-fill>
+                <defs><clipPath id="cp-b-0-1-4"><path d="M27 24 Q27 76 45 83 L45 110 L31 116 L31 122 L69 122 L69 116 L55 110 L55 83 Q73 76 73 24 Z"/></clipPath></defs>
+                <g clip-path="url(#cp-b-0-1-4)"><rect class="gl__band" data-band="0" x="0" y="28.0" width="100" height="54.6" fill="#e9d98c"/></g>
+                <path class="gl__out" d="M27 24 Q27 76 45 83 L45 110 L31 116 L31 122 L69 122 L69 116 L55 110 L55 83 Q73 76 73 24 Z"/>
+              </svg></div>
+            <div class="dish__body">
+              <p class="dish__top"><span class="dish__n mono">05</span><span class="dish__name">Maison Wessman<span class="dish__cuv">, &quot;Saint-Cernin N°1&quot; 2019</span></span><span class="dish__rule" aria-hidden="true"></span><span class="dish__p mono">21.900</span></p>
+              <p class="dish__tags mono">AOC Limoux &middot; Limoux, Frakkland</p>
+              <ul class="dish__spec"><li data-ing="0"><i style="--c:#e9d98c" aria-hidden="true"></i>Chardonnay</li></ul>
+              
+            </div>
+          </li>
+          <li class="dish">
+            <div class="dish__glass" aria-hidden="true"><svg viewBox="0 0 100 130" class="gl gl--white" data-fill>
+                <defs><clipPath id="cp-b-0-1-5"><path d="M27 24 Q27 76 45 83 L45 110 L31 116 L31 122 L69 122 L69 116 L55 110 L55 83 Q73 76 73 24 Z"/></clipPath></defs>
+                <g clip-path="url(#cp-b-0-1-5)"><rect class="gl__band" data-band="0" x="0" y="28.0" width="100" height="54.6" fill="#e9d98c"/></g>
+                <path class="gl__out" d="M27 24 Q27 76 45 83 L45 110 L31 116 L31 122 L69 122 L69 116 L55 110 L55 83 Q73 76 73 24 Z"/>
+              </svg></div>
+            <div class="dish__body">
+              <p class="dish__top"><span class="dish__n mono">06</span><span class="dish__name">E. Guigal<span class="dish__cuv">, &quot;Condrieu&quot; 2019</span></span><span class="dish__rule" aria-hidden="true"></span><span class="dish__p mono">22.900</span></p>
+              <p class="dish__tags mono">AOC Condrieu &middot; Rhône, Frakkland</p>
+              <ul class="dish__spec"><li data-ing="0"><i style="--c:#e9d98c" aria-hidden="true"></i>Viognier</li></ul>
+              
+            </div>
+          </li>
+          <li class="dish dish--head"><p class="dish__grp"><span class="dish__grp-t">Kampavín</span><span class="mono">Non-Millésimé &middot; Millésimé</span></p></li>
+          <li class="dish">
+            <div class="dish__glass" aria-hidden="true"><svg viewBox="0 0 100 130" class="gl gl--flute" data-fill>
+                <defs><clipPath id="cp-b-0-2-0"><path d="M38 12 Q35 82 46 89 L46 110 L33 116 L33 122 L67 122 L67 116 L54 110 L54 89 Q65 82 62 12 Z"/></clipPath></defs>
+                <g clip-path="url(#cp-b-0-2-0)"><rect class="gl__band" data-band="0" x="0" y="64.0" width="100" height="24.6" fill="#e8a4a8"/><rect class="gl__band" data-band="1" x="0" y="40.0" width="100" height="24.6" fill="#ebb0b3"/><rect class="gl__band" data-band="2" x="0" y="16.0" width="100" height="24.6" fill="#eebcbf"/></g>
+                <path class="gl__out" d="M38 12 Q35 82 46 89 L46 110 L33 116 L33 122 L67 122 L67 116 L54 110 L54 89 Q65 82 62 12 Z"/>
+              </svg></div>
+            <div class="dish__body">
+              <p class="dish__top"><span class="dish__n mono">01</span><span class="dish__name">Piper-Heidsieck<span class="dish__cuv">, &quot;Brut Rosé&quot; NM</span></span><span class="dish__rule" aria-hidden="true"></span><span class="dish__p mono">21.900</span></p>
+              <p class="dish__tags mono">Reims, Frakkland &middot; Dosage 8g/L</p>
+              <ul class="dish__spec"><li data-ing="0"><i style="--c:#e8a4a8" aria-hidden="true"></i>Chardonnay</li><li data-ing="1"><i style="--c:#ebb0b3" aria-hidden="true"></i>Pinot Noir</li><li data-ing="2"><i style="--c:#eebcbf" aria-hidden="true"></i>Pinot Meunier</li></ul>
+              
+            </div>
+          </li>
+          <li class="dish">
+            <div class="dish__glass" aria-hidden="true"><svg viewBox="0 0 100 130" class="gl gl--flute" data-fill>
+                <defs><clipPath id="cp-b-0-2-1"><path d="M38 12 Q35 82 46 89 L46 110 L33 116 L33 122 L67 122 L67 116 L54 110 L54 89 Q65 82 62 12 Z"/></clipPath></defs>
+                <g clip-path="url(#cp-b-0-2-1)"><rect class="gl__band" data-band="0" x="0" y="64.0" width="100" height="24.6" fill="#eee4b5"/><rect class="gl__band" data-band="1" x="0" y="40.0" width="100" height="24.6" fill="#f0e8bf"/><rect class="gl__band" data-band="2" x="0" y="16.0" width="100" height="24.6" fill="#f2ebc8"/></g>
+                <path class="gl__out" d="M38 12 Q35 82 46 89 L46 110 L33 116 L33 122 L67 122 L67 116 L54 110 L54 89 Q65 82 62 12 Z"/>
+              </svg></div>
+            <div class="dish__body">
+              <p class="dish__top"><span class="dish__n mono">02</span><span class="dish__name">Drappier<span class="dish__cuv">, &quot;Carte d’Or Brut&quot; NM</span></span><span class="dish__rule" aria-hidden="true"></span><span class="dish__p mono">15.900</span></p>
+              <p class="dish__tags mono">Urville, Frakkland &middot; Dosage 6.5g/L</p>
+              <ul class="dish__spec"><li data-ing="0"><i style="--c:#eee4b5" aria-hidden="true"></i>Chardonnay</li><li data-ing="1"><i style="--c:#f0e8bf" aria-hidden="true"></i>Pinot Noir</li><li data-ing="2"><i style="--c:#f2ebc8" aria-hidden="true"></i>Pinot Meunier</li></ul>
+              
+            </div>
+          </li>
+          <li class="dish">
+            <div class="dish__glass" aria-hidden="true"><svg viewBox="0 0 100 130" class="gl gl--flute" data-fill>
+                <defs><clipPath id="cp-b-0-2-2"><path d="M38 12 Q35 82 46 89 L46 110 L33 116 L33 122 L67 122 L67 116 L54 110 L54 89 Q65 82 62 12 Z"/></clipPath></defs>
+                <g clip-path="url(#cp-b-0-2-2)"><rect class="gl__band" data-band="0" x="0" y="64.0" width="100" height="24.6" fill="#eee4b5"/><rect class="gl__band" data-band="1" x="0" y="40.0" width="100" height="24.6" fill="#f0e8bf"/><rect class="gl__band" data-band="2" x="0" y="16.0" width="100" height="24.6" fill="#f2ebc8"/></g>
+                <path class="gl__out" d="M38 12 Q35 82 46 89 L46 110 L33 116 L33 122 L67 122 L67 116 L54 110 L54 89 Q65 82 62 12 Z"/>
+              </svg></div>
+            <div class="dish__body">
+              <p class="dish__top"><span class="dish__n mono">03</span><span class="dish__name">Philipponnat<span class="dish__cuv">, &quot;Royale Réserve Brut&quot; 2020</span></span><span class="dish__rule" aria-hidden="true"></span><span class="dish__p mono">21.900</span></p>
+              <p class="dish__tags mono">Mareuil-sur-Ay, Frakkland &middot; Dosage 8g/L</p>
+              <ul class="dish__spec"><li data-ing="0"><i style="--c:#eee4b5" aria-hidden="true"></i>Chardonnay</li><li data-ing="1"><i style="--c:#f0e8bf" aria-hidden="true"></i>Pinot Noir</li><li data-ing="2"><i style="--c:#f2ebc8" aria-hidden="true"></i>Pinot Meunier</li></ul>
+              
+            </div>
+          </li>
+          <li class="dish">
+            <div class="dish__glass" aria-hidden="true"><svg viewBox="0 0 100 130" class="gl gl--flute" data-fill>
+                <defs><clipPath id="cp-b-0-2-3"><path d="M38 12 Q35 82 46 89 L46 110 L33 116 L33 122 L67 122 L67 116 L54 110 L54 89 Q65 82 62 12 Z"/></clipPath></defs>
+                <g clip-path="url(#cp-b-0-2-3)"><rect class="gl__band" data-band="0" x="0" y="52.0" width="100" height="36.6" fill="#eee4b5"/><rect class="gl__band" data-band="1" x="0" y="16.0" width="100" height="36.6" fill="#f0e8bf"/></g>
+                <path class="gl__out" d="M38 12 Q35 82 46 89 L46 110 L33 116 L33 122 L67 122 L67 116 L54 110 L54 89 Q65 82 62 12 Z"/>
+              </svg></div>
+            <div class="dish__body">
+              <p class="dish__top"><span class="dish__n mono">04</span><span class="dish__name">Moët et Chandon<span class="dish__cuv">, &quot;Dom Pérignon&quot; 1990</span></span><span class="dish__rule" aria-hidden="true"></span><span class="dish__p mono">50.000</span></p>
+              <p class="dish__tags mono">Epernay, Frakkland &middot; Dosage 6g/L</p>
+              <ul class="dish__spec"><li data-ing="0"><i style="--c:#eee4b5" aria-hidden="true"></i>Chardonnay</li><li data-ing="1"><i style="--c:#f0e8bf" aria-hidden="true"></i>Pinot Noir</li></ul>
+              
+            </div>
+          </li>
+      </ul>
+    </div>
+  </article>
+  <article class="chapter chapter--plated" id="land-1" aria-labelledby="chapter-1">
+    <header class="chapter__head">
+      <p class="chapter__n mono">02 / 07</p>
+      <h3 class="chapter__t" id="chapter-1">Spánn <em>Spain</em></h3>
+      <p class="chapter__meta mono">7 FLÖSKUR &middot; Penedès &middot; Katalónía &middot; Ribera del Duero &middot; Rioja &middot; Bierzo</p>
+    </header>
+    <figure class="chapter__plate" data-pour>
+      <img src="assets/img/tasting.jpg?v=c669c6dd" alt="Vínsmökkun í gangi, hópur við borðið" width="2000" height="1334" loading="lazy" decoding="async" />
+      <figcaption class="mono">VÍNSMÖKKUN Í SALNUM</figcaption>
+    </figure>
+    <div class="chapter__sheet">
+      <ul class="course__list">
+          <li class="dish dish--head"><p class="dish__grp"><span class="dish__grp-t">Corpinnat</span><span class="mono">Penedès</span></p></li>
+          <li class="dish">
+            <div class="dish__glass" aria-hidden="true"><svg viewBox="0 0 100 130" class="gl gl--flute" data-fill>
+                <defs><clipPath id="cp-b-1-0-0"><path d="M38 12 Q35 82 46 89 L46 110 L33 116 L33 122 L67 122 L67 116 L54 110 L54 89 Q65 82 62 12 Z"/></clipPath></defs>
+                <g clip-path="url(#cp-b-1-0-0)"><rect class="gl__band" data-band="0" x="0" y="64.0" width="100" height="24.6" fill="#eee4b5"/><rect class="gl__band" data-band="1" x="0" y="40.0" width="100" height="24.6" fill="#f0e8bf"/><rect class="gl__band" data-band="2" x="0" y="16.0" width="100" height="24.6" fill="#f2ebc8"/></g>
+                <path class="gl__out" d="M38 12 Q35 82 46 89 L46 110 L33 116 L33 122 L67 122 L67 116 L54 110 L54 89 Q65 82 62 12 Z"/>
+              </svg></div>
+            <div class="dish__body">
+              <p class="dish__top"><span class="dish__n mono">01</span><span class="dish__name">Llopart<span class="dish__cuv">, &quot;Leopardi&quot; 2017</span></span><span class="dish__rule" aria-hidden="true"></span><span class="dish__p mono">16.900</span></p>
+              <p class="dish__tags mono">Corpinnat Vinyes de Muntanya &middot; Barcelona, Spánn</p>
+              <ul class="dish__spec"><li data-ing="0"><i style="--c:#eee4b5" aria-hidden="true"></i>Xarel-lo</li><li data-ing="1"><i style="--c:#f0e8bf" aria-hidden="true"></i>Macabeo</li><li data-ing="2"><i style="--c:#f2ebc8" aria-hidden="true"></i>Parrelada</li></ul>
+              
+            </div>
+          </li>
+          <li class="dish">
+            <div class="dish__glass" aria-hidden="true"><svg viewBox="0 0 100 130" class="gl gl--flute" data-fill>
+                <defs><clipPath id="cp-b-1-0-1"><path d="M38 12 Q35 82 46 89 L46 110 L33 116 L33 122 L67 122 L67 116 L54 110 L54 89 Q65 82 62 12 Z"/></clipPath></defs>
+                <g clip-path="url(#cp-b-1-0-1)"><rect class="gl__band" data-band="0" x="0" y="64.0" width="100" height="24.6" fill="#eee4b5"/><rect class="gl__band" data-band="1" x="0" y="40.0" width="100" height="24.6" fill="#f0e8bf"/><rect class="gl__band" data-band="2" x="0" y="16.0" width="100" height="24.6" fill="#f2ebc8"/></g>
+                <path class="gl__out" d="M38 12 Q35 82 46 89 L46 110 L33 116 L33 122 L67 122 L67 116 L54 110 L54 89 Q65 82 62 12 Z"/>
+              </svg></div>
+            <div class="dish__body">
+              <p class="dish__top"><span class="dish__n mono">02</span><span class="dish__name">Llopart<span class="dish__cuv">, &quot;Llopart Original 1887&quot; 2012</span></span><span class="dish__rule" aria-hidden="true"></span><span class="dish__p mono">25.900</span></p>
+              <p class="dish__tags mono">Corpinnat Vinyes Velles de Muntanya &middot; Barcelona, Spánn</p>
+              <ul class="dish__spec"><li data-ing="0"><i style="--c:#eee4b5" aria-hidden="true"></i>Montònega</li><li data-ing="1"><i style="--c:#f0e8bf" aria-hidden="true"></i>Xarel-Lo</li><li data-ing="2"><i style="--c:#f2ebc8" aria-hidden="true"></i>Macabeo</li></ul>
+              
+            </div>
+          </li>
+          <li class="dish dish--head"><p class="dish__grp"><span class="dish__grp-t">Rautt</span><span class="mono">Katalónía &middot; Ribera del Duero &middot; Rioja</span></p></li>
+          <li class="dish">
+            <div class="dish__glass" aria-hidden="true"><svg viewBox="0 0 100 130" class="gl gl--red" data-fill>
+                <defs><clipPath id="cp-b-1-1-0"><path d="M20 28 Q20 78 44 85 L44 110 L30 116 L30 122 L70 122 L70 116 L56 110 L56 85 Q80 78 80 28 Z"/></clipPath></defs>
+                <g clip-path="url(#cp-b-1-1-0)"><rect class="gl__band" data-band="0" x="0" y="57.0" width="100" height="25.6" fill="#7a1e2f"/><rect class="gl__band" data-band="1" x="0" y="32.0" width="100" height="25.6" fill="#8b3b4a"/></g>
+                <path class="gl__out" d="M20 28 Q20 78 44 85 L44 110 L30 116 L30 122 L70 122 L70 116 L56 110 L56 85 Q80 78 80 28 Z"/>
+              </svg></div>
+            <div class="dish__body">
+              <p class="dish__top"><span class="dish__n mono">01</span><span class="dish__name">Torres<span class="dish__cuv">, Purgatori 2020</span></span><span class="dish__rule" aria-hidden="true"></span><span class="dish__p mono">17.900</span></p>
+              <p class="dish__tags mono">DO Costers del Segre &middot; Katalónía, Spánn</p>
+              <ul class="dish__spec"><li data-ing="0"><i style="--c:#7a1e2f" aria-hidden="true"></i>Cariñena</li><li data-ing="1"><i style="--c:#8b3b4a" aria-hidden="true"></i>Garnacha</li></ul>
+              
+            </div>
+          </li>
+          <li class="dish">
+            <div class="dish__glass" aria-hidden="true"><svg viewBox="0 0 100 130" class="gl gl--red" data-fill>
+                <defs><clipPath id="cp-b-1-1-1"><path d="M20 28 Q20 78 44 85 L44 110 L30 116 L30 122 L70 122 L70 116 L56 110 L56 85 Q80 78 80 28 Z"/></clipPath></defs>
+                <g clip-path="url(#cp-b-1-1-1)"><rect class="gl__band" data-band="0" x="0" y="32.0" width="100" height="50.6" fill="#7a1e2f"/></g>
+                <path class="gl__out" d="M20 28 Q20 78 44 85 L44 110 L30 116 L30 122 L70 122 L70 116 L56 110 L56 85 Q80 78 80 28 Z"/>
+              </svg></div>
+            <div class="dish__body">
+              <p class="dish__top"><span class="dish__n mono">02</span><span class="dish__name">Carmelo Rodero<span class="dish__cuv">, &quot;Pago de Valarreña&quot; 2020</span></span><span class="dish__rule" aria-hidden="true"></span><span class="dish__p mono">29.900</span></p>
+              <p class="dish__tags mono">Ribera del Duero DO &middot; Burgos, Spánn</p>
+              <ul class="dish__spec"><li data-ing="0"><i style="--c:#7a1e2f" aria-hidden="true"></i>Tempranillo</li></ul>
+              
+            </div>
+          </li>
+          <li class="dish">
+            <div class="dish__glass" aria-hidden="true"><svg viewBox="0 0 100 130" class="gl gl--red" data-fill>
+                <defs><clipPath id="cp-b-1-1-2"><path d="M20 28 Q20 78 44 85 L44 110 L30 116 L30 122 L70 122 L70 116 L56 110 L56 85 Q80 78 80 28 Z"/></clipPath></defs>
+                <g clip-path="url(#cp-b-1-1-2)"><rect class="gl__band" data-band="0" x="0" y="32.0" width="100" height="50.6" fill="#7a1e2f"/></g>
+                <path class="gl__out" d="M20 28 Q20 78 44 85 L44 110 L30 116 L30 122 L70 122 L70 116 L56 110 L56 85 Q80 78 80 28 Z"/>
+              </svg></div>
+            <div class="dish__body">
+              <p class="dish__top"><span class="dish__n mono">03</span><span class="dish__name">Cruz de Alba<span class="dish__cuv">, &quot;Finca los Hoyales&quot; 2017</span></span><span class="dish__rule" aria-hidden="true"></span><span class="dish__p mono">23.900</span></p>
+              <p class="dish__tags mono">Ribera del Duero DO &middot; Los Hoyales, Spánn</p>
+              <ul class="dish__spec"><li data-ing="0"><i style="--c:#7a1e2f" aria-hidden="true"></i>Tempranillo</li></ul>
+              
+            </div>
+          </li>
+          <li class="dish">
+            <div class="dish__glass" aria-hidden="true"><svg viewBox="0 0 100 130" class="gl gl--red" data-fill>
+                <defs><clipPath id="cp-b-1-1-3"><path d="M20 28 Q20 78 44 85 L44 110 L30 116 L30 122 L70 122 L70 116 L56 110 L56 85 Q80 78 80 28 Z"/></clipPath></defs>
+                <g clip-path="url(#cp-b-1-1-3)"><rect class="gl__band" data-band="0" x="0" y="69.5" width="100" height="13.1" fill="#7a1e2f"/><rect class="gl__band" data-band="1" x="0" y="57.0" width="100" height="13.1" fill="#8b3b4a"/><rect class="gl__band" data-band="2" x="0" y="44.5" width="100" height="13.1" fill="#9d5965"/><rect class="gl__band" data-band="3" x="0" y="32.0" width="100" height="13.1" fill="#ad747e"/></g>
+                <path class="gl__out" d="M20 28 Q20 78 44 85 L44 110 L30 116 L30 122 L70 122 L70 116 L56 110 L56 85 Q80 78 80 28 Z"/>
+              </svg></div>
+            <div class="dish__body">
+              <p class="dish__top"><span class="dish__n mono">04</span><span class="dish__name">Bodegas Muga<span class="dish__cuv">, &quot;Prado Enea Gran Reserva&quot; 2016</span></span><span class="dish__rule" aria-hidden="true"></span><span class="dish__p mono">29.900</span></p>
+              <p class="dish__tags mono">Rioja DOCa Gran Reserva &middot; Rioja, Spánn</p>
+              <ul class="dish__spec"><li data-ing="0"><i style="--c:#7a1e2f" aria-hidden="true"></i>Tempranillo</li><li data-ing="1"><i style="--c:#8b3b4a" aria-hidden="true"></i>Carignan</li><li data-ing="2"><i style="--c:#9d5965" aria-hidden="true"></i>Garnacha</li><li data-ing="3"><i style="--c:#ad747e" aria-hidden="true"></i>Graciano</li></ul>
+              
+            </div>
+          </li>
+          <li class="dish dish--head"><p class="dish__grp"><span class="dish__grp-t">Hvítt</span><span class="mono">Bierzo</span></p></li>
+          <li class="dish">
+            <div class="dish__glass" aria-hidden="true"><svg viewBox="0 0 100 130" class="gl gl--white" data-fill>
+                <defs><clipPath id="cp-b-1-2-0"><path d="M27 24 Q27 76 45 83 L45 110 L31 116 L31 122 L69 122 L69 116 L55 110 L55 83 Q73 76 73 24 Z"/></clipPath></defs>
+                <g clip-path="url(#cp-b-1-2-0)"><rect class="gl__band" data-band="0" x="0" y="28.0" width="100" height="54.6" fill="#e9d98c"/></g>
+                <path class="gl__out" d="M27 24 Q27 76 45 83 L45 110 L31 116 L31 122 L69 122 L69 116 L55 110 L55 83 Q73 76 73 24 Z"/>
+              </svg></div>
+            <div class="dish__body">
+              <p class="dish__top"><span class="dish__n mono">01</span><span class="dish__name">Merayo<span class="dish__cuv">, &quot;La Gineta&quot; 2022</span></span><span class="dish__rule" aria-hidden="true"></span><span class="dish__p mono">16.900</span></p>
+              <p class="dish__tags mono">Bierzo DO &middot; Bierzo, Spánn</p>
+              <ul class="dish__spec"><li data-ing="0"><i style="--c:#e9d98c" aria-hidden="true"></i>Godello Viejo</li></ul>
+              
+            </div>
+          </li>
+      </ul>
+    </div>
+  </article>
+  <article class="chapter" id="land-2" aria-labelledby="chapter-2">
+    <header class="chapter__head">
+      <p class="chapter__n mono">03 / 07</p>
+      <h3 class="chapter__t" id="chapter-2">Ítalía <em>Italy</em></h3>
+      <p class="chapter__meta mono">9 FLÖSKUR &middot; Piemonte &middot; Puglia &middot; Veneto &middot; Toscana &middot; Sardinía &middot; Alto Adige &middot; Trentino</p>
+    </header>
+
+    <div class="chapter__sheet">
+      <ul class="course__list">
+          <li class="dish dish--head"><p class="dish__grp"><span class="dish__grp-t">Rautt</span><span class="mono">Piemonte &middot; Puglia &middot; Veneto &middot; Toscana</span></p></li>
+          <li class="dish">
+            <div class="dish__glass" aria-hidden="true"><svg viewBox="0 0 100 130" class="gl gl--red" data-fill>
+                <defs><clipPath id="cp-b-2-0-0"><path d="M20 28 Q20 78 44 85 L44 110 L30 116 L30 122 L70 122 L70 116 L56 110 L56 85 Q80 78 80 28 Z"/></clipPath></defs>
+                <g clip-path="url(#cp-b-2-0-0)"><rect class="gl__band" data-band="0" x="0" y="32.0" width="100" height="50.6" fill="#7a1e2f"/></g>
+                <path class="gl__out" d="M20 28 Q20 78 44 85 L44 110 L30 116 L30 122 L70 122 L70 116 L56 110 L56 85 Q80 78 80 28 Z"/>
+              </svg></div>
+            <div class="dish__body">
+              <p class="dish__top"><span class="dish__n mono">01</span><span class="dish__name">Viberti<span class="dish__cuv">, &quot;Langhe Nebiollo&quot; 2021</span></span><span class="dish__rule" aria-hidden="true"></span><span class="dish__p mono">12.900</span></p>
+              <p class="dish__tags mono">Langhe DOC &middot; Langhe, Ítalía</p>
+              <ul class="dish__spec"><li data-ing="0"><i style="--c:#7a1e2f" aria-hidden="true"></i>Nebiollo</li></ul>
+              
+            </div>
+          </li>
+          <li class="dish">
+            <div class="dish__glass" aria-hidden="true"><svg viewBox="0 0 100 130" class="gl gl--red" data-fill>
+                <defs><clipPath id="cp-b-2-0-1"><path d="M20 28 Q20 78 44 85 L44 110 L30 116 L30 122 L70 122 L70 116 L56 110 L56 85 Q80 78 80 28 Z"/></clipPath></defs>
+                <g clip-path="url(#cp-b-2-0-1)"><rect class="gl__band" data-band="0" x="0" y="32.0" width="100" height="50.6" fill="#7a1e2f"/></g>
+                <path class="gl__out" d="M20 28 Q20 78 44 85 L44 110 L30 116 L30 122 L70 122 L70 116 L56 110 L56 85 Q80 78 80 28 Z"/>
+              </svg></div>
+            <div class="dish__body">
+              <p class="dish__top"><span class="dish__n mono">02</span><span class="dish__name">Luciano Sandrone<span class="dish__cuv">, &quot;Aleste&quot; 2019</span></span><span class="dish__rule" aria-hidden="true"></span><span class="dish__p mono">41.900</span></p>
+              <p class="dish__tags mono">Barollo DOCG &middot; Cannubi, Ítalía</p>
+              <ul class="dish__spec"><li data-ing="0"><i style="--c:#7a1e2f" aria-hidden="true"></i>Nebiollo</li></ul>
+              
+            </div>
+          </li>
+          <li class="dish">
+            <div class="dish__glass" aria-hidden="true"><svg viewBox="0 0 100 130" class="gl gl--red" data-fill>
+                <defs><clipPath id="cp-b-2-0-2"><path d="M20 28 Q20 78 44 85 L44 110 L30 116 L30 122 L70 122 L70 116 L56 110 L56 85 Q80 78 80 28 Z"/></clipPath></defs>
+                <g clip-path="url(#cp-b-2-0-2)"><rect class="gl__band" data-band="0" x="0" y="32.0" width="100" height="50.6" fill="#7a1e2f"/></g>
+                <path class="gl__out" d="M20 28 Q20 78 44 85 L44 110 L30 116 L30 122 L70 122 L70 116 L56 110 L56 85 Q80 78 80 28 Z"/>
+              </svg></div>
+            <div class="dish__body">
+              <p class="dish__top"><span class="dish__n mono">03</span><span class="dish__name">Varvaglione<span class="dish__cuv">, &quot;Papale&quot; 2019</span></span><span class="dish__rule" aria-hidden="true"></span><span class="dish__p mono">23.900</span></p>
+              <p class="dish__tags mono">Primitivo di Manduria DOP &middot; Leporano, Ítalía</p>
+              <ul class="dish__spec"><li data-ing="0"><i style="--c:#7a1e2f" aria-hidden="true"></i>Primitivo</li></ul>
+              
+            </div>
+          </li>
+          <li class="dish">
+            <div class="dish__glass" aria-hidden="true"><svg viewBox="0 0 100 130" class="gl gl--red" data-fill>
+                <defs><clipPath id="cp-b-2-0-3"><path d="M20 28 Q20 78 44 85 L44 110 L30 116 L30 122 L70 122 L70 116 L56 110 L56 85 Q80 78 80 28 Z"/></clipPath></defs>
+                <g clip-path="url(#cp-b-2-0-3)"><rect class="gl__band" data-band="0" x="0" y="65.3" width="100" height="17.3" fill="#7a1e2f"/><rect class="gl__band" data-band="1" x="0" y="48.7" width="100" height="17.3" fill="#8b3b4a"/><rect class="gl__band" data-band="2" x="0" y="32.0" width="100" height="17.3" fill="#9d5965"/></g>
+                <path class="gl__out" d="M20 28 Q20 78 44 85 L44 110 L30 116 L30 122 L70 122 L70 116 L56 110 L56 85 Q80 78 80 28 Z"/>
+              </svg></div>
+            <div class="dish__body">
+              <p class="dish__top"><span class="dish__n mono">04</span><span class="dish__name">Pasqua<span class="dish__cuv">, &quot;Valpolicella Ripasso Black Label&quot; 2021</span></span><span class="dish__rule" aria-hidden="true"></span><span class="dish__p mono">19.900</span></p>
+              <p class="dish__tags mono">Valpolicella Ripasso DOC &middot; Valpantena, Ítalía</p>
+              <ul class="dish__spec"><li data-ing="0"><i style="--c:#7a1e2f" aria-hidden="true"></i>Corvinone</li><li data-ing="1"><i style="--c:#8b3b4a" aria-hidden="true"></i>Corvina</li><li data-ing="2"><i style="--c:#9d5965" aria-hidden="true"></i>Rondinella</li></ul>
+              
+            </div>
+          </li>
+          <li class="dish">
+            <div class="dish__glass" aria-hidden="true"><svg viewBox="0 0 100 130" class="gl gl--red" data-fill>
+                <defs><clipPath id="cp-b-2-0-4"><path d="M20 28 Q20 78 44 85 L44 110 L30 116 L30 122 L70 122 L70 116 L56 110 L56 85 Q80 78 80 28 Z"/></clipPath></defs>
+                <g clip-path="url(#cp-b-2-0-4)"><rect class="gl__band" data-band="0" x="0" y="32.0" width="100" height="50.6" fill="#7a1e2f"/></g>
+                <path class="gl__out" d="M20 28 Q20 78 44 85 L44 110 L30 116 L30 122 L70 122 L70 116 L56 110 L56 85 Q80 78 80 28 Z"/>
+              </svg></div>
+            <div class="dish__body">
+              <p class="dish__top"><span class="dish__n mono">05</span><span class="dish__name">Castello Banfi<span class="dish__cuv">, &quot;Brunello di Montalcino&quot; 2018</span></span><span class="dish__rule" aria-hidden="true"></span><span class="dish__p mono">12.900</span></p>
+              <p class="dish__tags mono">Brunello di Montalcino DOCG &middot; Montalcino, Ítalía</p>
+              <ul class="dish__spec"><li data-ing="0"><i style="--c:#7a1e2f" aria-hidden="true"></i>Sangiovese</li></ul>
+              
+            </div>
+          </li>
+          <li class="dish dish--head"><p class="dish__grp"><span class="dish__grp-t">Hvítt</span><span class="mono">Sardinía &middot; Alto Adige &middot; Trentino</span></p></li>
+          <li class="dish">
+            <div class="dish__glass" aria-hidden="true"><svg viewBox="0 0 100 130" class="gl gl--white" data-fill>
+                <defs><clipPath id="cp-b-2-1-0"><path d="M27 24 Q27 76 45 83 L45 110 L31 116 L31 122 L69 122 L69 116 L55 110 L55 83 Q73 76 73 24 Z"/></clipPath></defs>
+                <g clip-path="url(#cp-b-2-1-0)"><rect class="gl__band" data-band="0" x="0" y="55.0" width="100" height="27.6" fill="#e9d98c"/><rect class="gl__band" data-band="1" x="0" y="28.0" width="100" height="27.6" fill="#ecde9b"/></g>
+                <path class="gl__out" d="M27 24 Q27 76 45 83 L45 110 L31 116 L31 122 L69 122 L69 116 L55 110 L55 83 Q73 76 73 24 Z"/>
+              </svg></div>
+            <div class="dish__body">
+              <p class="dish__top"><span class="dish__n mono">01</span><span class="dish__name">Cantina Santadi<span class="dish__cuv">, &quot;Villa Solais&quot; 2022</span></span><span class="dish__rule" aria-hidden="true"></span><span class="dish__p mono">9.900</span></p>
+              <p class="dish__tags mono">Vermentino di Sardegna DOC &middot; Basso Sulcis, Ítalía</p>
+              <ul class="dish__spec"><li data-ing="0"><i style="--c:#e9d98c" aria-hidden="true"></i>Vermentino</li><li data-ing="1"><i style="--c:#ecde9b" aria-hidden="true"></i>Nuragus</li></ul>
+              
+            </div>
+          </li>
+          <li class="dish">
+            <div class="dish__glass" aria-hidden="true"><svg viewBox="0 0 100 130" class="gl gl--white" data-fill>
+                <defs><clipPath id="cp-b-2-1-1"><path d="M27 24 Q27 76 45 83 L45 110 L31 116 L31 122 L69 122 L69 116 L55 110 L55 83 Q73 76 73 24 Z"/></clipPath></defs>
+                <g clip-path="url(#cp-b-2-1-1)"><rect class="gl__band" data-band="0" x="0" y="28.0" width="100" height="54.6" fill="#e9d98c"/></g>
+                <path class="gl__out" d="M27 24 Q27 76 45 83 L45 110 L31 116 L31 122 L69 122 L69 116 L55 110 L55 83 Q73 76 73 24 Z"/>
+              </svg></div>
+            <div class="dish__body">
+              <p class="dish__top"><span class="dish__n mono">02</span><span class="dish__name">Audarya<span class="dish__cuv">, &quot;Vermentino&quot; 2023</span></span><span class="dish__rule" aria-hidden="true"></span><span class="dish__p mono">11.900</span></p>
+              <p class="dish__tags mono">Vermentino di Sardegna DOC &middot; Su Stani, Ítalía</p>
+              <ul class="dish__spec"><li data-ing="0"><i style="--c:#e9d98c" aria-hidden="true"></i>Vermentino</li></ul>
+              
+            </div>
+          </li>
+          <li class="dish">
+            <div class="dish__glass" aria-hidden="true"><svg viewBox="0 0 100 130" class="gl gl--white" data-fill>
+                <defs><clipPath id="cp-b-2-1-2"><path d="M27 24 Q27 76 45 83 L45 110 L31 116 L31 122 L69 122 L69 116 L55 110 L55 83 Q73 76 73 24 Z"/></clipPath></defs>
+                <g clip-path="url(#cp-b-2-1-2)"><rect class="gl__band" data-band="0" x="0" y="28.0" width="100" height="54.6" fill="#e9d98c"/></g>
+                <path class="gl__out" d="M27 24 Q27 76 45 83 L45 110 L31 116 L31 122 L69 122 L69 116 L55 110 L55 83 Q73 76 73 24 Z"/>
+              </svg></div>
+            <div class="dish__body">
+              <p class="dish__top"><span class="dish__n mono">03</span><span class="dish__name">Sanct Valentin<span class="dish__cuv">, &quot;Pinot Grigio&quot; 2021</span></span><span class="dish__rule" aria-hidden="true"></span><span class="dish__p mono">19.900</span></p>
+              <p class="dish__tags mono">Alto Adige DOC &middot; Oltradige, Ítalía</p>
+              <ul class="dish__spec"><li data-ing="0"><i style="--c:#e9d98c" aria-hidden="true"></i>Ruländer (Pinot Grigio)</li></ul>
+              
+            </div>
+          </li>
+          <li class="dish">
+            <div class="dish__glass" aria-hidden="true"><svg viewBox="0 0 100 130" class="gl gl--white" data-fill>
+                <defs><clipPath id="cp-b-2-1-3"><path d="M27 24 Q27 76 45 83 L45 110 L31 116 L31 122 L69 122 L69 116 L55 110 L55 83 Q73 76 73 24 Z"/></clipPath></defs>
+                <g clip-path="url(#cp-b-2-1-3)"><rect class="gl__band" data-band="0" x="0" y="28.0" width="100" height="54.6" fill="#e9d98c"/></g>
+                <path class="gl__out" d="M27 24 Q27 76 45 83 L45 110 L31 116 L31 122 L69 122 L69 116 L55 110 L55 83 Q73 76 73 24 Z"/>
+              </svg></div>
+            <div class="dish__body">
+              <p class="dish__top"><span class="dish__n mono">04</span><span class="dish__name">Conti Bossi Fedriogotti<span class="dish__cuv">, &quot;Vin’Asmara&quot; 2022</span></span><span class="dish__rule" aria-hidden="true"></span><span class="dish__p mono">12.900</span></p>
+              <p class="dish__tags mono">Vigneti Deele Dolomitti IGT &middot; Dolomites, Ítalía</p>
+              <ul class="dish__spec"><li data-ing="0"><i style="--c:#e9d98c" aria-hidden="true"></i>Chardonnay</li></ul>
+              
+            </div>
+          </li>
+      </ul>
+    </div>
+  </article>
+  <article class="chapter" id="land-3" aria-labelledby="chapter-3">
+    <header class="chapter__head">
+      <p class="chapter__n mono">04 / 07</p>
+      <h3 class="chapter__t" id="chapter-3">Austurríki og Þýskaland <em>Austria &amp; Germany</em></h3>
+      <p class="chapter__meta mono">2 FLÖSKUR &middot; Pfalz &middot; Wachau</p>
+    </header>
+
+    <div class="chapter__sheet">
+      <ul class="course__list">
+          <li class="dish dish--head"><p class="dish__grp"><span class="dish__grp-t">Hvítt</span><span class="mono">Pfalz &middot; Wachau</span></p></li>
+          <li class="dish">
+            <div class="dish__glass" aria-hidden="true"><svg viewBox="0 0 100 130" class="gl gl--white" data-fill>
+                <defs><clipPath id="cp-b-3-0-0"><path d="M27 24 Q27 76 45 83 L45 110 L31 116 L31 122 L69 122 L69 116 L55 110 L55 83 Q73 76 73 24 Z"/></clipPath></defs>
+                <g clip-path="url(#cp-b-3-0-0)"><rect class="gl__band" data-band="0" x="0" y="28.0" width="100" height="54.6" fill="#e9d98c"/></g>
+                <path class="gl__out" d="M27 24 Q27 76 45 83 L45 110 L31 116 L31 122 L69 122 L69 116 L55 110 L55 83 Q73 76 73 24 Z"/>
+              </svg></div>
+            <div class="dish__body">
+              <p class="dish__top"><span class="dish__n mono">01</span><span class="dish__name">Basserman-Jordan<span class="dish__cuv">, &quot;Forster Jesuitengarten GG Riesling&quot; 2020</span></span><span class="dish__rule" aria-hidden="true"></span><span class="dish__p mono">20.900</span></p>
+              <p class="dish__tags mono">VDP Grosse Lage &middot; Mittelhaardt, Þýskaland</p>
+              <ul class="dish__spec"><li data-ing="0"><i style="--c:#e9d98c" aria-hidden="true"></i>Riesling</li></ul>
+              
+            </div>
+          </li>
+          <li class="dish">
+            <div class="dish__glass" aria-hidden="true"><svg viewBox="0 0 100 130" class="gl gl--white" data-fill>
+                <defs><clipPath id="cp-b-3-0-1"><path d="M27 24 Q27 76 45 83 L45 110 L31 116 L31 122 L69 122 L69 116 L55 110 L55 83 Q73 76 73 24 Z"/></clipPath></defs>
+                <g clip-path="url(#cp-b-3-0-1)"><rect class="gl__band" data-band="0" x="0" y="28.0" width="100" height="54.6" fill="#e9d98c"/></g>
+                <path class="gl__out" d="M27 24 Q27 76 45 83 L45 110 L31 116 L31 122 L69 122 L69 116 L55 110 L55 83 Q73 76 73 24 Z"/>
+              </svg></div>
+            <div class="dish__body">
+              <p class="dish__top"><span class="dish__n mono">02</span><span class="dish__name">Pichler<span class="dish__cuv">, &quot;Loibner Ried Burgstall&quot; 2024</span></span><span class="dish__rule" aria-hidden="true"></span><span class="dish__p mono">16.900</span></p>
+              <p class="dish__tags mono">Wachau DAC Qualitätswein &middot; Wachau, Austurríki</p>
+              <ul class="dish__spec"><li data-ing="0"><i style="--c:#e9d98c" aria-hidden="true"></i>Riesling</li></ul>
+              
+            </div>
+          </li>
+      </ul>
+    </div>
+  </article>
+  <article class="chapter chapter--plated" id="land-4" aria-labelledby="chapter-4">
+    <header class="chapter__head">
+      <p class="chapter__n mono">05 / 07</p>
+      <h3 class="chapter__t" id="chapter-4">Georgía <em>Georgia</em></h3>
+      <p class="chapter__meta mono">4 FLÖSKUR &middot; Kakheti</p>
+    </header>
+    <figure class="chapter__plate" data-pour>
+      <img src="assets/img/bucket.jpg?v=3b51fda6" alt="Flaska í klakafötu á barnum, tveir gestir við borðið" width="2000" height="1334" loading="lazy" decoding="async" />
+      <figcaption class="mono">Á BARNUM · FLASKAN Í KLAKANUM</figcaption>
+    </figure>
+    <div class="chapter__sheet">
+      <ul class="course__list">
+          <li class="dish dish--head"><p class="dish__grp"><span class="dish__grp-t">Hvítt og Gylt</span><span class="mono">Kakheti</span></p></li>
+          <li class="dish">
+            <div class="dish__glass" aria-hidden="true"><svg viewBox="0 0 100 130" class="gl gl--white" data-fill>
+                <defs><clipPath id="cp-b-4-0-0"><path d="M27 24 Q27 76 45 83 L45 110 L31 116 L31 122 L69 122 L69 116 L55 110 L55 83 Q73 76 73 24 Z"/></clipPath></defs>
+                <g clip-path="url(#cp-b-4-0-0)"><rect class="gl__band" data-band="0" x="0" y="28.0" width="100" height="54.6" fill="#d68a3b"/></g>
+                <path class="gl__out" d="M27 24 Q27 76 45 83 L45 110 L31 116 L31 122 L69 122 L69 116 L55 110 L55 83 Q73 76 73 24 Z"/>
+              </svg></div>
+            <div class="dish__body">
+              <p class="dish__top"><span class="dish__n mono">01</span><span class="dish__name">Tbilvino<span class="dish__cuv">, &quot;Qvevris Kisi&quot; 2016</span></span><span class="dish__rule" aria-hidden="true"></span><span class="dish__p mono">11.900</span></p>
+              <p class="dish__tags mono">Kakheti PDO &middot; Kakheti, Georgía</p>
+              <ul class="dish__spec"><li data-ing="0"><i style="--c:#d68a3b" aria-hidden="true"></i>Kisi</li></ul>
+              
+            </div>
+          </li>
+          <li class="dish">
+            <div class="dish__glass" aria-hidden="true"><svg viewBox="0 0 100 130" class="gl gl--white" data-fill>
+                <defs><clipPath id="cp-b-4-0-1"><path d="M27 24 Q27 76 45 83 L45 110 L31 116 L31 122 L69 122 L69 116 L55 110 L55 83 Q73 76 73 24 Z"/></clipPath></defs>
+                <g clip-path="url(#cp-b-4-0-1)"><rect class="gl__band" data-band="0" x="0" y="55.0" width="100" height="27.6" fill="#e9d98c"/><rect class="gl__band" data-band="1" x="0" y="28.0" width="100" height="27.6" fill="#ecde9b"/></g>
+                <path class="gl__out" d="M27 24 Q27 76 45 83 L45 110 L31 116 L31 122 L69 122 L69 116 L55 110 L55 83 Q73 76 73 24 Z"/>
+              </svg></div>
+            <div class="dish__body">
+              <p class="dish__top"><span class="dish__n mono">02</span><span class="dish__name">Marani<span class="dish__cuv">, &quot;Tsinandali&quot; 2022</span></span><span class="dish__rule" aria-hidden="true"></span><span class="dish__p mono">11.900</span></p>
+              <p class="dish__tags mono">Kakheti PDO &middot; Kakheti, Georgía</p>
+              <ul class="dish__spec"><li data-ing="0"><i style="--c:#e9d98c" aria-hidden="true"></i>Rkatsitseli</li><li data-ing="1"><i style="--c:#ecde9b" aria-hidden="true"></i>Mtsvasne</li></ul>
+              
+            </div>
+          </li>
+          <li class="dish dish--head"><p class="dish__grp"><span class="dish__grp-t">Rautt</span><span class="mono">Kakheti</span></p></li>
+          <li class="dish">
+            <div class="dish__glass" aria-hidden="true"><svg viewBox="0 0 100 130" class="gl gl--red" data-fill>
+                <defs><clipPath id="cp-b-4-1-0"><path d="M20 28 Q20 78 44 85 L44 110 L30 116 L30 122 L70 122 L70 116 L56 110 L56 85 Q80 78 80 28 Z"/></clipPath></defs>
+                <g clip-path="url(#cp-b-4-1-0)"><rect class="gl__band" data-band="0" x="0" y="32.0" width="100" height="50.6" fill="#7a1e2f"/></g>
+                <path class="gl__out" d="M20 28 Q20 78 44 85 L44 110 L30 116 L30 122 L70 122 L70 116 L56 110 L56 85 Q80 78 80 28 Z"/>
+              </svg></div>
+            <div class="dish__body">
+              <p class="dish__top"><span class="dish__n mono">01</span><span class="dish__name">Marani<span class="dish__cuv">, &quot;Qvevris Saperavi&quot; 2022</span></span><span class="dish__rule" aria-hidden="true"></span><span class="dish__p mono">11.900</span></p>
+              <p class="dish__tags mono">Kakheti PDO &middot; Kakheti, Georgía</p>
+              <ul class="dish__spec"><li data-ing="0"><i style="--c:#7a1e2f" aria-hidden="true"></i>Saperavi</li></ul>
+              
+            </div>
+          </li>
+          <li class="dish">
+            <div class="dish__glass" aria-hidden="true"><svg viewBox="0 0 100 130" class="gl gl--red" data-fill>
+                <defs><clipPath id="cp-b-4-1-1"><path d="M20 28 Q20 78 44 85 L44 110 L30 116 L30 122 L70 122 L70 116 L56 110 L56 85 Q80 78 80 28 Z"/></clipPath></defs>
+                <g clip-path="url(#cp-b-4-1-1)"><rect class="gl__band" data-band="0" x="0" y="32.0" width="100" height="50.6" fill="#7a1e2f"/></g>
+                <path class="gl__out" d="M20 28 Q20 78 44 85 L44 110 L30 116 L30 122 L70 122 L70 116 L56 110 L56 85 Q80 78 80 28 Z"/>
+              </svg></div>
+            <div class="dish__body">
+              <p class="dish__top"><span class="dish__n mono">02</span><span class="dish__name">Papari Valley<span class="dish__cuv">, &quot;5 Qvevris Terraces&quot; 2020</span></span><span class="dish__rule" aria-hidden="true"></span><span class="dish__p mono">14.900</span></p>
+              <p class="dish__tags mono">Kakheti PDO &middot; Kakheti, Georgía</p>
+              <ul class="dish__spec"><li data-ing="0"><i style="--c:#7a1e2f" aria-hidden="true"></i>Saperavi</li></ul>
+              
+            </div>
+          </li>
+      </ul>
+    </div>
+  </article>
+  <article class="chapter" id="land-5" aria-labelledby="chapter-5">
+    <header class="chapter__head">
+      <p class="chapter__n mono">06 / 07</p>
+      <h3 class="chapter__t" id="chapter-5">Grikkland <em>Greece</em></h3>
+      <p class="chapter__meta mono">1 FLASKA &middot; Naoussa</p>
+    </header>
+
+    <div class="chapter__sheet">
+      <ul class="course__list">
+          <li class="dish dish--head"><p class="dish__grp"><span class="dish__grp-t">Rautt</span><span class="mono">Naoussa</span></p></li>
+          <li class="dish">
+            <div class="dish__glass" aria-hidden="true"><svg viewBox="0 0 100 130" class="gl gl--red" data-fill>
+                <defs><clipPath id="cp-b-5-0-0"><path d="M20 28 Q20 78 44 85 L44 110 L30 116 L30 122 L70 122 L70 116 L56 110 L56 85 Q80 78 80 28 Z"/></clipPath></defs>
+                <g clip-path="url(#cp-b-5-0-0)"><rect class="gl__band" data-band="0" x="0" y="57.0" width="100" height="25.6" fill="#7a1e2f"/><rect class="gl__band" data-band="1" x="0" y="32.0" width="100" height="25.6" fill="#8b3b4a"/></g>
+                <path class="gl__out" d="M20 28 Q20 78 44 85 L44 110 L30 116 L30 122 L70 122 L70 116 L56 110 L56 85 Q80 78 80 28 Z"/>
+              </svg></div>
+            <div class="dish__body">
+              <p class="dish__top"><span class="dish__n mono">01</span><span class="dish__name">Kir-Yianni<span class="dish__cuv">, &quot;Diaporos&quot; 2018</span></span><span class="dish__rule" aria-hidden="true"></span><span class="dish__p mono">19.900</span></p>
+              <p class="dish__tags mono">PGI Imathia &middot; Diaporos, Grikkland</p>
+              <ul class="dish__spec"><li data-ing="0"><i style="--c:#7a1e2f" aria-hidden="true"></i>Xinomavro</li><li data-ing="1"><i style="--c:#8b3b4a" aria-hidden="true"></i>Syrah</li></ul>
+              
+            </div>
+          </li>
+      </ul>
+    </div>
+  </article>
+  <article class="chapter" id="land-6" aria-labelledby="chapter-6">
+    <header class="chapter__head">
+      <p class="chapter__n mono">07 / 07</p>
+      <h3 class="chapter__t" id="chapter-6">Líbanon <em>Lebanon</em></h3>
+      <p class="chapter__meta mono">1 FLASKA &middot; Bekaa Valley</p>
+    </header>
+
+    <div class="chapter__sheet">
+      <ul class="course__list">
+          <li class="dish dish--head"><p class="dish__grp"><span class="dish__grp-t">Rautt</span><span class="mono">Bekaa Valley</span></p></li>
+          <li class="dish">
+            <div class="dish__glass" aria-hidden="true"><svg viewBox="0 0 100 130" class="gl gl--red" data-fill>
+                <defs><clipPath id="cp-b-6-0-0"><path d="M20 28 Q20 78 44 85 L44 110 L30 116 L30 122 L70 122 L70 116 L56 110 L56 85 Q80 78 80 28 Z"/></clipPath></defs>
+                <g clip-path="url(#cp-b-6-0-0)"><rect class="gl__band" data-band="0" x="0" y="65.3" width="100" height="17.3" fill="#7a1e2f"/><rect class="gl__band" data-band="1" x="0" y="48.7" width="100" height="17.3" fill="#8b3b4a"/><rect class="gl__band" data-band="2" x="0" y="32.0" width="100" height="17.3" fill="#9d5965"/></g>
+                <path class="gl__out" d="M20 28 Q20 78 44 85 L44 110 L30 116 L30 122 L70 122 L70 116 L56 110 L56 85 Q80 78 80 28 Z"/>
+              </svg></div>
+            <div class="dish__body">
+              <p class="dish__top"><span class="dish__n mono">01</span><span class="dish__name">Gaston Hochar<span class="dish__cuv">, &quot;Chateau Musar&quot; 2017</span></span><span class="dish__rule" aria-hidden="true"></span><span class="dish__p mono">20.900</span></p>
+              <p class="dish__tags mono">Bekaa Wine &middot; Bekaa Valley, Líbanon</p>
+              <ul class="dish__spec"><li data-ing="0"><i style="--c:#7a1e2f" aria-hidden="true"></i>Cabernet Sauvignon</li><li data-ing="1"><i style="--c:#8b3b4a" aria-hidden="true"></i>Cinsault</li><li data-ing="2"><i style="--c:#9d5965" aria-hidden="true"></i>Carignan</li></ul>
+              
+            </div>
+          </li>
+      </ul>
+    </div>
+  </article>
+  </div>
+  <p class="sheet__note">Flöskuverð eins og þau standa á seðlinum. Tvær flöskur bera grænan lit hjá okkur, Famille Hugel 1998 og Llopart Reserva Brut, og eru merktar þannig hér.</p>
+</section>
+
+<!-- ══════════ 6. the room ══════════ -->
+<section class="room" id="salurinn">
+  <header class="sec-head">
+    <p class="kicker mono">05 / SALURINN</p>
+    <h2 class="h2">Steinsteypa,<br /><em>kertaljós og grænir sófar</em></h2>
+    <p class="sec-head__note">Finnið okkur, segið hæ og njótið vínglass umvafin kertaljósum í afslöppuðu andrúmslofti.</p>
+  </header>
+  <div class="room__mosaic">
+    <figure class="room__cell room__cell--wide" data-pour>
+      <img src="assets/img/sofa.jpg?v=ca28d893" alt="Hópur í grænum sófum við steinsteypuvegginn" width="2000" height="1334" loading="lazy" decoding="async" />
+      <figcaption class="mono">GRÆNU SÓFARNIR</figcaption>
+    </figure>
+    <figure class="room__cell" data-pour>
+      <img src="assets/img/bar-women.jpg?v=bc5c491b" alt="Tveir gestir við barinn, flöskuveggurinn fyrir aftan" width="1400" height="934" loading="lazy" decoding="async" />
+      <figcaption class="mono">FLÖSKUVEGGURINN</figcaption>
+    </figure>
+    <figure class="room__cell" data-pour>
+      <img src="assets/img/two-men.jpg?v=db645ad9" alt="Tveir gestir skála við steinsteypuvegginn" width="2000" height="1334" loading="lazy" decoding="async" />
+      <figcaption class="mono">STEINSTEYPAN</figcaption>
+    </figure>
+    <figure class="room__cell" data-pour>
+      <img src="assets/img/laugh.jpg?v=0441f9f2" alt="Gestur hlær með vínglas í hendi í lampaljósi" width="1773" height="1182" loading="lazy" decoding="async" />
+      <figcaption class="mono">Í LAMPALJÓSI</figcaption>
+    </figure>
+    <figure class="room__cell" data-pour>
+      <img src="assets/img/couple-bw.jpg?v=53820cd5" alt="Tvö við lítið borð, svarthvít mynd" width="2000" height="1334" loading="lazy" decoding="async" />
+      <figcaption class="mono">LITLA BORÐIÐ</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ══════════ 7. VÍNSMÖKKUN ══════════ -->
+<section class="classics" id="smokkun">
+  <header class="sec-head sec-head--mid">
+    <p class="kicker mono">06 / VÍNSMÖKKUN</p>
+    <h2 class="h2">Sex vín, fjögur vín,<br />eða tvö fyrir tvo</h2>
+    <p class="sec-head__note">Port 9 býður upp á vínsmökkun fyrir hópa. Okkar markmið er að smakka vín í afslöppuðu andrúmslofti, við förum yfir grundvallar atriði í víngerð, ferðumst um heiminn með bragðlaukunum og lyktarskyninu. Njótum þess að eiga lærdómsríkt spjall, hlægja og hafa gaman.</p>
+  </header>
+  <div class="classics__grid">
+      <section class="method">
+        <div class="method__head">
+          <svg viewBox="0 0 100 130" class="gl gl--red" data-fill>
+                <defs><clipPath id="cp-t-0"><path d="M20 28 Q20 78 44 85 L44 110 L30 116 L30 122 L70 122 L70 116 L56 110 L56 85 Q80 78 80 28 Z"/></clipPath></defs>
+                <g clip-path="url(#cp-t-0)"><rect class="gl__band" data-band="0" x="0" y="73.7" width="100" height="8.9" fill="#7a1e2f"/><rect class="gl__band" data-band="1" x="0" y="65.3" width="100" height="8.9" fill="#853040"/><rect class="gl__band" data-band="2" x="0" y="57.0" width="100" height="8.9" fill="#8f4250"/><rect class="gl__band" data-band="3" x="0" y="48.7" width="100" height="8.9" fill="#9a5461"/><rect class="gl__band" data-band="4" x="0" y="40.3" width="100" height="8.9" fill="#a56672"/><rect class="gl__band" data-band="5" x="0" y="32.0" width="100" height="8.9" fill="#af7882"/></g>
+                <path class="gl__out" d="M20 28 Q20 78 44 85 L44 110 L30 116 L30 122 L70 122 L70 116 L56 110 L56 85 Q80 78 80 28 Z"/>
+              </svg>
+          <div><h3 class="method__title">Package 1</h3><p class="method__price mono">11.900kr á mann</p></div>
+        </div>
+        <ul class="method__list">
+          <li>Við smökkum saman 6 vín</li>
+          <li>Smökkunin stendur yfir í 1.5 - 2 klst (fer eftir stærð hópsins)</li>
+        </ul>
+      </section>
+      <section class="method">
+        <div class="method__head">
+          <svg viewBox="0 0 100 130" class="gl gl--red" data-fill>
+                <defs><clipPath id="cp-t-1"><path d="M20 28 Q20 78 44 85 L44 110 L30 116 L30 122 L70 122 L70 116 L56 110 L56 85 Q80 78 80 28 Z"/></clipPath></defs>
+                <g clip-path="url(#cp-t-1)"><rect class="gl__band" data-band="0" x="0" y="69.5" width="100" height="13.1" fill="#7a1e2f"/><rect class="gl__band" data-band="1" x="0" y="57.0" width="100" height="13.1" fill="#853040"/><rect class="gl__band" data-band="2" x="0" y="44.5" width="100" height="13.1" fill="#8f4250"/><rect class="gl__band" data-band="3" x="0" y="32.0" width="100" height="13.1" fill="#9a5461"/></g>
+                <path class="gl__out" d="M20 28 Q20 78 44 85 L44 110 L30 116 L30 122 L70 122 L70 116 L56 110 L56 85 Q80 78 80 28 Z"/>
+              </svg>
+          <div><h3 class="method__title">Package 2</h3><p class="method__price mono">9.900kr á mann</p></div>
+        </div>
+        <ul class="method__list">
+          <li>Við smökkum saman 4 vín</li>
+          <li>Smökkunin stendur yfir í 1 - 1.5 klst (fer eftir stærð hópsins)</li>
+        </ul>
+      </section>
+      <section class="method">
+        <div class="method__head">
+          <svg viewBox="0 0 100 130" class="gl gl--red" data-fill>
+                <defs><clipPath id="cp-t-2"><path d="M20 28 Q20 78 44 85 L44 110 L30 116 L30 122 L70 122 L70 116 L56 110 L56 85 Q80 78 80 28 Z"/></clipPath></defs>
+                <g clip-path="url(#cp-t-2)"><rect class="gl__band" data-band="0" x="0" y="57.0" width="100" height="25.6" fill="#7a1e2f"/><rect class="gl__band" data-band="1" x="0" y="32.0" width="100" height="25.6" fill="#853040"/></g>
+                <path class="gl__out" d="M20 28 Q20 78 44 85 L44 110 L30 116 L30 122 L70 122 L70 116 L56 110 L56 85 Q80 78 80 28 Z"/>
+              </svg>
+          <div><h3 class="method__title">Duo Package</h3><p class="method__price mono">Verð eftir beiðni.</p></div>
+        </div>
+        <ul class="method__list">
+          <li>Ef þú átt sérstakt tilefni með einhverjum sérstökum, þá sníðum við sérstaka vínsmökkun fyrir þig.</li>
+          
+        </ul>
+      </section>
+  </div>
+  <p class="classics__foot"><a class="btn btn--ghost" href="mailto:info@port9.is?subject=V%C3%ADnsm%C3%B6kkun">Bóka vínsmökkun fyrir hóp</a></p>
+</section>
+
+<!-- ══════════ 8. HAPPY HOUR + MATUR ══════════ -->
+<section class="rent paper" id="happy" aria-labelledby="happy-h">
+  <div class="rent__inner">
+    <p class="kicker mono">07 / HAPPY HOUR &amp; MATUR</p>
+    <h2 class="h2" id="happy-h">Happy hour<br />16:00 - 18:00</h2>
+    <div class="rent__cols">
+      <p class="lead">Þriðjudaga til sunnudaga, fyrstu tvo tímana. Verðin eru af happy hour-seðlinum okkar.</p>
+      <ul class="rent__nums">
+        <li><strong>1.690,- gl</strong><span>HOUSE WINES · GLAS</span></li>
+        <li><strong>7.500,- fl</strong><span>HOUSE WINES · FLASKA</span></li>
+        <li><strong>1.290,-</strong><span>ESTRELLA</span></li>
+      </ul>
+    </div>
+    <h3 class="rent__h">Matur</h3>
+    <ul class="hh-list">
+<li class="hh">
+        <span class="hh__n">Bakaður Brie<span class="hh__sub">served with Sandholt bread. Brie cheese, pecan nuts, dates, honey</span><span class="hh__pair mono">BEST PAIRED WITH GÉRARD BERTRAND, CIGALUS</span></span>
+        <span class="hh__rule" aria-hidden="true"></span><span class="hh__p mono">2.700,-</span></li>
+<li class="hh">
+        <span class="hh__n">Ólífur</span>
+        <span class="hh__rule" aria-hidden="true"></span><span class="hh__p mono">790,-</span></li>
+<li class="hh">
+        <span class="hh__n">Hnetur Mix</span>
+        <span class="hh__rule" aria-hidden="true"></span><span class="hh__p mono">590,-</span></li>
+<li class="hh">
+        <span class="hh__n">Maxi Platti<span class="hh__sub">served with Sandholt bread and crackers. Audur cheese, Freykir cheese, Paté en croute, Iberico jamon, olives, honey</span><span class="hh__pair mono">BEST PAIRED WITH VIBERTI, NEBBIOLO</span></span>
+        <span class="hh__rule" aria-hidden="true"></span><span class="hh__p mono">4.190,-</span></li>
+<li class="hh">
+        <span class="hh__n">French Macarons coupe<span class="hh__sub">served with whipped cream and chocolate chips</span><span class="hh__pair mono">BEST PAIRED WITH SIMPSONS CHALKLANDS, CHARDONNAY</span></span>
+        <span class="hh__rule" aria-hidden="true"></span><span class="hh__p mono">1.890,-</span></li>
+    </ul>
+    <p class="rent__alt">Vegan útgáfa af platta í boði sé þess óskað. Látið vita af ofnæmi.</p>
+  </div>
+</section>
+
+<!-- ══════════ 9. MENNING ══════════ -->
+<section class="culture" id="menning">
+  <header class="sec-head">
+    <p class="kicker mono">08 / MENNING</p>
+    <h2 class="h2">Sýningar á veggjunum,<br /><em>tónleikar við barinn</em></h2>
+    <p class="sec-head__note">Við höldum reglulega sýningar á veggjunum og tónleika við barinn. Hér eru nokkur nöfnin sem hafa komið við.</p>
+  </header>
+  <div class="culture__grid">
+    <figure class="culture__fig" data-pour>
+      <img src="assets/img/exhibition.jpg?v=6a4a295e" alt="Sýning í salnum, gestir skoða verk á veggnum" width="1270" height="844" loading="lazy" decoding="async" />
+      <figcaption class="mono">ZUZANNA WRONA - 2024</figcaption>
+    </figure>
+    <div class="culture__col">
+      <h3 class="culture__h">Sýningar</h3>
+      <ul class="culture__list"><li>Joi Borgvins</li><li>Ester Borg</li><li>Eeriee</li><li>Rakel Tómas</li><li>Zuzanna Wrona</li></ul>
+      <p class="culture__call">You are a plastic artist and you want to see your art in a vibrant place in downtown Reykjavik? Prints, paintings, sculpture, we might be interested!</p>
+    </div>
+    <div class="culture__col">
+      <h3 class="culture__h">Tónleikar</h3>
+      <ul class="culture__list"><li>Hera Lind</li><li>Laglegt</li><li>Cameron Anderton</li><li>Ásalaus</li><li>Lúpína</li></ul>
+      <p class="culture__call">Our walls can host intimate concerts, regardless of the genre! Pop, ambient, dark, folk, everybody is welcome.</p>
+    </div>
+    <figure class="culture__fig" data-pour>
+      <img src="assets/img/concert.jpg?v=5e7e9b50" alt="Tónleikar á Port 9 í rauðu ljósi" width="1184" height="1056" loading="lazy" decoding="async" />
+      <figcaption class="mono">HEKLA - 2025</figcaption>
+    </figure>
+  </div>
+  <p class="culture__mail">Sendið möppu eða upptöku á <a href="mailto:info@port9.is">info@port9.is</a></p>
+</section>
+
+<!-- ══════════ 10. ÁFENGISLAUST + visit ══════════ -->
+<section class="visit" id="visit">
+  <header class="sec-head">
+    <p class="kicker mono">09 / HEIMSÓKN</p>
+    <h2 class="h2">Veghúsastígur 7-9,<br />frá klukkan fjögur</h2>
+  </header>
+  <div class="visit__grid">
+    <div class="visit__col">
+      <h3 class="visit__h">Opnunartími</h3>
+      <ul class="hrs"><li><span class="hrs__d mono">MÁNUDAGAR</span><span class="hrs__t mono hrs__t--shut">Lokað</span></li><li><span class="hrs__d mono">ÞRIÐJUDAGAR - SUNNUDAGAR</span><span class="hrs__t mono">16:00 - 23:00</span></li><li><span class="hrs__d mono">HAPPY HOUR</span><span class="hrs__t mono">16:00 - 18:00</span></li></ul>
+      <p class="visit__blurb">Borðabókanir í gegnum Dineout. Hópar og vínsmökkun bókast í tölvupósti.</p>
+    </div>
+    <div class="visit__col">
+      <h3 class="visit__h">Hvar</h3>
+      <p class="visit__addr">Veghúsastígur 7-9<br />101 Reykjavík</p>
+      <p class="visit__phone"><a href="tel:+3548322929">832 2929</a></p>
+      <a class="btn btn--main" href="https://www.dineout.is/port9" rel="noopener">Bóka borð á Dineout</a>
+      <a class="btn btn--ghost" href="mailto:info@port9.is">info@port9.is</a>
+      <a class="btn btn--ghost" href="https://www.instagram.com/port9wine" rel="noopener">@port9wine</a>
+    </div>
+    <div class="visit__col visit__col--zero">
+      <h3 class="visit__h">Áfengislaust</h3>
+      <ul class="cellar__list"><li class="cw cw--pick"><span class="cw__n">The Pennedi by Lyne Tissot<span class="cw__note mono">REYKJAVIK BEST NON-ALC NEGRONI 2025</span></span><span class="cw__rule" aria-hidden="true"></span><span class="cw__p mono">1.500</span></li><li class="cw"><span class="cw__n">Gin Tonic</span><span class="cw__rule" aria-hidden="true"></span><span class="cw__p mono">1.500</span></li><li class="cw"><span class="cw__n">Spritz</span><span class="cw__rule" aria-hidden="true"></span><span class="cw__p mono">1.500</span></li></ul>
+      <h4 class="cellar__cat">Freyðivín 0%</h4><ul class="cellar__list"><li class="cw"><span class="cw__n">Rosafreyðivin</span><span class="cw__rule" aria-hidden="true"></span><span class="cw__p mono">1.250</span></li><li class="cw"><span class="cw__n">Chardonnay Freyðivin</span><span class="cw__rule" aria-hidden="true"></span><span class="cw__p mono">1.250</span></li></ul>
+      <h4 class="cellar__cat">Bjór 0%</h4><ul class="cellar__list"><li class="cw"><span class="cw__n">Stella</span><span class="cw__rule" aria-hidden="true"></span><span class="cw__p mono">850</span></li><li class="cw"><span class="cw__n">Brio</span><span class="cw__rule" aria-hidden="true"></span><span class="cw__p mono">850</span></li></ul>
+      <h4 class="cellar__cat">Gos</h4><ul class="cellar__list cellar__list--two"><li class="cw"><span class="cw__n">Mango</span><span class="cw__rule" aria-hidden="true"></span><span class="cw__p mono">750</span></li><li class="cw"><span class="cw__n">Watermelon</span><span class="cw__rule" aria-hidden="true"></span><span class="cw__p mono">750</span></li><li class="cw"><span class="cw__n">Grapefruit</span><span class="cw__rule" aria-hidden="true"></span><span class="cw__p mono">750</span></li><li class="cw"><span class="cw__n">Ginger Beer</span><span class="cw__rule" aria-hidden="true"></span><span class="cw__p mono">750</span></li><li class="cw"><span class="cw__n">Pepsi</span><span class="cw__rule" aria-hidden="true"></span><span class="cw__p mono">590</span></li><li class="cw"><span class="cw__n">Pepsi Max</span><span class="cw__rule" aria-hidden="true"></span><span class="cw__p mono">590</span></li><li class="cw"><span class="cw__n">Appelsin</span><span class="cw__rule" aria-hidden="true"></span><span class="cw__p mono">590</span></li><li class="cw"><span class="cw__n">7up 0%</span><span class="cw__rule" aria-hidden="true"></span><span class="cw__p mono">590</span></li><li class="cw"><span class="cw__n">Kristall</span><span class="cw__rule" aria-hidden="true"></span><span class="cw__p mono">590</span></li><li class="cw"><span class="cw__n">San Pellegrino 750ml</span><span class="cw__rule" aria-hidden="true"></span><span class="cw__p mono">990</span></li></ul>
+    </div>
+  </div>
+  <figure class="bleed bleed--port" data-pour>
+    <img src="assets/img/facade-night.jpg?v=0cbff07c" alt="Húsið að kvöldi, ljósin í glugganum" width="1733" height="2600" loading="lazy" decoding="async" />
+    <figcaption class="mono">HÚSIÐ AÐ KVÖLDI</figcaption>
+  </figure>
+</section>
+
+<!-- ══════════ 11. closer ══════════ -->
+<section class="closer">
+  <img class="closer__logo" src="assets/img/roundel-white.png?v=ae1e7aba" alt="Port 9 winebar" width="600" height="600" />
+  <p class="closer__line">If you find us once, you’ll find us again.</p>
+  <a class="btn btn--main" href="#glasi">Skoða vínseðilinn</a>
+</section>
+
+<footer class="foot">
+  <p class="mono">Veghúsastígur 7-9 &middot; 101 Reykjavík &middot; 832 2929</p>
+  <p class="mono"><a href="mailto:info@port9.is">info@port9.is</a> &middot; Port 9 ehf. · kt. 510216-1130</p>
+  <p class="mono foot__note">Hugmyndaútfærsla frá SNDR. Ótengd staðnum. Vín, verð, tímar og myndir skrifuð upp af port9.is 21.8.2026, vínseðillinn af myndunum þrettán á vinseill-síðunni.</p>
+</footer>
+
+</main>
+
+<script src="assets/vendor/lenis.min.js" defer></script>
+<script src="assets/vendor/gsap.min.js" defer></script>
+<script src="assets/vendor/ScrollTrigger.min.js" defer></script>
+<script src="app.js?v=147b8fa5" defer></script>
+</body>
+</html>
