@@ -266,14 +266,38 @@ const SCRUB_MODE = MOTION && WIDE;
      backgrounded page is not decoding photographs for nobody. */
   (() => {
     const frames = $$('.hero__film');
-    if (frames.length < 2) return;
+    if (frames.length < 2 || REDUCED) return;   // reduced motion holds frame one
     let at = 0, timer = 0, onScreen = true;
     const HOLD = 5200, FADE = 1.6;
+
+    /* Take the film off the class system before the first cadence, not during
+       it. `.is-live` is the no-JS fallback and sets opacity in CSS; gsap defers
+       reading a tween's start value to its first tick, so toggling the class
+       inside step() beat the tween to it — the outgoing frame had already
+       dropped to 0 and the incoming one jumped to 1 by the time gsap looked, so
+       both tweens ran 0->0 and 1->1 and the crossfade was a hard cut on every
+       cycle. Writing the inline values first (which outrank the class) and then
+       dropping the class leaves gsap the only thing touching opacity. */
+    gsap.set(frames, { opacity: i => (i ? 0 : 1), zIndex: i => (i ? 1 : 2) });
+    frames.forEach(f => f.classList.remove('is-live'));
+
+    /* A dissolve, not two fades. Fading the outgoing frame out WHILE the
+       incoming one fades in loses light through the middle: the pair composites
+       as new*a + old*(1-a)*a_old, not new*a + old*(1-a). Measured, the hero dipped
+       to 0.070 mean luminance halfway between two frames that rest at 0.092 and
+       0.079 — a visible sink toward black on every cycle. So the outgoing frame
+       HOLDS at full opacity underneath and only the incoming one fades in over
+       it; everything below is dropped once it is covered. The z-index is what
+       lets the wrap from the last frame back to the first paint on top. */
     const step = () => {
       const next = (at + 1) % frames.length;
-      gsap.to(frames[next], { opacity: 1, duration: FADE, ease: 'sine.inOut' });
-      gsap.to(frames[at],   { opacity: 0, duration: FADE, ease: 'sine.inOut' });
-      frames[at].classList.remove('is-live'); frames[next].classList.add('is-live');
+      const top = frames[next];
+      gsap.set(frames, { zIndex: 1 });
+      gsap.set(top, { zIndex: 2 });
+      gsap.to(top, {
+        opacity: 1, duration: FADE, ease: 'sine.inOut', overwrite: 'auto',
+        onComplete: () => frames.forEach(f => { if (f !== top) gsap.set(f, { opacity: 0 }); })
+      });
       at = next;
     };
     const run  = () => { stop(); if (onScreen && !document.hidden) timer = setInterval(step, HOLD); };
