@@ -20,6 +20,45 @@ cp -R "$REPO/assets" .
 cp "$REPO/index.html" "$REPO/styles.css" "$REPO/app.js" "$REPO/robots.txt" .
 touch .nojekyll
 
+# CACHE BUST — the hard-won one. GitHub Pages serves every file here with
+# max-age=600, and the photographs were REPLACED at their original filenames
+# (10 of 13 re-pulled at full size on 2026-09-10). A phone that already opened
+# this preview therefore holds the old bytes at exactly the URLs the new build
+# asks for, and renders a mixture of the two. Hash the bytes into the URL so a
+# changed file is a changed URL. Images first, then the stylesheet and script —
+# their own hashes must be taken AFTER their image references are rewritten.
+node --input-type=module - "$WT" <<'STAMP'
+import { readdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { createHash } from 'node:crypto';
+import { join } from 'node:path';
+
+const root = process.argv[2];
+const files = ['index.html', 'styles.css', 'app.js'];
+const h8 = p => createHash('md5').update(readFileSync(p)).digest('hex').slice(0, 8);
+const stamp = (src, ref, v) =>
+  src.replace(new RegExp(ref.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '(?![\\w.?-])', 'g'),
+              `${ref}?v=${v}`);
+
+const img = readdirSync(join(root, 'assets/img'))
+  .map(f => [`assets/img/${f}`, h8(join(root, 'assets/img', f))]);
+
+for (const f of files) {
+  const p = join(root, f);
+  let s = readFileSync(p, 'utf8');
+  for (const [ref, v] of img) s = stamp(s, ref, v);
+  writeFileSync(p, s);
+}
+
+const page = join(root, 'index.html');
+let html = readFileSync(page, 'utf8');
+for (const f of ['styles.css', 'app.js']) html = stamp(html, f, h8(join(root, f)));
+writeFileSync(page, html);
+
+const n = [...img, 'styles.css', 'app.js'].length;
+console.log(`cache-bust: ${n} assets fingerprinted`);
+STAMP
+
+
 # GATE 1 — check the STAGED tree, byte-for-byte what gets published. A preview that
 # ships without a usable favicon shows the ARTIX helm from the origin root in the
 # client's tab. Rules and history: _tools/favicon-guard.mjs
